@@ -1,10 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "css/css page/bootstrap.min.css":"/../../repositories/SafetyWeb_LaravelPHP/public/css/css page/bootstrap.min.css",
-    "fonts/font-awesome/css/font-awesome.min.css":"/../../repositories/SafetyWeb_LaravelPHP/public/fonts/font-awesome/css/font-awesome.min.css",
-    "css/css page/flexslider.css":"/../../repositories/SafetyWeb_LaravelPHP/public/css/css page/flexslider.css",
-    "css/css page/owl.carousel.min.css":"/../../repositories/SafetyWeb_LaravelPHP/public/css/css page/owl.carousel.min.css",
-    "css/css page/owl.theme.min.css":"/../../repositories/SafetyWeb_LaravelPHP/public/css/css page/owl.theme.min.css",
-    "css/css page/style.css":"/../../repositories/SafetyWeb_LaravelPHP/public/css/css page/style.css"
+    "/css/app.css": "/css/app.css"
 }
