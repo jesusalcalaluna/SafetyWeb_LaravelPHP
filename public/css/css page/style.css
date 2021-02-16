@@ -37,6 +37,14 @@ TABLE OF CONTENTS
 
     */
 
+/*----------------Desactiva CSS ----------------*/
+.float-unset{
+    float: unset;
+}
+.w-15{
+    width:15%
+}
+
 
 /* --------------- Global Styles --------------- */
 
@@ -288,7 +296,7 @@ main.main {
 /* --------------- Header Styles --------------- */
 
 .logo-top-info {
-    padding: 25px 0;
+    padding: 15px 0;
 }
 
 .top-info {
@@ -412,12 +420,22 @@ span.forex i {
     .top-info-social {
         display: none;
     }
+    .w-15{
+        width: 100%;
+    }
+    .logo img{
+        max-width: 59px;
+    }
 }
 
 @media all and (max-width: 479px) {
     .logo img {
-        width: 180px;
+        width: 59px;
     }
+    .w-15{
+        width: unset;
+    }
+
 }
 
 
@@ -864,6 +882,16 @@ h2.color-title {
     font-weight: bold;
     color: #FFF;
     background: #ffda44;
+    margin: 0;
+    padding: 0 15px;
+    line-height: 28px;
+}
+
+h2.color-title-red {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    background: #ff4444;
     margin: 0;
     padding: 0 15px;
     line-height: 28px;

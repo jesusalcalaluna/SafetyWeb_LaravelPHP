@@ -5,7 +5,7 @@
         <!-- Basic Page Needs -->
         @include('globals.metas')
         
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name') }}</title>
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="favicon.png">
@@ -14,9 +14,12 @@
 
     </head>
     <body class="homepage">
-
+        <h2 class="color-title-red text-center">¡PAGINA EN DESARROLLO!</h2>
+            
         <!-- Preloader -->
         @include('globals.preloader')
+
+        
 
         <!-- Page Wrapper -->
         <div class="wrapper">
