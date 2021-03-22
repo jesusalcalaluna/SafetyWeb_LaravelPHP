@@ -1,56 +1,61 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.app_dashboard')
+@section('clear.content')
+<div class="mn-vh-100 d-flex align-items-center">
+    <div class="container">
+        <!-- Card -->
+        <div class="card justify-content-center auth-card">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-9">
+                    <h4 class="mb-5 font-20">Bienvenido a SafetyWeb</h4>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+                    <form method="POST" action="{{route('login') }}">
+                        @csrf
+                        <!-- Form Group -->
+                        <div class="form-group mb-20">
+                            <label for="email" class="mb-2 font-14 bold">Correo electronico</label>
+                            <input type="email" id="email" class="theme-input-style" placeholder="Correo" name="email">
+                        </div>
+                        <!-- End Form Group -->
+                        
+                        <!-- Form Group -->
+                        <div class="form-group mb-20">
+                            <label for="password" class="mb-2 font-14 bold">Contraseña</label>
+                            <input type="password" id="password" class="theme-input-style" placeholder="********" name="password">
+                        </div>
+                        <!-- End Form Group -->
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                        <div class="d-flex justify-content-between mb-20">
+                            <div class="d-flex align-items-center">
+                                <!-- Custom Checkbox -->
+                                <label class="custom-checkbox position-relative mr-2">
+                                    <input name="remember" type="checkbox" id="remember_me">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <!-- End Custom Checkbox -->
+                                
+                                <label for="remember_me" class="font-14">Recordarme</label>
+                            </div>
+                            @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="font-12 text_color">¿Olvidaste tu contraseña?</a>
+                            @endif
+                        </div>
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                        <div class="d-flex align-items-center">
+                            <button type="submit" class="btn long mr-20">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>                                    
             </div>
+        </div>
+        <!-- End Card -->
+    </div>
+</div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
+@endsection
+@section('footer')
+    
+@endsection
+@section('js')
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Login') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@endsection

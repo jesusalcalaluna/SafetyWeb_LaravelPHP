@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Role;
+use App\Models\Companies_and_departments;
+use App\Models\People;
+
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -19,7 +24,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $roles = Role::all();
+        $people = People::all();
+        $companies_departments = Companies_and_departments::all();
+        return view('auth.register', compact('roles', 'companies_departments', 'people'));
     }
 
     /**
@@ -32,20 +40,37 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
-            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
+            'sap' => 'required',
+            'role_id' => 'required',
         ]);
+        $person = [];
 
-        Auth::login($user = User::create([
-            'name' => $request->name,
+        if ($request->name) {
+            $request->validate([
+                'sap' => 'required|unique:people',
+            ]);
+            $person = People::create([
+                'name' => $request->name,
+                'sap' => $request->sap,
+                'companie_and_department_id' => $request->companie_and_department_id,
+            ]);
+            
+        }else {
+            $person = People::where('sap', $request->sap)->first();
+        }
+        
+
+        $user = User::create([
+            'people_id' => $person->id,
+            'role_id' => $request->role_id,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]));
+        ]);
 
-        event(new Registered($user));
-
-        return redirect(RouteServiceProvider::HOME);
+        return back()->with('success', 'Registro exitoso');
     }
 }
