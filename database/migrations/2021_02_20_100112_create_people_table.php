@@ -15,7 +15,7 @@ class CreatePeopleTable extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->integer('sap')->unique();
+            $table->string('sap')->unique();
             $table->string('name');
             $table->unsignedBigInteger('companie_and_department_id');
             $table->foreign('companie_and_department_id')->references('id')->on('companies_and_departments');

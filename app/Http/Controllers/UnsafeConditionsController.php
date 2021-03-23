@@ -7,7 +7,7 @@ use App\Models\Condition_group;
 use App\Models\Type_condition;
 use App\Models\Companies_and_departments;
 use App\Models\People;
-use App\Models\Unsafe_Conditions_record;
+use App\Models\Unsafe_conditions_record;
 use Ramsey\Uuid\Type\Integer;
 
 class UnsafeConditionsController extends Controller
@@ -48,7 +48,7 @@ class UnsafeConditionsController extends Controller
             $risk_type = "RIESGO MUY ALTO";
             $attention_priority = "CRÍTICA";  
         }
-        $unsafeCondition = Unsafe_Conditions_record::create([
+        $unsafeCondition = Unsafe_conditions_record::create([
             'condition_detected' => $request->condition_detected,
             'type_condition_id' => $request->type_condition_id,
             'detection_origin' => $request->detection_origin,
@@ -94,12 +94,12 @@ class UnsafeConditionsController extends Controller
     }
 
     public function updateUnsafeConditions(Request $request){
-        $unsafeCondition = Unsafe_Conditions_record::where('id', $request->id)->get();
+        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)->get();
         
         if( $request->status == $unsafeCondition[0]->status){
             return $unsafeCondition;
         }
-        $unsafeCondition = Unsafe_Conditions_record::where('id', $request->id)
+        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
                             ->update(['status' => $request->status]);
 
         return $unsafeCondition;
@@ -120,7 +120,7 @@ class UnsafeConditionsController extends Controller
     }
 
     public function search($word){
-        $unsafeConditionRecord = Unsafe_Conditions_record::orderBy('id', 'DESC')
+        $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                 ->where('status','LIKE','%'.$word.'%')
                 ->orWhere('condition_detected','LIKE','%'.$word.'%')
                 ->orWhere('detection_origin','LIKE','%'.$word.'%')
