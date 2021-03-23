@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
         $par_UnsefeConditions = Unsafe_conditions_record::groupBy('person_id')->count();
         $par_CompanionCare = Companion_care_record::count();
-        return $par_CompanionCare;
+        //return $par_CompanionCare;
         return view('pages.dashboard.index');
     }
 }

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             rolesSeeder::class,
             conditionGroupsSeeder::class,
             typeConditionSeeder::class,
+            superUserSeeder::class,
         ]);
     }
 }

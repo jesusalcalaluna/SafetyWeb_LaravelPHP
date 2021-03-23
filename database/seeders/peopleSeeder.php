@@ -15,5 +15,7 @@ class peopleSeeder extends Seeder
     public function run()
     {
         
+        
+        
     }
 }
