@@ -42,7 +42,7 @@
                     <div id="swal2-content" style="display: block;"> {{ session('error') }}</div>
                 </div>
                 <div class="swal2-actions" style="display: flex;">
-                    <button type="button" class="swal2-confirm btn long" aria-label="">Entendido</button>
+                    <button type="button" class="swal2-confirm btn long" onclick="$('.swal2-container').remove();">Entendido</button>
                 </div>
             </div>
         </div>

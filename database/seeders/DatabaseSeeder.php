@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             dangersSeeder::class,
             dangerousConditionsSeeder::class,
             companiesAndDepartmentsSeeder::class,
-            positionsSeeder::class,
             peopleSeeder::class,
             goldRulesSeeder::class,
             rolesSeeder::class,

@@ -7,12 +7,18 @@
 @endsection
 
 @section('navbar')
+    @if (Auth::user())
     @include('globals.dashboard.navbar')
     @include('globals.dashboard.sidebar')
+    @endif
+    
 @endsection
 @section('content')
+@if (Auth::user())  
 <div class="main-content">
+@endif    
     <div class="container-fluid">
+    
         <div class="form-element input-sizing">
             <h4 class="font-20 mb-4">Condiciones Inseguras</h4>
 
@@ -95,7 +101,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="DPA" name="detection_origin" value="">
+                            <input type="radio" id="DPA" name="detection_origin" value="DPA">
                             <label for="DPA"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -301,8 +307,12 @@
             </form>
             <!-- End Form -->
         </div>
+
+    
     </div>
- </div>
+@if (Auth::user()) 
+</div>
+@endif
 @endsection
 @section('footer')
     

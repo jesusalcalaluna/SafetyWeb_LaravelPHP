@@ -15,7 +15,7 @@ class People extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'sap', 'companie_and_department_id'];
+    protected $fillable = ['name', 'sap', 'position', 'companie_and_department_id'];
 
     public function company_and_department(){
 

@@ -17,6 +17,7 @@ class CreatePeopleTable extends Migration
             $table->id();
             $table->string('sap')->unique();
             $table->string('name');
+            $table->string('position');
             $table->unsignedBigInteger('companie_and_department_id');
             $table->foreign('companie_and_department_id')->references('id')->on('companies_and_departments');
             $table->timestamps();

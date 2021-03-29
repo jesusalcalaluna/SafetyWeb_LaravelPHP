@@ -63,7 +63,13 @@
          <li class="@if(Route::current()->getName() == 'pepleTable') active  @endif">
             <a href="{{ route('pepleTable') }}">
                 <i class="icofont-people"></i>
-                <span class="link-title">Personal</span>
+                <span class="link-title">Personal Interno</span>
+            </a>
+         </li>
+         <li class="@if(Route::current()->getName() == 'pepleTableExtern') active  @endif">
+            <a href="{{ route('pepleTableExtern') }}">
+                <i class="icofont-people"></i>
+                <span class="link-title">Personal Externo</span>
             </a>
          </li>
        </ul>

@@ -76,7 +76,7 @@ class companiesAndDepartmentsSeeder extends Seeder
         ]);
         DB::table('companies_and_departments')->insert([
             'id' => 13,
-            'name' => 'SEGURIDAD',
+            'name' => 'SEGURIDAD Y SALUD',
             'origin' => 'INTERNO'
         ]);
         DB::table('companies_and_departments')->insert([

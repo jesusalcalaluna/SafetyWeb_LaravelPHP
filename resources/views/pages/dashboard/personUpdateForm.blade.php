@@ -21,8 +21,11 @@
                     
                     <ul class="nav flex-column">
                         <li><a class="active" data-toggle="tab" href="#personal">Personal</a></li>
+                        @if ($person->user)
                         <li><a data-toggle="tab" href="#usuario">Usuario</a></li>
                         <li><a data-toggle="tab" href="#c_pass">Change Password</a></li>
+                        @endif
+                        
                     </ul>
                 </nav>
                 <!-- End Aside Body -->
@@ -70,7 +73,7 @@
                                     </div>
                                 </form>
                             </div>
-
+                            @if ($person->user)
                             <div class="tab-pane fade" id="usuario">
                                 <h4 class="mb-4">Informacion de Usuario</h4>
 
@@ -132,6 +135,7 @@
                                     </div>
                                 </form>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

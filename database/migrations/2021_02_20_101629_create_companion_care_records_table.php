@@ -19,8 +19,6 @@ class CreateCompanionCareRecordsTable extends Migration
             
             $table->unsignedBigInteger('company_department_id');
             $table->foreign('company_department_id')->references('id')->on('companies_and_departments');
-            $table->unsignedBigInteger('position_id');
-            $table->foreign('position_id')->references('id')->on('positions');
 
             $table->string('turn');
             $table->string('shift_supervisor');

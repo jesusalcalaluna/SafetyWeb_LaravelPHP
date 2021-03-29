@@ -17,6 +17,7 @@ class superUserSeeder extends Seeder
         DB::table('people')->insert([
             'id'=> 1,
             'sap' => 000000,
+            'position' => 'SISTEMAS SEGURIDAD INDUSTRIAL',
             'name' => 'JESUS ALCALA LUNA',
             'companie_and_department_id'=> 13
         ]);
