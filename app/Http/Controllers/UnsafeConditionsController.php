@@ -77,17 +77,31 @@ class UnsafeConditionsController extends Controller
                                 ->with('department')
                                 ->with('reporter')
                                 ->get();
-        $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
-        $countProc = Unsafe_conditions_record::where('status', 'EN PROCESO')->get()->count();
-        $countInic = Unsafe_conditions_record::where('status', 'NO INICIADA')->get()->count();
-        $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
+        if($unsafeConditionRecord){
+            $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
+            $countProc = Unsafe_conditions_record::where('status', 'EN PROCESO')->get()->count();
+            $countInic = Unsafe_conditions_record::where('status', 'NO INICIADA')->get()->count();
+            $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
 
-        $total = $countProc + $countInic + $countCom + $countRetr;
+            $total = $countProc + $countInic + $countCom + $countRetr;
+            
+            if($total) {
+                $porcentCom  =  round(($countCom / $total) * 100);
+                $porcentProc  =  round(($countProc / $total) * 100);
+                $porcentInic  =  round(($countInic / $total) * 100);
+                $porcentRetr  =  round(($countRetr / $total) * 100);   
+            }else {
+                $porcentCom  =  0;
+                $porcentProc  =  0;
+                $porcentInic  =  0;
+                $porcentRetr  =  0; 
+            }
+            
+        }
+        
+        
 
-        $porcentCom  =  round(($countCom / $total) * 100);
-        $porcentProc  =  round(($countProc / $total) * 100);
-        $porcentInic  =  round(($countInic / $total) * 100);
-        $porcentRetr  =  round(($countRetr / $total) * 100);        
+             
 
                                 
         return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
@@ -141,6 +155,42 @@ class UnsafeConditionsController extends Controller
                 
 
                 return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord'));
+    }
+
+    public function getUnsafeConditionByStatus($status){
+
+        $result = Unsafe_conditions_record::orderBy('id', 'DESC')
+                                ->with('type_condition')
+                                ->with('responsable')
+                                ->with('department')
+                                ->with('reporter')
+                                ->get();
+        
+        $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
+        $countProc = Unsafe_conditions_record::where('status', 'EN PROCESO')->get()->count();
+        $countInic = Unsafe_conditions_record::where('status', 'NO INICIADA')->get()->count();
+        $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
+
+        $total = $countProc + $countInic + $countCom + $countRetr;
+        $porcentCom  =  0;
+        $porcentProc  =  0;
+        $porcentInic  =  0;
+        $porcentRetr  =  0;  
+            
+        if($total) {
+            $porcentCom  =  round(($countCom / $total) * 100);
+            $porcentProc  =  round(($countProc / $total) * 100);
+            $porcentInic  =  round(($countInic / $total) * 100);
+            $porcentRetr  =  round(($countRetr / $total) * 100);   
+        }
+        $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
+                                ->where('status', $status)
+                                ->with('type_condition')
+                                ->with('responsable')
+                                ->with('department')
+                                ->with('reporter')
+                                ->get();
+                return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
     }
 
 }

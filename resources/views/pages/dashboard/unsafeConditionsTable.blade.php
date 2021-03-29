@@ -15,24 +15,25 @@
                         <h4 class="font-20">Condiciones Inseguras</h4>
 
                         <div class="assign-tag back-end bg-success pl-2">
-                            <a href="#" onclick="filterStatus('completa');">
+                            
+                            <a href="@if(Request::url() === route('unsafeConditionByStatus',['COMPLETA'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['COMPLETA']) }} @endif">
                                 <div class="tag-text font-12 text-dark"><span class="pr-3">{{ $porcentCom }}%</span>COMPLETA</div>
                             </a>
                          </div>
                          <div class="assign-tag back-end bg-warning pl-2">
-                            <a href="#" onclick="filterStatus('en proceso');">
+                            <a href="@if(Request::url() === route('unsafeConditionByStatus',['EN PROCESO'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['EN PROCESO'])}} @endif">
                                 <div class="tag-text font-12 text-dark"><span class="pr-3">{{ $porcentProc }}%</span>EN PROCESO</div>
                             </a>
                             
                          </div>
                         <div class="assign-tag back-end bg-danger pl-2">
-                            <a href="#" onclick="filterStatus('retrasada');">
+                            <a href="@if(Request::url() === route('unsafeConditionByStatus',['RETRASADA'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['RETRASADA']) }} @endif">
                                 <div class="tag-text font-12 text-light"><span class="pr-3">{{ $porcentRetr }}%</span>RETRASADA</div>
                             </a>
                          </div>
 
                          <div class="assign-tag back-end bg-dark pl-2" >
-                            <a href="#" onclick="filterStatus('no iniciada');">
+                            <a href="@if(Request::url() === route('unsafeConditionByStatus',['NO INICIADA'])) {{ route('getUnsafeConditions') }} @else {{ route( 'unsafeConditionByStatus',['NO INICIADA']) }} @endif">
                                 <div class="tag-text font-12 text-light"><span class="pr-3">{{ $porcentInic }}%</span>NO INICIADA</div>
                             </a>
                          </div>
@@ -60,14 +61,8 @@
                                 <th>Estado </th>
                                 <th>Fecha limite </th>
                                 <th>Prioridad de atención </th>
-                                <th>Condicion detectada </th>
                                 <th>Tipo de condicion </th>
                                 <th>Departamento </th>
-                                <th>Responsable </th>
-                                <th>Area </th>
-                                
-                                <th>Alcalnce </th>
-                                <th>No. Aviso </th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
@@ -89,15 +84,8 @@
                                 </td>
                                 <td>{{$item->deadline}}</td>
                                 <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
-                                <td>{{$item->condition_detected}}</td>
                                 <td>{{$item->type_condition->condition_group->group_name}}</td>
                                 <td>{{$item->department->name}}</td>
-                                <td>{{$item->responsable->name}}</td>
-                                <td>{{$item->area}}</td>
-                                
-
-                                <td>{{$item->scope}}</td>
-                                <td>{{$item->notice_number}}</td>
                                 <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                             </tr>
                             
@@ -119,14 +107,6 @@
 
 
 <script type="text/JavaScript">
-    function filterStatus(status) {
-        $.each($("#table tbody tr"), function() {
-            if($(this).text().toLowerCase().indexOf(status.toLowerCase()) === -1)
-            $(this).hide();
-            else
-            $(this).show();
-        });
-    }
 
     $("#search").keyup(function(){
         
