@@ -17,13 +17,13 @@ class CompanionCareController extends Controller
 {
     public function showWriteCompanionCare(){
         $companies_departments = Companies_and_departments::all();
-        $positions = Position::all();
+        
         $act_types = Acts_type::all();
         $behaviors_group = Behaviors_group::all();
         $gold_rules = Gold_rule::all();
         $people = People::all();
 
-        return view('pages.dashboard.companionCare', compact('companies_departments', 'positions', 'behaviors_group', 'act_types', 'gold_rules', 'people'));
+        return view('pages.dashboard.companionCare', compact('companies_departments', 'behaviors_group', 'act_types', 'gold_rules', 'people'));
     }
 
     public function writeCompanionCare(Request $request){

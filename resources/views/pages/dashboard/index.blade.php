@@ -22,7 +22,7 @@
                            <p class="font-16">Laseguridad es primero.</p>
                         </div>
                         <div class="congratulation-img">
-                           <img src="assets/img/media/congratulation-img.png" alt="">
+                            <div id="apex_line2-chart" class="chart"></div>
                         </div>
                      </div>
                   </div>
@@ -36,8 +36,8 @@
                   <div class="card-body">
                      <div class="d-flex justify-content-between">
                         <div class="">
-                           <h4 class="mb-1">Condiciones Inseguras</h4>
-                           <p class="font-14 c3">COMPLETADAS del mes</p>
+                           <h4 class="mb-1">Prioridad CRITICA</h4>
+                           <p class="font-14 c3">COMPLETADAS ultimos 7 dias</p>
                         </div>
                         <div class="">
                            <h2>50<sup>%</sup></h2>
@@ -55,8 +55,8 @@
                   <div class="card-body">
                      <div class="d-flex justify-content-between">
                         <div class="">
-                           <h4 class="mb-1">Condiciones Inseguras</h4>
-                           <p class="font-14 soft-pink">PENDIENTES del mes</p>
+                           <h4 class="mb-1">Prioridad ALTA</h4>
+                           <p class="font-14 soft-pink">COMPLETADAS ultimos 7 dias</p>
                         </div>
                         <div class="">
                            <h2>15<sup>%</sup></h2>
@@ -72,9 +72,14 @@
                <!-- Card -->
                <div class="card area-chart-box mb-30">
                   <div class="card-body">
-                     <div class="">
-                        <h4 class="mb-1">Activididad diaria</h4>
-                        <p class="font-14 text_color">por mes</p>
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                           <h4 class="mb-1">Prioridad ALTA</h4>
+                           <p class="font-14 soft-pink">COMPLETADAS ultimos 7 dias</p>
+                        </div>
+                        <div class="">
+                           <h2>15<sup>%</sup></h2>
+                        </div>
                      </div>
                   </div>
                   <div id="apex_area3-chart" class="chart"></div>
@@ -86,9 +91,14 @@
                <!-- Card -->
                <div class="card area-chart-box mb-30">
                   <div class="card-body">
-                     <div class="">
-                        <h4 class="mb-1">Registros</h4>
-                        <p class="font-14 text_color">Internos y externos en el mes</p>
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                           <h4 class="mb-1">Prioridad ALTA</h4>
+                           <p class="font-14 soft-pink">COMPLETADAS ultimos 7 dias</p>
+                        </div>
+                        <div class="">
+                           <h2>15<sup>%</sup></h2>
+                        </div>
                      </div>
                   </div>
                   <div id="apex_area4-chart" class="chart"></div>
@@ -772,89 +782,91 @@
     
 @endsection
 @section('js')
-   <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
-   <script src="assets/plugins/apex/apexcharts.min.js"></script>
-   <script src="assets/plugins/apex/custom-apexcharts.js"></script>
-   <a class="ruta" href="#"></a>
-   <script>
+<!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
+<script src="{{ asset('assets/plugins/apex/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/apex/custom-apexcharts.js') }}"></script>
+<script src="{{ asset('js/dashboard-index.js') }}"></script>
+<a class="ruta" href="{{ route('dashboardCharts') }}"></a>
+<script>
 
+getChartsData();
 
-       //Donut Chart
-        var donut_options = {
-            series: [44, 55],
-            labels: ['Si', 'No'],
+//Donut Chart
+var donut_options = {
+    series: [44, 55],
+    labels: ['Si', 'No'],
+    chart: {
+        width: '100%',
+        height: 380,
+        type: 'donut',
+        foreColor: '#fff',
+    },
+    dataLabels: {
+        enabled: false
+    },
+    fill: {
+        type: 'gradient',
+    },
+    stroke: {
+        show: true,
+        width: 1,
+        colors: ['transparent']
+    },
+    legend: {
+        formatter: function (val, opts) {
+            return val + " - " + opts.w.globals.series[opts.seriesIndex]
+        }
+    },
+    responsive: [{
+        breakpoint: 480,
+        options: {
             chart: {
-                width: '100%',
-                height: 380,
-                type: 'donut',
-                foreColor: '#fff',
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill: {
-                type: 'gradient',
-            },
-            stroke: {
-                show: true,
-                width: 1,
-                colors: ['transparent']
-            },
-            legend: {
-                formatter: function (val, opts) {
-                    return val + " - " + opts.w.globals.series[opts.seriesIndex]
-                }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        height: '100%'
-                    }
-                }
-            }]
-        };
+                height: '100%'
+            }
+        }
+    }]
+};
 
-    var donut_chart = new ApexCharts(document.querySelector("#participacionCondiocionesInsegurasParticipacion"), donut_options);
-    donut_chart.render();
-    
-    var donut_options = {
-            series: [44, 55],
-            labels: ['Si', 'No'],
-            chart: {
-                width: '100%',
-                height: 380,
-                type: 'donut',
-                foreColor: '#fff',
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill: {
-                type: 'gradient',
-            },
-            stroke: {
-                show: true,
-                width: 1,
-                colors: ['transparent']
-            },
-            legend: {
-                formatter: function (val, opts) {
-                    return val + " - " + opts.w.globals.series[opts.seriesIndex]
-                }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        height: '100%'
-                    }
-                }
-            }]
-        };
+var donut_chart = new ApexCharts(document.querySelector("#participacionCondiocionesInsegurasParticipacion"), donut_options);
+donut_chart.render();
 
-    var donut_chart = new ApexCharts(document.querySelector("#participacionCuidadoCompañero"), donut_options);
-    donut_chart.render();
-   </script>
-   <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
+var donut_options = {
+        series: [44, 55],
+        labels: ['Si', 'No'],
+        chart: {
+            width: '100%',
+            height: 380,
+            type: 'donut',
+            foreColor: '#fff',
+        },
+        dataLabels: {
+            enabled: false
+        },
+        fill: {
+            type: 'gradient',
+        },
+        stroke: {
+            show: true,
+            width: 1,
+            colors: ['transparent']
+        },
+        legend: {
+            formatter: function (val, opts) {
+                return val + " - " + opts.w.globals.series[opts.seriesIndex]
+            }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    height: '100%'
+                }
+            }
+        }]
+    };
+
+var donut_chart = new ApexCharts(document.querySelector("#participacionCuidadoCompañero"), donut_options);
+donut_chart.render();
+</script>
+<!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
 @endsection

@@ -3,22 +3,34 @@
 @endsection
 
 @section('navbar')
+    @include('globals.dashboard.navbar')
+    @include('globals.dashboard.sidebar')
 @endsection
-@section('clear.content')
+@section('content')
+<div class="main-content">
+    <div class="container-fluid">
 
         <div class="mn-vh-100 d-flex align-items-center">
             <div class="container">
                 <!-- Card -->
-                <div id="start" class="card justify-content-center auth-card">
-                    <div  class="row justify-content-center">
+                <div class="card justify-content-center form-element">
+                    <div class="row justify-content-center">
                         <div class="col-xl-10">
                             
                             <h4 class="mb-2 font-20">Registrar Usuario</h4>
-                             <div id="soloUsuario" style="display: none;">
+                            <ul class="list-inline list-button m-0 mb-3">
+                                <li id="user" class="active" onclick="changue(this);">Usuario</li>
+                                <li id="userPerson" class="" onclick="changue(this);">Usuario y Persona</li>
+                             </ul>
+                             <div id="soloUsuario">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
     
                                     <div class="row">
+
+                                        
+
+        
                                         <div class="col-lg-6">
 
                                             <!-- Form Group -->
@@ -41,11 +53,22 @@
                                             
                                         </div>
     
-                                        
-                                        <!-- Form Group -->
-                                        <input type="hidden" value="3" name="role_id">
-                                        <!-- End Form Group -->
-                                        
+                                        <div class="col-lg-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group mb-20">
+                                                <label for="role" class="mb-2 bold d-block">Rol</label>
+                                                <div class="custom-select style--two">
+                                                    <select class="theme-input-style" id="role" name="role_id">
+                                                        @isset($roles)
+                                                        @foreach ($roles as $item)
+                                                                <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
         
                                         <div class="col-lg-6">
                                             <!-- Form Group -->
@@ -80,11 +103,11 @@
         
                                     <div class="d-flex align-items-center pt-4">
                                         <button type="submit" class="btn long mr-20">Registrar</button>
-                                        <a href="#start" id="userPerson" class="font-12 text_color" onclick="changue(this);">¿No se encuentra tu SAP o ID?</a>
+                                        
                                     </div>
                                 </form>
                              </div>
-                             <div id="usuarioYPersona">
+                             <div id="usuarioYPersona" style="display: none;">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
     
@@ -115,7 +138,9 @@
                                                     <select class="theme-input-style" id="companie_and_department_id" name="companie_and_department_id">
                                                         @isset($companies_departments)
                                                         @foreach ($companies_departments as $item)
-                                                            <option class="{{$item->origin}}" value="{{$item->id}}" >{{$item->name}}</option>
+                                                            @if ($item->origin == "INTERNO")
+                                                                <option class="{{$item->origin}}" value="{{$item->id}}" >{{$item->name}}</option>
+                                                            @endif
                                                         @endforeach
                                                         @endisset
                                                     </select>
@@ -124,9 +149,22 @@
                                             <!-- End Form Group -->
                                         </div>
     
-                                        <!-- Form Group -->
-                                        <input type="hidden" value="3" name="role_id">
-                                        <!-- End Form Group -->
+                                        <div class="col-lg-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group mb-20">
+                                                <label for="role" class="mb-2 bold d-block">Rol</label>
+                                                <div class="custom-select style--two">
+                                                    <select class="theme-input-style" id="role" name="role_id">
+                                                        @isset($roles)
+                                                        @foreach ($roles as $item)
+                                                                <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
         
                                         <div class="col-lg-6">
                                             <!-- Form Group -->
@@ -161,7 +199,7 @@
         
                                     <div class="d-flex align-items-center pt-4">
                                         <button type="submit" class="btn long mr-20">Registrar</button>
-                                        <a href="#start" id="user" class="font-12 text_color" onclick="changue(this);">¿Tu SAP o ID ya esta registrado?</a>
+                                        
                                     </div>
                                 </form>
                              </div>
@@ -172,7 +210,9 @@
                 <!-- End Card -->
             </div>
         </div>
-
+        
+    </div>
+</div>
 @endsection
 @section('footer')
     

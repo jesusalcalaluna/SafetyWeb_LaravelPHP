@@ -29,6 +29,13 @@ class RegisteredUserController extends Controller
         $companies_departments = Companies_and_departments::all();
         return view('auth.register', compact('roles', 'companies_departments', 'people'));
     }
+    public function createAdmin()
+    {
+        $roles = Role::all();
+        $people = People::all();
+        $companies_departments = Companies_and_departments::all();
+        return view('auth.register-admin', compact('roles', 'companies_departments', 'people'));
+    }
 
     /**
      * Handle an incoming registration request.

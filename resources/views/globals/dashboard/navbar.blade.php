@@ -14,7 +14,7 @@
             <div class="col-3 col-lg-1 col-xl-4">
                <!-- Header Left -->
                <div class="main-header-left h-100 d-flex align-items-center">
-               @if (Auth::user())
+               
                <!-- Main Header User -->
                <div class="main-header-user">
                   <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
@@ -26,26 +26,34 @@
                   </a>
                   
                   <div class="dropdown-menu">
+                     @if (Auth::user())
                      <a href="#">My Profile</a>
-                     <a href="#">task</a>
-                     <a href="#">Settings</a>
                      <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();">Cerrar sesión</a>
                      </form>
+                     @else
+                     <a href="{{ route('login') }}">Iniciar sesión</a>
+                     @endif
+                     
                   </div>
                </div>
                <!-- End Main Header User -->
-               @endif
+
                   
 
                   <!-- Main Header Menu -->
-                  <div class="main-header-menu d-block d-lg-none">
-                     <div class="header-toogle-menu">
-                        <!-- <i class="icofont-navigation-menu"></i> -->
-                        <img src="{{ asset('assets/img/menu.png') }}" alt="">
+                  @if (Auth::user())
+                     @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                     <div class="main-header-menu d-block d-lg-none">
+                        <div class="header-toogle-menu">
+                           <!-- <i class="icofont-navigation-menu"></i> -->
+                           <img src="{{ asset('assets/img/menu.png') }}" alt="">
+                        </div>
                      </div>
-                  </div>
+                     @endif
+                  @endif
+                  
                   <!-- End Main Header Menu -->
                </div>
                <!-- End Header Left -->

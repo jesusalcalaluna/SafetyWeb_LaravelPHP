@@ -17,4 +17,9 @@ class DashboardController extends Controller
         //return $par_CompanionCare;
         return view('pages.dashboard.index');
     }
+
+    public function dashboardCharts(){
+        $data= "hola";
+        return $data;
+    }
 }

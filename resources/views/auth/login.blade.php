@@ -35,9 +35,9 @@
                                 
                                 <label for="remember_me" class="font-14">Recordarme</label>
                             </div>
-                            @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="font-12 text_color">¿Olvidaste tu contraseña?</a>
-                            @endif
+                            
+                            <a href="{{ route('register') }}" class="font-12 text_color">¿Aun no estas registrado?</a>
+                            
                         </div>
 
                         <div class="d-flex align-items-center">

@@ -7,16 +7,21 @@
 @endsection
 
 @section('navbar')
-    @if (Auth::user())
+    
     @include('globals.dashboard.navbar')
-    @include('globals.dashboard.sidebar')
+    @auth
+    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+        @include('globals.dashboard.sidebar')
     @endif
+    @endauth
+    
+    
     
 @endsection
 @section('content')
-@if (Auth::user())  
+ 
 <div class="main-content">
-@endif    
+   
     <div class="container-fluid">
     
         <div class="form-element input-sizing">
@@ -275,12 +280,22 @@
                 <!-- End Form Group -->
 
                 <!-- Form Group -->
-                <div class="form-group mb-20">
+                <div class="form-group mb-20 ">
+                    
                     <label for="sap" class="mb-2 font-14 bold">SAP de quien reporta</label>
-                    <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
-                    <div class="valid-feedback" id="personName">
-                        
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
+                            <div class="valid-feedback" id="personName"></div>
+                        </div>
+                        @if ( Auth::user() == false)
+                        <div class="col-sm-6">
+                            <a href="{{ route('register') }}" class="font-12 text_color">¿Tu SAP o ID no se encuentra?</a>
+                        </div>
+                        @endif
                     </div>
+                    
+                    
                     
                 </div>
                 <datalist id="peopleList">
@@ -310,9 +325,9 @@
 
     
     </div>
-@if (Auth::user()) 
+
 </div>
-@endif
+
 @endsection
 @section('footer')
     

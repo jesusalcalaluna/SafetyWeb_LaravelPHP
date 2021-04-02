@@ -55,7 +55,7 @@
 
          <li class="nav-category">Trabajadores</li>
          <li class="">
-            <a href="{{route('register')}}">
+            <a href="{{route('registerUsers')}}">
                 <i class="icofont-ui-user"></i>
                 <span class="link-title">Administrar Usuarios</span>
             </a>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PeopleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +35,15 @@ Route::post('/companionCare', 'CompanionCareController@writeCompanionCare')->nam
 Route::post('/search/{word}', 'UnsafeConditionsController@search');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/registerUsers', [RegisteredUserController::class, 'createAdmin'])->name('registerUsers');
+
+    Route::post('/registerUsers', [RegisteredUserController::class, 'store']);
     //Dashboard
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
     Route::get('/peopleTable', 'PeopleController@getPeople')->name('pepleTable');
     Route::get('/peopleTableExtern', 'PeopleController@getPeople')->name('pepleTableExtern');
+    //-----------Graficas Diagramas
+    Route::get('/dashboardCharts', 'DashboardController@dashboardCharts')->name('dashboardCharts');
 
     //Cuidado del compañero
 
