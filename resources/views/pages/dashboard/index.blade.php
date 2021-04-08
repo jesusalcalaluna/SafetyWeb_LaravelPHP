@@ -12,24 +12,24 @@
                <!-- Card -->
                <div class="card mb-30">
                   <div class="card-body">
-                     <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
                         <div class="increase">
                            <div class="card-title d-flex align-items-end mb-2">
-                              <h2>0<sup>%</sup></h2>
-                              <p class="font-14">PARTICIPACIÓN</p>
+                              <h2>{{ $participation }}<sup>%</sup></h2>
+                              <p class="font-14">Participación</p>
                            </div>
-                           <h3 class="card-subtitle mb-2">Mes actual</h3>
-                           <p class="font-16">Laseguridad es primero.</p>
+                           <h3 class="card-subtitle mb-2">{{ date('d-m-Y') }}</h3>
+                           <p class="font-16">Condiciones inseguras registradas.</p>
                         </div>
                         <div class="congratulation-img">
-                            <div id="apex_line2-chart" class="chart"></div>
+                           <img src="assets/img/media/congratulation-img.png" alt="">
                         </div>
                      </div>
                   </div>
                </div>
                <!-- End Card -->
             </div>
-
+                <!--CRITICA -->
             <div class="col-xl-2 col-md-4 col-sm-6">
                <!-- Card -->
                <div class="card area-chart-box mb-30">
@@ -37,10 +37,10 @@
                      <div class="d-flex justify-content-between">
                         <div class="">
                            <h4 class="mb-1">Prioridad CRITICA</h4>
-                           <p class="font-14 c3">COMPLETADAS ultimos 7 dias</p>
+                           <p class="font-14 c3">COMPLETADAS</p>
                         </div>
                         <div class="">
-                           <h2>50<sup>%</sup></h2>
+                           <h2>{{ $porcent_critica }}<sup>%</sup></h2>
                         </div>
                      </div>
                   </div>
@@ -48,7 +48,7 @@
                </div>
                <!-- End Card -->
             </div>
-
+                <!--ALATA -->
             <div class="col-xl-2 col-md-4 col-sm-6">
                <!-- Card -->
                <div class="card area-chart-box mb-30">
@@ -56,10 +56,10 @@
                      <div class="d-flex justify-content-between">
                         <div class="">
                            <h4 class="mb-1">Prioridad ALTA</h4>
-                           <p class="font-14 soft-pink">COMPLETADAS ultimos 7 dias</p>
+                           <p class="font-14 soft-pink">COMPLETADAS</p>
                         </div>
                         <div class="">
-                           <h2>15<sup>%</sup></h2>
+                           <h2>{{ $porcent_alta }}<sup>%</sup></h2>
                         </div>
                      </div>
                   </div>
@@ -67,18 +67,18 @@
                </div>
                <!-- End Card -->
             </div>
-               
+               <!--MEDIA -->
             <div class="col-xl-2 col-md-4 col-sm-6">
                <!-- Card -->
                <div class="card area-chart-box mb-30">
                   <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="">
-                           <h4 class="mb-1">Prioridad ALTA</h4>
-                           <p class="font-14 soft-pink">COMPLETADAS ultimos 7 dias</p>
+                           <h4 class="mb-1">Prioridad MEDIA</h4>
+                           <p class="font-14 soft-pink">COMPLETADAS</p>
                         </div>
                         <div class="">
-                           <h2>15<sup>%</sup></h2>
+                           <h2>{{ $porcent_media }}<sup>%</sup></h2>
                         </div>
                      </div>
                   </div>
@@ -86,18 +86,18 @@
                </div>
                <!-- End Card -->
             </div>
-               
+               <!--BAJA -->
             <div class="col-xl-2 col-md-4 col-sm-6">
                <!-- Card -->
                <div class="card area-chart-box mb-30">
                   <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="">
-                           <h4 class="mb-1">Prioridad ALTA</h4>
-                           <p class="font-14 soft-pink">COMPLETADAS ultimos 7 dias</p>
+                           <h4 class="mb-1">Prioridad BAJA</h4>
+                           <p class="font-14 soft-pink">COMPLETADAS</p>
                         </div>
                         <div class="">
-                           <h2>15<sup>%</sup></h2>
+                           <h2>{{ $porcent_baja }}<sup>%</sup></h2>
                         </div>
                      </div>
                   </div>
@@ -789,7 +789,9 @@
 <a class="ruta" href="{{ route('dashboardCharts') }}"></a>
 <script>
 
-getChartsData();
+$(function() {
+    
+});
 
 //Donut Chart
 var donut_options = {

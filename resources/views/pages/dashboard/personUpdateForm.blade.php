@@ -23,7 +23,7 @@
                         <li><a class="active" data-toggle="tab" href="#personal">Personal</a></li>
                         @if ($person->user)
                         <li><a data-toggle="tab" href="#usuario">Usuario</a></li>
-                        <li><a data-toggle="tab" href="#c_pass">Change Password</a></li>
+                        <li><a data-toggle="tab" href="#c_pass">Cambiar contraseña</a></li>
                         @endif
                         
                     </ul>
@@ -86,17 +86,24 @@
                                                 <input type="email" id="email" class="theme-input-style" placeholder="Type Here" value="{{ $person->user->email }}">
                                             </div>
                                             <!-- End Form Group -->
-
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
-                                                <label for="company" class="mb-2 font-14 bold">Rol</label>
-                                                <input type="text" id="company" class="theme-input-style" placeholder="Type Here">
+                                                <label for="role" class="mb-2 bold d-block">Rol</label>
+                                                <div class="custom-select style--two">
+                                                    <select class="theme-input-style" id="role" name="role_id">
+                                                        @isset($roles)
+                                                        @foreach ($roles as $item)
+                                                                <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
                                             </div>
                                             <!-- End Form Group -->
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="button-group mt-30 mt-xl-n5">
-                                                <button type="submit" class="btn">Save Changes</button>
+                                                <button type="submit" class="btn">Guardar cambios</button>
                                                 <button type="button" class="link-btn bg-transparent ml-3 soft-pink">Cancel</button>
                                             </div>
                                         </div>

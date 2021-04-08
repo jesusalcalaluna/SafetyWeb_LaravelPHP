@@ -11,185 +11,270 @@ Author url    :  http://themelooks.com
 
 $(function() {
     'use strict';
-    
-  /*==================================
-    01: Apex Area Chart
-    ====================================*/
-    var area_options = {
-        chart: {
-            type:"area",
-            height: 112,
-            sparkline: {
-                enabled: true
-            }
-        },
-        stroke: {
-            curve: "smooth",
-            width: 2
-        },
-        fill: {
-            opacity: .05
-        },
-        series:[ {
-            data: [10, 12, 5, 18, 11, 16]
-        }
-        ],
-        yaxis: {
-            min: 0
-        },
-        colors:["#E580FD"],
-        grid: {
-            row: {
-                colors: ['transparent', 'transparent'], opacity: .2
-            },
-            padding: {
-                top: 5,
-            },
-            borderColor: 'transparent'
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
-            },
-        }
-    }
-    var area_Chart = new ApexCharts( document.querySelector("#apex_area-chart"), area_options );
-    area_Chart.render();
 
-    /*==================================
-    02: Apex Area2 Chart
-    ====================================*/
-    var area2_options = {
-        chart: {
-            type:"area",
-            height: 112,
-            sparkline: {
-                enabled: true
-            }
-        },
-        stroke: {
-            curve: "smooth",
-            width: 2
-        },
-        fill: {
-            opacity: .05
-        },
-        series:[ {
-            data: [17, 12, 10, 18, 11, 16]
-        }
-        ],
-        yaxis: {
-            min: 0
-        },
-        colors:["#4F9DF8"],
-        grid: {
-            row: {
-                colors: ['transparent', 'transparent'], opacity: .2
-            },
-            padding: {
-                top: 5,
-            },
-            borderColor: 'transparent'
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
-            },
-        }
-    }
-    var area2_Chart = new ApexCharts( document.querySelector("#apex_area2-chart"), area2_options );
-    area2_Chart.render();
+    $.ajax({
+        method:"GET",
+        url: $('.ruta').attr('href'),
+    }).done(function(response){
+        console.log(response);
 
-    /*==================================
-    03: Apex Area3 Chart
-    ====================================*/
-    var area3_options = {
-        chart: {
-            type:"area",
-            height: 112,
-            sparkline: {
-                enabled: true
+        /*==================================
+        01: Apex Area Chart
+        ====================================*/
+        var area_options = {
+            chart: {
+                type:"area",
+                height: 112,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                curve: "smooth",
+                width: 2
+            },
+            fill: {
+                opacity: .05
+            },
+            series:[ {
+                name: "cantidad",
+                data: [
+                    response.chart_1[5], 
+                    response.chart_1[4], 
+                    response.chart_1[3], 
+                    response.chart_1[2], 
+                    response.chart_1[1], 
+                    response.chart_1[0]]
             }
-        },
-        stroke: {
-            curve: "smooth",
-            width: 2
-        },
-        fill: {
-            opacity: .05
-        },
-        series:[ {
-            data: [5, 12, 10, 18, 11, 16]
+            ],
+            yaxis: {
+                min: 0
+            },
+            colors:["#E580FD"],
+            grid: {
+                row: {
+                    colors: ['transparent', 'transparent'], opacity: .2
+                },
+                padding: {
+                    top: 5,
+                },
+                borderColor: 'transparent'
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+            xaxis: {
+                categories: [
+                response.dates[5],
+                response.dates[4],
+                response.dates[3],
+                response.dates[2],
+                response.dates[1],
+                response.dates[0],
+                ]
+            }
         }
-        ],
-        yaxis: {
-            min: 0
-        },
-        colors:["#FF81A3"],
-        grid: {
-            row: {
-                colors: ['transparent', 'transparent'], opacity: .2
-            },
-            padding: {
-                top: 5,
-            },
-            borderColor: 'transparent'
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
-            },
-        }
-    }
-    var area3_Chart = new ApexCharts( document.querySelector("#apex_area3-chart"), area3_options );
-    area3_Chart.render();
+        var area_Chart = new ApexCharts( document.querySelector("#apex_area-chart"), area_options );
+        area_Chart.render();
 
-    /*==================================
-    04: Apex Area4 Chart
-    ====================================*/
-    var area4_options = {
-        chart: {
-            type:"area",
-            height: 112,
-            sparkline: {
-                enabled: true
+        /*==================================
+        02: Apex Area2 Chart
+        ====================================*/
+        var area2_options = {
+            chart: {
+                type:"area",
+                height: 112,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                curve: "smooth",
+                width: 2
+            },
+            fill: {
+                opacity: .05
+            },
+            series:[ {
+                name: "cantidad",
+                data: [
+                    response.chart_2[5], 
+                    response.chart_2[4], 
+                    response.chart_2[3], 
+                    response.chart_2[2], 
+                    response.chart_2[1], 
+                    response.chart_2[0]]
             }
-        },
-        stroke: {
-            curve: "smooth",
-            width: 2
-        },
-        fill: {
-            opacity: .05
-        },
-        series: [{
-            name: 'series1',
-            data: [17, 12, 10, 18, 11, 16]
-          }, {
-            name: 'series2',
-            data: [12, 17, 13, 15, 16, 14]
-        }],
-        yaxis: {
-            min: 0
-        },
-        colors:["#09D1DE", "#E580FD"],
-        grid: {
-            row: {
-                colors: ['transparent', 'transparent'], opacity: .2
+            ],
+            yaxis: {
+                min: 0
             },
-            padding: {
-                top: 5,
+            colors:["#4F9DF8"],
+            grid: {
+                row: {
+                    colors: ['transparent', 'transparent'], opacity: .2
+                },
+                padding: {
+                    top: 5,
+                },
+                borderColor: 'transparent'
             },
-            borderColor: 'transparent'
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
             },
+            xaxis: {
+                categories: [
+                response.dates[5],
+                response.dates[4],
+                response.dates[3],
+                response.dates[2],
+                response.dates[1],
+                response.dates[0],
+                ]
+            }
         }
-    }
-    var area4_Chart = new ApexCharts( document.querySelector("#apex_area4-chart"), area4_options);
-    area4_Chart.render();
+        var area2_Chart = new ApexCharts( document.querySelector("#apex_area2-chart"), area2_options );
+        area2_Chart.render();
+
+        /*==================================
+        03: Apex Area3 Chart
+        ====================================*/
+        var area3_options = {
+            chart: {
+                type:"area",
+                height: 112,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                curve: "smooth",
+                width: 2
+            },
+            fill: {
+                opacity: .05
+            },
+            series:[ {
+                name: "cantidad",
+                data: [
+                    response.chart_3[5], 
+                    response.chart_3[4], 
+                    response.chart_3[3], 
+                    response.chart_3[2], 
+                    response.chart_3[1], 
+                    response.chart_3[0]]
+            }
+            ],
+            yaxis: {
+                min: 0
+            },
+            colors:["#FF81A3"],
+            grid: {
+                row: {
+                    colors: ['transparent', 'transparent'], opacity: .2
+                },
+                padding: {
+                    top: 5,
+                },
+                borderColor: 'transparent'
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+            xaxis: {
+                categories: [
+                response.dates[5],
+                response.dates[4],
+                response.dates[3],
+                response.dates[2],
+                response.dates[1],
+                response.dates[0],
+                ]
+            }
+        }
+        var area3_Chart = new ApexCharts( document.querySelector("#apex_area3-chart"), area3_options );
+        area3_Chart.render();
+        
+        /*==================================
+        04: Apex Area4 Chart
+        ====================================*/
+        var area4_options = {
+            chart: {
+                type:"area",
+                height: 112,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            stroke: {
+                curve: "smooth",
+                width: 2
+            },
+            fill: {
+                opacity: .05
+            },
+            series: [{
+                name: 'Posible riesgo',
+                data: [
+                    response.chart_4[5], 
+                    response.chart_4[4], 
+                    response.chart_4[3], 
+                    response.chart_4[2], 
+                    response.chart_4[1], 
+                    response.chart_4[0]]
+            }, {
+                name: 'Riesgo ligero',
+                data: [
+                    response.chart_4_2[5], 
+                    response.chart_4_2[4], 
+                    response.chart_4_2[3], 
+                    response.chart_4_2[2], 
+                    response.chart_4_2[1], 
+                    response.chart_4_2[0]]
+            }],
+            yaxis: {
+                min: 0
+            },
+            colors:["#09D1DE", "#E580FD"],
+            grid: {
+                row: {
+                    colors: ['transparent', 'transparent'], opacity: .2
+                },
+                padding: {
+                    top: 5,
+                },
+                borderColor: 'transparent'
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+            xaxis: {
+                categories: [
+                response.dates[5],
+                response.dates[4],
+                response.dates[3],
+                response.dates[2],
+                response.dates[1],
+                response.dates[0],
+                ]
+            }
+        }
+        var area4_Chart = new ApexCharts( document.querySelector("#apex_area4-chart"), area4_options);
+        area4_Chart.render();
+
+    }).fail(function(jqXHR,textStatus){
+        clearInterval(timer);
+        console.log('fallo');
+        //console.log(jqXHR);
+    });
 
     /*==================================
     02: Apex Area5 Chart
@@ -230,7 +315,7 @@ $(function() {
             x: {
                 format: 'dd/MM/yy HH:mm'
             },
-        }
+        },
     }
     var area5_Chart = new ApexCharts( document.querySelector("#apex_area5-chart"), area5_options );
     area5_Chart.render();
@@ -310,7 +395,7 @@ $(function() {
             x: {
                 format: 'dd/MM/yy HH:mm'
             },
-        }
+        },
     }
     var area6_Chart = new ApexCharts( document.querySelector("#apex_area6-chart"), area6_options );
     area6_Chart.render();

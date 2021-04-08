@@ -34,7 +34,8 @@ class RegisteredUserController extends Controller
         $roles = Role::all();
         $people = People::all();
         $companies_departments = Companies_and_departments::all();
-        return view('auth.register-admin', compact('roles', 'companies_departments', 'people'));
+        $users = User::with('person')->with('role')->get();
+        return view('auth.register-admin', compact('roles', 'companies_departments', 'people', 'users'));
     }
 
     /**

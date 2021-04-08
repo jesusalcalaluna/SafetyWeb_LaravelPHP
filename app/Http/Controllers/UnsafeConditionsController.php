@@ -86,10 +86,10 @@ class UnsafeConditionsController extends Controller
             $total = $countProc + $countInic + $countCom + $countRetr;
             
             if($total) {
-                $porcentCom  =  round(($countCom / $total) * 100);
-                $porcentProc  =  round(($countProc / $total) * 100);
-                $porcentInic  =  round(($countInic / $total) * 100);
-                $porcentRetr  =  round(($countRetr / $total) * 100);   
+                $porcentCom  = number_format(($countCom / $total) * 100, 1);
+                $porcentProc  =  number_format(($countProc / $total) * 100, 1);
+                $porcentInic  =  number_format(($countInic / $total) * 100, 1);
+                $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
             }else {
                 $porcentCom  =  0;
                 $porcentProc  =  0;
@@ -178,10 +178,10 @@ class UnsafeConditionsController extends Controller
         $porcentRetr  =  0;  
             
         if($total) {
-            $porcentCom  =  round(($countCom / $total) * 100);
-            $porcentProc  =  round(($countProc / $total) * 100);
-            $porcentInic  =  round(($countInic / $total) * 100);
-            $porcentRetr  =  round(($countRetr / $total) * 100);   
+            $porcentCom  = number_format(($countCom / $total) * 100, 1);
+            $porcentProc  =  number_format(($countProc / $total) * 100, 1);
+            $porcentInic  =  number_format(($countInic / $total) * 100, 1);
+            $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);   
         }
         $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                                 ->where('status', $status)

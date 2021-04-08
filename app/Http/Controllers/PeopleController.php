@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Companies_and_departments;
 use App\Models\People;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class PeopleController extends Controller
@@ -63,14 +64,21 @@ class PeopleController extends Controller
         return view('pages.dashboard.peopleTable', compact('people'));
     }
 
-    public function updatePerson($id){
+    public function updatePersonForm($id){
         
         $person = People::with('company_and_department')
         ->with('user')
         ->with('user.role')
         ->where('id', $id)->first();
+
+        $roles = Role::all();
         
-        return view('pages.dashboard.personUpdateForm', compact('person'));
+        return view('pages.dashboard.personUpdateForm', compact('person', 'roles'));
         
+    }
+
+    public function updatePerson(Request $request){
+
+        return $request;
     }
 }

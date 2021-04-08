@@ -57,7 +57,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
 
     //Usuarios y Personal
-    Route::get('/updateperson/{id}', 'PeopleController@updatePerson')->name('updateperson');
+    Route::get('/updateperson/{id}', 'PeopleController@updatePersonForm')->name('updateperson');
+    Route::get('/updateperson', 'PeopleController@updatePerson')->name('updateperson');
     Route::get('/newPersonExtern', 'PeopleController@createPersonForm')->name('newPersonFormExtern');
     Route::post('/newPersonExtern', 'PeopleController@createPersonExtern')->name('newPersonExtern');
     Route::get('/newPerson', 'PeopleController@createPersonForm')->name('newPersonForm');
