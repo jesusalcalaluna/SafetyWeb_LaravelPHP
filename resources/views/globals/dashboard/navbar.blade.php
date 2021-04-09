@@ -27,7 +27,7 @@
                   
                   <div class="dropdown-menu">
                      @if (Auth::user())
-                     <a href="#">My Profile</a>
+                     <a href="{{ route('updateperson', [Auth::user()->id]) }}">My Profile</a>
                      <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();">Cerrar sesión</a>

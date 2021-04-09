@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Companies_and_departments;
 use App\Models\People;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PeopleController extends Controller
@@ -72,13 +73,26 @@ class PeopleController extends Controller
         ->where('id', $id)->first();
 
         $roles = Role::all();
+        $departments = Companies_and_departments::all();
         
-        return view('pages.dashboard.personUpdateForm', compact('person', 'roles'));
+        return view('pages.dashboard.personUpdateForm', compact('person', 'roles', 'departments'));
         
     }
 
     public function updatePerson(Request $request){
-
-        return $request;
+        
+        try {
+            People::where('id', $request->id)
+            ->update([
+                'sap' => $request->sap,
+                'name' => $request->name,
+                'position' => $request->position,
+                'companie_and_department_id' => $request->companie_and_department_id,
+            ]);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Algo salio mal');
+        }
+        return back()->with('success', 'Registro exitoso');
+        
     }
 }

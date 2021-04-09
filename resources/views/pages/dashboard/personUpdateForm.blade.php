@@ -42,25 +42,45 @@
                             <div class="tab-pane fade show active" id="personal">
                                 <h4 class="mb-4">Informacion Personal</h4>
 
-                                <form action="#">
+                                <form action="{{ route('updateper') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-6">
+                                            <input type="text" hidden name="id" value="{{ $person->id }}">
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
-                                                <label for="name" class="mb-2 font-14 bold">Name</label>
-                                                <input type="text" id="name" class="theme-input-style" placeholder="Type Here" value="{{ $person->name }}">
+                                                <label for="name" class="mb-2 font-14 bold">Nombre</label>
+                                                <input type="text" id="name" class="theme-input-style" placeholder="Type Here" name="name" value="{{ $person->name }}">
                                             </div>
                                             <!-- End Form Group -->
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
-                                                <label for="sap" class="mb-2 font-14 bold">SAP</label>
-                                                <input type="text" id="sap" class="theme-input-style" placeholder="Type Here" value="{{ $person->sap }}">
+                                                <label for="sap" class="mb-2 font-14 bold">SAP o ID</label>
+                                                <input type="text" id="sap" class="theme-input-style" placeholder="Type Here" name="sap" value="{{ $person->sap }}">
                                             </div>
                                             <!-- End Form Group -->
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
-                                                <label for="company" class="mb-2 font-14 bold">Departamento</label>
-                                                <input type="text" id="company" class="theme-input-style" placeholder="Type Here" value="{{ $person->company_and_department->name }}">
+                                                <label for="company" class="mb-2 bold d-block">Departamento</label>
+                                                <div class="custom-select style--two">
+                                                    <select class="theme-input-style" id="company" name="companie_and_department_id">
+                                                        @isset($departments)
+                                                        @foreach ($departments as $item)
+                                                        @if ($item->id == $person->companie_and_department_id)
+                                                            <option value="{{$item->id}}" selected>{{$item->name}}</option>
+                                                        @else
+                                                            <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                        @endif      
+                                                        @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- End Form Group -->
+                                            <!-- Form Group -->
+                                            <div class="form-group mb-20">
+                                                <label for="position" class="mb-2 font-14 bold">Puesto</label>
+                                                <input type="text" id="position" class="theme-input-style" placeholder="Type Here" name="position" value="{{ $person->position }}">
                                             </div>
                                             <!-- End Form Group -->
                                         </div>
@@ -77,13 +97,15 @@
                             <div class="tab-pane fade" id="usuario">
                                 <h4 class="mb-4">Informacion de Usuario</h4>
 
-                                <form action="#">
+                                <form action="{{ route('updateuser') }}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-6">
+                                            <input type="text" hidden name="id" value="{{ $person->user->id }}">
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
                                                 <label for="email" class="mb-2 font-14 bold">Email</label>
-                                                <input type="email" id="email" class="theme-input-style" placeholder="Type Here" value="{{ $person->user->email }}">
+                                                <input type="email" id="email" class="theme-input-style" placeholder="Type Here" name="email" value="{{ $person->user->email }}">
                                             </div>
                                             <!-- End Form Group -->
                                             <!-- Form Group -->
@@ -93,7 +115,11 @@
                                                     <select class="theme-input-style" id="role" name="role_id">
                                                         @isset($roles)
                                                         @foreach ($roles as $item)
-                                                                <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @if ($item->id == $person->user->role_id)
+                                                            <option value="{{$item->id}}" selected>{{$item->role_name}}</option>
+                                                        @else
+                                                            <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @endif      
                                                         @endforeach
                                                         @endisset
                                                     </select>
@@ -114,25 +140,27 @@
                             <div class="tab-pane fade" id="c_pass">
                                 <h4 class="mb-4">Actualizar Contraseña</h4>
 
-                                <form action="#">
+                                <form action="{{ route('updateuserpass') }}" method="POST">
+                                    @csrf
+                                    <input type="text" hidden name="id" value="{{ $person->user->id }}">
                                     <!-- Form Group -->
                                     <div class="form-group mb-20">
                                         <label for="oldPassword" class="mb-2 font-14 bold">Contraseña Actual</label>
-                                        <input type="password" id="oldPassword" class="theme-input-style" placeholder="Type Here">
+                                        <input type="password" id="oldPassword" class="theme-input-style" name="password" placeholder="panconqueso...">
                                     </div>
                                     <!-- End Form Group -->
 
                                     <!-- Form Group -->
                                     <div class="form-group mb-20">
                                         <label for="newPassword" class="mb-2 font-14 bold">Nueva Contraseña</label>
-                                        <input type="password" id="newPassword" class="theme-input-style" placeholder="Type Here">
+                                        <input type="password" id="newPassword" class="theme-input-style" name="new_password" placeholder="Type Here">
                                     </div>
                                     <!-- End Form Group -->
 
                                     <!-- Form Group -->
                                     <div class="form-group mb-20">
                                         <label for="retypePassword" class="mb-2 font-14 bold">Confirmar Contraseña</label>
-                                        <input type="password" id="retypePassword" class="theme-input-style" placeholder="Type Here">
+                                        <input type="password" id="retypePassword" class="theme-input-style" name="confirm_password" placeholder="Type Here">
                                     </div>
                                     <!-- End Form Group -->
 

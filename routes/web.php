@@ -58,7 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Usuarios y Personal
     Route::get('/updateperson/{id}', 'PeopleController@updatePersonForm')->name('updateperson');
-    Route::get('/updateperson', 'PeopleController@updatePerson')->name('updateperson');
+    Route::post('/updateperson', 'UserController@updatePerson')->name('updateper');
+    Route::post('/updateUser', 'UserController@updateUser')->name('updateuser');
+    Route::post('/updateUserPass', 'UserController@updatePass')->name('updateuserpass');
     Route::get('/newPersonExtern', 'PeopleController@createPersonForm')->name('newPersonFormExtern');
     Route::post('/newPersonExtern', 'PeopleController@createPersonExtern')->name('newPersonExtern');
     Route::get('/newPerson', 'PeopleController@createPersonForm')->name('newPersonForm');
