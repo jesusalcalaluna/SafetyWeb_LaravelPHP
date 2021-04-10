@@ -270,11 +270,549 @@ $(function() {
         var area4_Chart = new ApexCharts( document.querySelector("#apex_area4-chart"), area4_options);
         area4_Chart.render();
 
+        /*==================================
+        13: Apex Bar Chart Participacion Interna
+        ====================================*/
+        var bar_options = {
+            series: [{
+                data: [
+                    response.Interno.PartiY[0],
+                    response.Interno.PartiY[1],
+                    response.Interno.PartiY[2],
+                    response.Interno.PartiY[3],
+                    response.Interno.PartiY[4],
+                    response.Interno.PartiY[5],
+                    response.Interno.PartiY[6],
+                    response.Interno.PartiY[7],
+                    response.Interno.PartiY[8],
+                    response.Interno.PartiY[9],
+                    response.Interno.PartiY[10],
+                    response.Interno.PartiY[11],
+                    response.Interno.PartiY[12],
+                    response.Interno.PartiY[13],
+                    response.Interno.PartiY[14],
+                    response.Interno.PartiY[15],
+                    response.Interno.PartiY[16],
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 389,
+                foreColor: '#fff',
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#8381FD'],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#182335']
+            },
+            xaxis: {
+                type:'category',
+                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+            },
+            yaxis: {
+                tickAmount: 4,
+
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontSize: '12px',
+                fontFamily: '"PT Sans", sans-serif',
+                offsetY: 13,
+                offsetX: 8,
+                labels: {
+                    colors: "#fff"
+                },
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 15
+                },
+                markers: {
+                    width: 17,
+                    height: 11,
+                    radius: 0,
+                },
+            }
+        };
+
+        var bar_chart = new ApexCharts(document.querySelector("#apex_bar-chart"), bar_options);
+        bar_chart.render();
+
+        var bar_options1 = {
+            series: [{
+                data: [
+                    response.Interno.PartiM[0],
+                    response.Interno.PartiM[1],
+                    response.Interno.PartiM[2],
+                    response.Interno.PartiM[3],
+                    response.Interno.PartiM[4],
+                    response.Interno.PartiM[5],
+                    response.Interno.PartiM[6],
+                    response.Interno.PartiM[7],
+                    response.Interno.PartiM[8],
+                    response.Interno.PartiM[9],
+                    response.Interno.PartiM[10],
+                    response.Interno.PartiM[11],
+                    response.Interno.PartiM[12],
+                    response.Interno.PartiM[13],
+                    response.Interno.PartiM[14],
+                    response.Interno.PartiM[15],
+                    response.Interno.PartiM[16],
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 389,
+                foreColor: '#fff',
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#8381FD'],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#182335']
+            },
+            xaxis: {
+                type:'category',
+                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+            },
+            yaxis: {
+                tickAmount: 4,
+
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontSize: '12px',
+                fontFamily: '"PT Sans", sans-serif',
+                offsetY: 13,
+                offsetX: 8,
+                labels: {
+                    colors: "#fff"
+                },
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 15
+                },
+                markers: {
+                    width: 17,
+                    height: 11,
+                    radius: 0,
+                },
+            }
+        };
+
+        var bar_chart1 = new ApexCharts(document.querySelector("#apex_bar-chart1"), bar_options1);
+        bar_chart1.render();
+
+        var bar_options2 = {
+            series: [{
+                data: [
+                    response.Interno.PartiD[0],
+                    response.Interno.PartiD[1],
+                    response.Interno.PartiD[2],
+                    response.Interno.PartiD[3],
+                    response.Interno.PartiD[4],
+                    response.Interno.PartiD[5],
+                    response.Interno.PartiD[6],
+                    response.Interno.PartiD[7],
+                    response.Interno.PartiD[8],
+                    response.Interno.PartiD[9],
+                    response.Interno.PartiD[10],
+                    response.Interno.PartiD[11],
+                    response.Interno.PartiD[12],
+                    response.Interno.PartiD[13],
+                    response.Interno.PartiD[14],
+                    response.Interno.PartiD[15],
+                    response.Interno.PartiD[16],
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 389,
+                foreColor: '#fff',
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#8381FD'],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#182335']
+            },
+            xaxis: {
+                type:'category',
+                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+            },
+            yaxis: {
+                tickAmount: 4,
+
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontSize: '12px',
+                fontFamily: '"PT Sans", sans-serif',
+                offsetY: 13,
+                offsetX: 8,
+                labels: {
+                    colors: "#fff"
+                },
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 15
+                },
+                markers: {
+                    width: 17,
+                    height: 11,
+                    radius: 0,
+                },
+            }
+        };
+
+        var bar_chart2 = new ApexCharts(document.querySelector("#apex_bar-chart2"), bar_options2);
+        bar_chart2.render();
+
+        var bar_chart = new ApexCharts(document.querySelector("#apex_bar-chart"), bar_options);
+        bar_chart.render();
+
+        var bar_options1 = {
+            series: [{
+                data: [
+                    response.Interno.PartiM[0],
+                    response.Interno.PartiM[1],
+                    response.Interno.PartiM[2],
+                    response.Interno.PartiM[3],
+                    response.Interno.PartiM[4],
+                    response.Interno.PartiM[5],
+                    response.Interno.PartiM[6],
+                    response.Interno.PartiM[7],
+                    response.Interno.PartiM[8],
+                    response.Interno.PartiM[9],
+                    response.Interno.PartiM[10],
+                    response.Interno.PartiM[11],
+                    response.Interno.PartiM[12],
+                    response.Interno.PartiM[13],
+                    response.Interno.PartiM[14],
+                    response.Interno.PartiM[15],
+                    response.Interno.PartiM[16],
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 389,
+                foreColor: '#fff',
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#8381FD'],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#182335']
+            },
+            xaxis: {
+                type:'category',
+                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+            },
+            yaxis: {
+                tickAmount: 4,
+
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontSize: '12px',
+                fontFamily: '"PT Sans", sans-serif',
+                offsetY: 13,
+                offsetX: 8,
+                labels: {
+                    colors: "#fff"
+                },
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 15
+                },
+                markers: {
+                    width: 17,
+                    height: 11,
+                    radius: 0,
+                },
+            }
+        };
+
+        var bar_chart1 = new ApexCharts(document.querySelector("#apex_bar-chart1"), bar_options1);
+        bar_chart1.render();
+
+        var bar_options2 = {
+            series: [{
+                data: [
+                    response.Interno.PartiD[0],
+                    response.Interno.PartiD[1],
+                    response.Interno.PartiD[2],
+                    response.Interno.PartiD[3],
+                    response.Interno.PartiD[4],
+                    response.Interno.PartiD[5],
+                    response.Interno.PartiD[6],
+                    response.Interno.PartiD[7],
+                    response.Interno.PartiD[8],
+                    response.Interno.PartiD[9],
+                    response.Interno.PartiD[10],
+                    response.Interno.PartiD[11],
+                    response.Interno.PartiD[12],
+                    response.Interno.PartiD[13],
+                    response.Interno.PartiD[14],
+                    response.Interno.PartiD[15],
+                    response.Interno.PartiD[16],
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 389,
+                foreColor: '#fff',
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#8381FD'],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#182335']
+            },
+            xaxis: {
+                type:'category',
+                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+            },
+            yaxis: {
+                tickAmount: 4,
+
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontSize: '12px',
+                fontFamily: '"PT Sans", sans-serif',
+                offsetY: 13,
+                offsetX: 8,
+                labels: {
+                    colors: "#fff"
+                },
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 15
+                },
+                markers: {
+                    width: 17,
+                    height: 11,
+                    radius: 0,
+                },
+            }
+        };
+
+        var bar_chart2 = new ApexCharts(document.querySelector("#apex_bar-chart2"), bar_options2);
+        bar_chart2.render();
+
     }).fail(function(jqXHR,textStatus){
         clearInterval(timer);
         console.log('fallo');
         //console.log(jqXHR);
     });
+
+    /*==================================
+    05: Apex Column Chart
+    ====================================*/
+    var column_options = {
+        series: [{
+            name: 'Net Profit',
+            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 50, 40]
+        }, {
+            name: 'Revenue',
+            data: [76, 85, 101, 98, 87, 105, 91, 114, 94, 90, 70]
+        }, {
+            name: 'Cashflow',
+            data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 40, 60]
+        }],
+        chart: {
+            type: 'bar',
+            height: 389,
+            foreColor: '#fff',
+            toolbar: {
+                show: false,
+            },
+        },
+        colors: ['#76B0FF', '#67CF94', '#0AD1DE'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'light',
+                type: "vertical",
+                shadeIntensity: 0.5,
+                gradientToColors: ['#76B0FF', '#67CF94', '#0AD1DE'],
+                inverseColors: false,
+                opacityFrom: 1,
+                opacityTo: 0.6,
+                stops: [0, 80],
+            },
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yaxis: {
+            tickAmount: 4,
+            title: {
+                text: '$ (thousands)'
+            }
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'right',
+            fontSize: '12px',
+            fontFamily: '"PT Sans", sans-serif',
+            offsetY: 0,
+            height: 60,
+            labels: {
+                colors: "#fff"
+            },
+            itemMargin: {
+                horizontal: 5,
+                vertical: 20
+            },
+            markers: {
+                width: 17,
+                height: 11,
+                radius: 0,
+            },
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "$ " + val + " thousands";
+                }
+            }
+        }, 
+        responsive: [{
+            breakpoint: 576,
+                options: {
+                    legend: {
+                        position: "top",
+                        horizontalAlign: 'left',
+                        height: 0,
+                        itemMargin: {
+                            horizontal: 5,
+                            vertical: 10
+                        },
+                    }
+                }
+            }
+        ],
+    };
+
+    var columnChart = new ApexCharts(document.querySelector("#apex_column-chart"), column_options);
+    columnChart.render();
 
     /*==================================
     02: Apex Area5 Chart
@@ -401,112 +939,7 @@ $(function() {
     area6_Chart.render();
 
     
-   /*==================================
-    05: Apex Column Chart
-    ====================================*/
-    var column_options = {
-        series: [{
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 50, 40]
-        }, {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94, 90, 70]
-        }, {
-            name: 'Cashflow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 40, 60]
-        }],
-        chart: {
-            type: 'bar',
-            height: 389,
-            foreColor: '#fff',
-            toolbar: {
-                show: false,
-            },
-        },
-        colors: ['#76B0FF', '#67CF94', '#0AD1DE'],
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'light',
-                type: "vertical",
-                shadeIntensity: 0.5,
-                gradientToColors: ['#76B0FF', '#67CF94', '#0AD1DE'],
-                inverseColors: false,
-                opacityFrom: 1,
-                opacityTo: 0.6,
-                stops: [0, 80],
-            },
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '55%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-        },
-        xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yaxis: {
-            tickAmount: 4,
-            title: {
-                text: '$ (thousands)'
-            }
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'right',
-            fontSize: '12px',
-            fontFamily: '"PT Sans", sans-serif',
-            offsetY: 0,
-            height: 60,
-            labels: {
-                colors: "#fff"
-            },
-            itemMargin: {
-                horizontal: 5,
-                vertical: 20
-            },
-            markers: {
-                width: 17,
-                height: 11,
-                radius: 0,
-            },
-        },
-        tooltip: {
-            y: {
-                formatter: function (val) {
-                    return "$ " + val + " thousands";
-                }
-            }
-        }, 
-        responsive: [{
-            breakpoint: 576,
-                options: {
-                    legend: {
-                        position: "top",
-                        horizontalAlign: 'left',
-                        height: 0,
-                        itemMargin: {
-                            horizontal: 5,
-                            vertical: 10
-                        },
-                    }
-                }
-            }
-        ],
-    };
-
-    var columnChart = new ApexCharts(document.querySelector("#apex_column-chart"), column_options);
-    columnChart.render();
+   
 
 
    /*==================================
@@ -1341,75 +1774,7 @@ $(function() {
     var radar_chart = new ApexCharts(document.querySelector("#apex_radar-chart"), radar_options);
     radar_chart.render();
 
-   /*==================================
-    13: Apex Bar Chart
-    ====================================*/
-    var bar_options = {
-        series: [{
-            data: [44, 55, 41, 64, 22]
-        }, {
-            data: [53, 32, 33, 52, 13]
-        }],
-        chart: {
-            type: 'bar',
-            height: 389,
-            foreColor: '#fff',
-            toolbar: {
-                show: false,
-            },
-        },
-        colors: ['#FFBA5A', '#8381FD'],
-        plotOptions: {
-            bar: {
-                horizontal: true,
-                dataLabels: {
-                    position: 'top',
-                },
-            }
-        },
-        dataLabels: {
-            enabled: true,
-            offsetX: -6,
-            style: {
-                fontSize: '12px',
-                colors: ['#fff']
-            }
-        },
-        stroke: {
-            show: true,
-            width: 1,
-            colors: ['#182335']
-        },
-        xaxis: {
-            categories: [2003, 2004, 2005, 2006, 2007],
-        },
-        yaxis: {
-            tickAmount: 4,
-        },
-        legend: {
-            position: 'top',
-            horizontalAlign: 'left',
-            fontSize: '12px',
-            fontFamily: '"PT Sans", sans-serif',
-            offsetY: 13,
-            offsetX: 8,
-            labels: {
-                colors: "#fff"
-            },
-            itemMargin: {
-                horizontal: 5,
-                vertical: 15
-            },
-            markers: {
-                width: 17,
-                height: 11,
-                radius: 0,
-            },
-        }
-    };
 
-    var bar_chart = new ApexCharts(document.querySelector("#apex_bar-chart"), bar_options);
-    bar_chart.render();
     
    /*==================================
     14: Apex PIE Chart

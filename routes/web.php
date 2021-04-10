@@ -42,8 +42,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
     Route::get('/peopleTable', 'PeopleController@getPeople')->name('pepleTable');
     Route::get('/peopleTableExtern', 'PeopleController@getPeople')->name('pepleTableExtern');
+    
     //-----------Graficas Diagramas
     Route::get('/dashboardCharts', 'DashboardController@dashboardCharts')->name('dashboardCharts');
+    Route::get('/dashboardPartiChartsInternoY', 'DashboardController@dashboardPartiChartsInternoY')->name('PartiCharts');
 
     //Cuidado del compañero
 
