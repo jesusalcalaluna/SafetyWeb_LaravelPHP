@@ -2,8 +2,8 @@
 <header class="header fixed-top d-flex align-content-center flex-wrap">
    <!-- Logo -->
    <div class="logo">
-      <a href="index.html" class="default-logo"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
-      <a href="index.html" class="mobile-logo"><img src="{{ asset('assets/img/mobile-logo.png')}}" alt=""></a>
+      <a href="{{ route('index') }}" class="default-logo"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+      <a href="{{ route('index') }}" class="mobile-logo"><img src="{{ asset('assets/img/mobile-logo.png')}}" alt=""></a>
    </div>
    <!-- End Logo -->
 
