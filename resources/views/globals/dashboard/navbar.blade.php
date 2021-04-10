@@ -53,9 +53,15 @@
                      </div>
                      @endif
                   @endif
+                  <ul class="nav">
+                     <li class="d-none d-lg-flex">
+                        Jesus Alcala
+                     </li>
+                  </ul>
                   
                   <!-- End Main Header Menu -->
                </div>
+               
                <!-- End Header Left -->
             </div>
             <div class="col-9 col-lg-11 col-xl-8">
