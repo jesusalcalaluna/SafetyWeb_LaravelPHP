@@ -37,7 +37,7 @@
                      <div class="d-flex justify-content-between">
                         <div class="">
                            <h4 class="mb-1">Prioridad CRITICA</h4>
-                           <p class="font-14 c3">COMPLETADAS</p>
+                           <p class="font-14 @if($porcent_critica >= 50) c3 @else soft-pink @endif">COMPLETADAS</p>
                         </div>
                         <div class="">
                            <h2>{{ $porcent_critica }}<sup>%</sup></h2>
@@ -56,7 +56,7 @@
                      <div class="d-flex justify-content-between">
                         <div class="">
                            <h4 class="mb-1">Prioridad ALTA</h4>
-                           <p class="font-14 soft-pink">COMPLETADAS</p>
+                           <p class="font-14 @if($porcent_alta >= 50) c3 @else soft-pink @endif">COMPLETADAS</p>
                         </div>
                         <div class="">
                            <h2>{{ $porcent_alta }}<sup>%</sup></h2>
@@ -75,7 +75,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="">
                            <h4 class="mb-1">Prioridad MEDIA</h4>
-                           <p class="font-14 soft-pink">COMPLETADAS</p>
+                           <p class="font-14 @if($porcent_media >= 50) c3 @else soft-pink @endif">COMPLETADAS</p>
                         </div>
                         <div class="">
                            <h2>{{ $porcent_media }}<sup>%</sup></h2>
@@ -94,7 +94,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="">
                            <h4 class="mb-1">Prioridad BAJA</h4>
-                           <p class="font-14 soft-pink">COMPLETADAS</p>
+                           <p class="font-14 @if($porcent_baja >= 50) c3 @else soft-pink @endif">COMPLETADAS</p>
                         </div>
                         <div class="">
                            <h2>{{ $porcent_baja }}<sup>%</sup></h2>
