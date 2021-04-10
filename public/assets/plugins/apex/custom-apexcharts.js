@@ -843,7 +843,6 @@ $(function() {
     }).fail(function(jqXHR,textStatus){
         clearInterval(timer);
         console.log('fallo');
-        //console.log(jqXHR);
     });
 
     /*==================================
