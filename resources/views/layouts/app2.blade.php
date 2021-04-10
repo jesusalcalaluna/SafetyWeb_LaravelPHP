@@ -14,7 +14,7 @@
 
     </head>
     <body class="homepage">
-        <h2 class="color-title-red text-center">¡PAGINA EN DESARROLLO!</h2>
+        <!--<h2 class="color-title-red text-center">¡PAGINA EN DESARROLLO!</h2> -->
             
         <!-- Preloader -->
         @include('globals.preloader')

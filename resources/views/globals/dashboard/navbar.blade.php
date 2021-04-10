@@ -53,11 +53,14 @@
                      </div>
                      @endif
                   @endif
+                  @auth
                   <ul class="nav">
                      <li class="d-none d-lg-flex">
-                        Jesus Alcala
+                        {{ Auth::user()->person->name }}
                      </li>
                   </ul>
+                  @endauth
+                  
                   
                   <!-- End Main Header Menu -->
                </div>
