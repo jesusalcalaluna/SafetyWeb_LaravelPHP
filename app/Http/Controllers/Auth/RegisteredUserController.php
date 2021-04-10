@@ -48,6 +48,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
         
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
@@ -65,10 +66,61 @@ class RegisteredUserController extends Controller
             } catch (\Throwable $th) {
                 return back()->with('error', 'Ya existe una persona con ese SAP ó ID');
             }
+            //return $request;
             try {
                 $person = People::create([
                     'name' => $request->name,
                     'sap' => $request->sap,
+                    'position' => $request->position,
+                    'companie_and_department_id' => $request->companie_and_department_id,
+                ]);
+            } catch (\Throwable $th) {
+                return back()->with('error', 'Algo salio mal al registrar la persona');
+            }
+            
+            
+        }else {
+            $person = People::where('sap', $request->sap)->first();
+        }
+        try {
+            $user = User::create([
+                'people_id' => $person->id,
+                'role_id' => $request->role_id,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Algo salio mal al registrar el usuario');
+        }
+        
+
+        return back()->with('success', 'Registro exitoso');
+    }
+    public function storeAdmin(Request $request)
+    {
+        
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+            'sap' => 'required',
+            'role_id' => 'required',
+        ]);
+        $person = [];
+
+        if ($request->name) {
+            try {
+                $request->validate([
+                    'sap' => 'required|unique:people',
+                ]);
+            } catch (\Throwable $th) {
+                return back()->with('error', 'Ya existe una persona con ese SAP ó ID');
+            }
+            //return $request;
+            try {
+                $person = People::create([
+                    'name' => $request->name,
+                    'sap' => $request->sap,
+                    'position' => $request->position,
                     'companie_and_department_id' => $request->companie_and_department_id,
                 ]);
             } catch (\Throwable $th) {

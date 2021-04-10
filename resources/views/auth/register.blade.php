@@ -133,6 +133,14 @@
                                             </div>
                                             <!-- End Form Group -->
                                         </div>
+                                        <div class="col-lg-6">
+                                            <!-- Form Group -->
+                                            <div class="form-group mb-20">
+                                                <label for="position" class="mb-2 font-14 bold">Puesto</label>
+                                                <input type="text" id="position" class="theme-input-style" placeholder="Ej. Operador" name="position" required autofocus>
+                                            </div>
+                                            <!-- End Form Group -->
+                                        </div>
     
                                         <!-- Form Group -->
                                         <input type="hidden" value="3" name="role_id">

@@ -20,6 +20,7 @@ class CheckRole
         if(Auth::user()->role->role_name == $role){
             return $next($request);
         }
+        return back()->with('error', 'No cuentas con los permisos necesarios');
         
     }
 }

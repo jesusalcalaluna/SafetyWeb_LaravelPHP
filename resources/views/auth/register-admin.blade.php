@@ -23,14 +23,10 @@
                             <li id="userPerson" class="" onclick="changue(this);">Usuario y Persona</li>
                          </ul>
                          <div id="soloUsuario">
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('registerUsers') }}">
                                 @csrf
 
                                 <div class="row">
-
-                                    
-
-    
                                     <div class="col-lg-6">
 
                                         <!-- Form Group -->
@@ -108,7 +104,7 @@
                             </form>
                          </div>
                          <div id="usuarioYPersona" style="display: none;">
-                            <form method="POST" action="{{ route('register') }}">
+                            <form method="POST" action="{{ route('registerUsers') }}">
                                 @csrf
 
                                 <div class="row">
@@ -124,9 +120,18 @@
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
-                                            <label for="sap" class="mb-2 font-14 bold">SAP</label>
-                                            <input type="text" id="sap" class="theme-input-style" placeholder="ingresa el SAP" name="sap">
+                                            <label for="sap2" class="mb-2 font-14 bold">SAP</label>
+                                            <input type="search"  oninput="selectPerson2(this)" class="theme-input-style " id="sap2" autocomplete="off" placeholder="ingresa el SAP" name="sap">
+                                            <div class="invalid-feedback" id="personName2"></div>
+                                            
                                         </div>
+                                        <datalist id="peopleList2">
+                                            @isset($people)
+                                            @foreach ($people as $item)
+                                            <option value="{{$item->sap}}" data-name ="{{$item->name}}">
+                                            @endforeach
+                                            @endisset
+                                        </datalist>
                                         <!-- End Form Group -->
                                     </div>
 
@@ -145,6 +150,14 @@
                                                     @endisset
                                                 </select>
                                             </div>
+                                        </div>
+                                        <!-- End Form Group -->
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <!-- Form Group -->
+                                        <div class="form-group mb-20">
+                                            <label for="position" class="mb-2 font-14 bold">Puesto</label>
+                                            <input type="text" id="position" class="theme-input-style" placeholder="Ej. Operador" name="position" required autofocus>
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
@@ -297,6 +310,22 @@
         }
         
     }
+    function selectPerson2() {
+            
+            
+            var val=$('#sap2').val();
+            var name = $('#peopleList2').find('option[value="'+val+'"]').data('name');
+            if (name === undefined) {
+                $('#sap2').removeClass('is-invalid')
+                $('#sap2').addClass('is-valid')
+                $("#personName2").text("");
+            }else{
+                $('#sap2').removeClass('is-valid')
+                $('#sap2').addClass('is-invalid')
+                $("#personName2").text("El sap pertenece a "+name);
+            }
+            
+        }
     function changue(selected) {
         
         if (selected.id == 'user') {

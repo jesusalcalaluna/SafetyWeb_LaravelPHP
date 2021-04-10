@@ -35,41 +35,49 @@ Route::post('/companionCare', 'CompanionCareController@writeCompanionCare')->nam
 Route::post('/search/{word}', 'UnsafeConditionsController@search');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/registerUsers', [RegisteredUserController::class, 'createAdmin'])->name('registerUsers');
 
-    Route::post('/registerUsers', [RegisteredUserController::class, 'store']);
     //Dashboard
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
-    Route::get('/peopleTable', 'PeopleController@getPeople')->name('pepleTable');
-    Route::get('/peopleTableExtern', 'PeopleController@getPeople')->name('pepleTableExtern');
+
     
     //-----------Graficas Diagramas
     Route::get('/dashboardCharts', 'DashboardController@dashboardCharts')->name('dashboardCharts');
     Route::get('/dashboardPartiChartsInternoY', 'DashboardController@dashboardPartiChartsInternoY')->name('PartiCharts');
 
-    //Cuidado del compañero
 
-    Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
 
-    //Condiciones Inseguras
 
-    Route::get('/UnsafeConditions', 'UnsafeConditionsController@readUnsafeConditions')->name('getUnsafeConditions');
-    Route::post('/updateUnsafeCondition', 'UnsafeConditionsController@updateUnsafeConditions')->name('updateUnsafeCondition');
-    Route::get('/UnsafeConditions/{id}', 'UnsafeConditionsController@readUnsafeConditionDetails')->name('unsafeConditionDetails');
-    Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
 
     //Usuarios y Personal
     Route::get('/updateperson/{id}', 'PeopleController@updatePersonForm')->name('updateperson');
     Route::post('/updateperson', 'UserController@updatePerson')->name('updateper');
     Route::post('/updateUser', 'UserController@updateUser')->name('updateuser');
     Route::post('/updateUserPass', 'UserController@updatePass')->name('updateuserpass');
-    Route::get('/newPersonExtern', 'PeopleController@createPersonForm')->name('newPersonFormExtern');
-    Route::post('/newPersonExtern', 'PeopleController@createPersonExtern')->name('newPersonExtern');
-    Route::get('/newPerson', 'PeopleController@createPersonForm')->name('newPersonForm');
-    Route::post('/newPerson', 'PeopleController@createPerson')->name('newPerson');
 
-    Route::group(['middleware' => ['checkpuesto:ADMINISTRACIÓN']], function (){
-        
+
+    Route::group(['middleware' => ['checkRole:ADMINISTRADOR']], function (){
+        Route::get('/registerUsers', [RegisteredUserController::class, 'createAdmin'])->name('registerUsers');
+
+        Route::post('/registerUsers', [RegisteredUserController::class, 'storeAdmin']);
+        //registrar personal
+        Route::get('/newPersonExtern', 'PeopleController@createPersonForm')->name('newPersonFormExtern');
+        Route::post('/newPersonExtern', 'PeopleController@createPersonExtern')->name('newPersonExtern');
+        Route::get('/newPerson', 'PeopleController@createPersonForm')->name('newPersonForm');
+        Route::post('/newPerson', 'PeopleController@createPerson')->name('newPerson');
+            
+        //Condiciones Inseguras
+
+        Route::get('/UnsafeConditions', 'UnsafeConditionsController@readUnsafeConditions')->name('getUnsafeConditions');
+        Route::post('/updateUnsafeCondition', 'UnsafeConditionsController@updateUnsafeConditions')->name('updateUnsafeCondition');
+        Route::get('/UnsafeConditions/{id}', 'UnsafeConditionsController@readUnsafeConditionDetails')->name('unsafeConditionDetails');
+        Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
+
+        Route::get('/peopleTable', 'PeopleController@getPeople')->name('pepleTable');
+        Route::get('/peopleTableExtern', 'PeopleController@getPeople')->name('pepleTableExtern');
+
+        //Cuidado del compañero
+
+        Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
     });
 });
 
