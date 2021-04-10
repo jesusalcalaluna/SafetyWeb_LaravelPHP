@@ -21,6 +21,26 @@ class UnsafeConditionsController extends Controller
     }
 
     public function writeUnsafeConditions(Request $request){
+        try {
+            $request->validate([
+                'condition_detected' => 'required',
+                'type_condition_id' => 'required',
+                'detection_origin' => 'required',
+                'deadline' => 'required',
+                'department_id' => 'required',
+                'responsable_id' => 'required',
+                'area' => 'required',
+                'probability' => 'required',
+                'impact' => 'required',
+                'frequency' => 'required',
+                'scope' => 'required',
+                'notice_number' => 'required',
+                'sap' => 'required',
+            ]);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Falta un campo por llenar');
+        }
+        
         
         $person = People::where('sap', $request->sap)->first();
         
@@ -48,24 +68,29 @@ class UnsafeConditionsController extends Controller
             $risk_type = "RIESGO MUY ALTO";
             $attention_priority = "CRÍTICA";  
         }
-        $unsafeCondition = Unsafe_conditions_record::create([
-            'condition_detected' => $request->condition_detected,
-            'type_condition_id' => $request->type_condition_id,
-            'detection_origin' => $request->detection_origin,
-            'deadline' => $request->deadline,
-            'department_id' => $request->department_id,
-            'responsable_id' => $request->responsable_id,
-            'area' => $request->area,
-            'probability' => $request->probability,
-            'impact' => $request->impact,
-            'frequency' => $request->frequency,
-            'risk' => $risk,
-            'risk_type' => $risk_type,
-            'attention_priority' => $attention_priority,
-            'scope' => $request->scope,
-            'notice_number' => $request->notice_number,
-            'person_id' => $person->id,
-        ]);
+        try {
+            $unsafeCondition = Unsafe_conditions_record::create([
+                'condition_detected' => $request->condition_detected,
+                'type_condition_id' => $request->type_condition_id,
+                'detection_origin' => $request->detection_origin,
+                'deadline' => $request->deadline,
+                'department_id' => $request->department_id,
+                'responsable_id' => $request->responsable_id,
+                'area' => $request->area,
+                'probability' => $request->probability,
+                'impact' => $request->impact,
+                'frequency' => $request->frequency,
+                'risk' => $risk,
+                'risk_type' => $risk_type,
+                'attention_priority' => $attention_priority,
+                'scope' => $request->scope,
+                'notice_number' => $request->notice_number,
+                'person_id' => $person->id,
+            ]);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Algo salio mal, intentalo de nuevo.');
+        }
+        
         return back()->with('success', 'Registro exitoso');
     }
 

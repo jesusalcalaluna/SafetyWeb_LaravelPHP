@@ -58,26 +58,38 @@ class RegisteredUserController extends Controller
         $person = [];
 
         if ($request->name) {
-            $request->validate([
-                'sap' => 'required|unique:people',
-            ]);
-            $person = People::create([
-                'name' => $request->name,
-                'sap' => $request->sap,
-                'companie_and_department_id' => $request->companie_and_department_id,
-            ]);
+            try {
+                $request->validate([
+                    'sap' => 'required|unique:people',
+                ]);
+            } catch (\Throwable $th) {
+                return back()->with('error', 'Ya existe una persona con ese SAP ó ID');
+            }
+            try {
+                $person = People::create([
+                    'name' => $request->name,
+                    'sap' => $request->sap,
+                    'companie_and_department_id' => $request->companie_and_department_id,
+                ]);
+            } catch (\Throwable $th) {
+                return back()->with('error', 'Algo salio mal al registrar la persona');
+            }
+            
             
         }else {
             $person = People::where('sap', $request->sap)->first();
         }
+        try {
+            $user = User::create([
+                'people_id' => $person->id,
+                'role_id' => $request->role_id,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Algo salio mal al registrar el usuario');
+        }
         
-
-        $user = User::create([
-            'people_id' => $person->id,
-            'role_id' => $request->role_id,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
 
         return back()->with('success', 'Registro exitoso');
     }

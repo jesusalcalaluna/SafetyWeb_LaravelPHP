@@ -165,8 +165,8 @@
                                     <!-- End Form Group -->
 
                                     <div class="button-group mt-30">
-                                        <button type="submit" class="btn">Save Changes</button>
-                                        <button type="button" class="link-btn bg-transparent ml-3 soft-pink">Cancel</button>
+                                        <button type="submit" class="btn">Guardar cambios</button>
+                                        <button type="button" class="link-btn bg-transparent ml-3 soft-pink">Cancelar</button>
                                     </div>
                                 </form>
                             </div>
