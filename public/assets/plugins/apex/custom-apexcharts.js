@@ -528,29 +528,28 @@ $(function() {
         var bar_chart2 = new ApexCharts(document.querySelector("#apex_bar-chart2"), bar_options2);
         bar_chart2.render();
 
-        var bar_chart = new ApexCharts(document.querySelector("#apex_bar-chart"), bar_options);
-        bar_chart.render();
-
-        var bar_options1 = {
+        var bar_optionsExterno = {
             series: [{
                 data: [
-                    response.Interno.PartiM[0],
-                    response.Interno.PartiM[1],
-                    response.Interno.PartiM[2],
-                    response.Interno.PartiM[3],
-                    response.Interno.PartiM[4],
-                    response.Interno.PartiM[5],
-                    response.Interno.PartiM[6],
-                    response.Interno.PartiM[7],
-                    response.Interno.PartiM[8],
-                    response.Interno.PartiM[9],
-                    response.Interno.PartiM[10],
-                    response.Interno.PartiM[11],
-                    response.Interno.PartiM[12],
-                    response.Interno.PartiM[13],
-                    response.Interno.PartiM[14],
-                    response.Interno.PartiM[15],
-                    response.Interno.PartiM[16],
+                    response.Externo.PartiY[0],
+                    response.Externo.PartiY[1],
+                    response.Externo.PartiY[2],
+                    response.Externo.PartiY[3],
+                    response.Externo.PartiY[4],
+                    response.Externo.PartiY[5],
+                    response.Externo.PartiY[6],
+                    response.Externo.PartiY[7],
+                    response.Externo.PartiY[8],
+                    response.Externo.PartiY[9],
+                    response.Externo.PartiY[10],
+                    response.Externo.PartiY[11],
+                    response.Externo.PartiY[12],
+                    response.Externo.PartiY[13],
+                    response.Externo.PartiY[14],
+                    response.Externo.PartiY[15],
+                    response.Externo.PartiY[16],
+                    response.Externo.PartiY[17],
+                    response.Externo.PartiY[18],
                 ]
             }],
             chart: {
@@ -585,7 +584,24 @@ $(function() {
             },
             xaxis: {
                 type:'category',
-                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+                categories: ['BRITE', 
+                'FEMOSA', 
+                'SALN', 
+                'SGM', 
+                'ECOLAB', 
+                'NALCO', 
+                'L&M', 
+                'MBSA (Montajes Bocanegra)', 
+                'J. Lopéz',
+                'JPAP',
+                'R. Quiroz',
+                'FUMYCA',
+                'kitchen (comedor)',
+                'C&H','MATRESA',
+                'Practicante',
+                'Visita', 
+                'Proyectos', 
+                'Transportista'],
             },
             yaxis: {
                 tickAmount: 4,
@@ -613,29 +629,31 @@ $(function() {
             }
         };
 
-        var bar_chart1 = new ApexCharts(document.querySelector("#apex_bar-chart1"), bar_options1);
-        bar_chart1.render();
+        var bar_chartExterno = new ApexCharts(document.querySelector("#apex_bar-chartExterno"), bar_optionsExterno);
+        bar_chartExterno.render();
 
-        var bar_options2 = {
+        var bar_optionsExterno1 = {
             series: [{
                 data: [
-                    response.Interno.PartiD[0],
-                    response.Interno.PartiD[1],
-                    response.Interno.PartiD[2],
-                    response.Interno.PartiD[3],
-                    response.Interno.PartiD[4],
-                    response.Interno.PartiD[5],
-                    response.Interno.PartiD[6],
-                    response.Interno.PartiD[7],
-                    response.Interno.PartiD[8],
-                    response.Interno.PartiD[9],
-                    response.Interno.PartiD[10],
-                    response.Interno.PartiD[11],
-                    response.Interno.PartiD[12],
-                    response.Interno.PartiD[13],
-                    response.Interno.PartiD[14],
-                    response.Interno.PartiD[15],
-                    response.Interno.PartiD[16],
+                    response.Externo.PartiY[0],
+                    response.Externo.PartiY[1],
+                    response.Externo.PartiY[2],
+                    response.Externo.PartiY[3],
+                    response.Externo.PartiY[4],
+                    response.Externo.PartiY[5],
+                    response.Externo.PartiY[6],
+                    response.Externo.PartiY[7],
+                    response.Externo.PartiY[8],
+                    response.Externo.PartiY[9],
+                    response.Externo.PartiY[10],
+                    response.Externo.PartiY[11],
+                    response.Externo.PartiY[12],
+                    response.Externo.PartiY[13],
+                    response.Externo.PartiY[14],
+                    response.Externo.PartiY[15],
+                    response.Externo.PartiY[16],
+                    response.Externo.PartiY[17],
+                    response.Externo.PartiY[18],
                 ]
             }],
             chart: {
@@ -670,7 +688,24 @@ $(function() {
             },
             xaxis: {
                 type:'category',
-                categories: ['AGUAS-AMB', 'CALIDAD', 'COCIMIENTOS', 'CUARTOS FRIOS', 'ENVASADO LIDERAZGO', 'ENVASADO LÍNEA #1', 'ENVASADO LÍNEA #2 & 3', 'ENVASADO LÍNEA #4', 'FINANZAS','GENTE Y GESTION','GERENCIA','LOGÍSTICA','MTTO GENERAL','PROTECCIÓN PATRIMONIAL','PROYECTOS','SEGURIDAD Y SALUD','SERVICIO Y ENERGIA'],
+                categories: ['BRITE', 
+                'FEMOSA', 
+                'SALN', 
+                'SGM', 
+                'ECOLAB', 
+                'NALCO', 
+                'L&M', 
+                'MBSA (Montajes Bocanegra)', 
+                'J. Lopéz',
+                'JPAP',
+                'R. Quiroz',
+                'FUMYCA',
+                'kitchen (comedor)',
+                'C&H','MATRESA',
+                'Practicante',
+                'Visita', 
+                'Proyectos', 
+                'Transportista'],
             },
             yaxis: {
                 tickAmount: 4,
@@ -698,8 +733,112 @@ $(function() {
             }
         };
 
-        var bar_chart2 = new ApexCharts(document.querySelector("#apex_bar-chart2"), bar_options2);
-        bar_chart2.render();
+        var bar_chartExterno1 = new ApexCharts(document.querySelector("#apex_bar-chartExterno1"), bar_optionsExterno1);
+        bar_chartExterno1.render();
+
+        var bar_optionsExterno2 = {
+            series: [{
+                data: [
+                    response.Externo.PartiY[0],
+                    response.Externo.PartiY[1],
+                    response.Externo.PartiY[2],
+                    response.Externo.PartiY[3],
+                    response.Externo.PartiY[4],
+                    response.Externo.PartiY[5],
+                    response.Externo.PartiY[6],
+                    response.Externo.PartiY[7],
+                    response.Externo.PartiY[8],
+                    response.Externo.PartiY[9],
+                    response.Externo.PartiY[10],
+                    response.Externo.PartiY[11],
+                    response.Externo.PartiY[12],
+                    response.Externo.PartiY[13],
+                    response.Externo.PartiY[14],
+                    response.Externo.PartiY[15],
+                    response.Externo.PartiY[16],
+                    response.Externo.PartiY[17],
+                    response.Externo.PartiY[18],
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 389,
+                foreColor: '#fff',
+                toolbar: {
+                    show: false,
+                },
+            },
+            colors: ['#8381FD'],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#182335']
+            },
+            xaxis: {
+                type:'category',
+                categories: ['BRITE', 
+                'FEMOSA', 
+                'SALN', 
+                'SGM', 
+                'ECOLAB', 
+                'NALCO', 
+                'L&M', 
+                'MBSA (Montajes Bocanegra)', 
+                'J. Lopéz',
+                'JPAP',
+                'R. Quiroz',
+                'FUMYCA',
+                'kitchen (comedor)',
+                'C&H','MATRESA',
+                'Practicante',
+                'Visita', 
+                'Proyectos', 
+                'Transportista'],
+            },
+            yaxis: {
+                tickAmount: 4,
+
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontSize: '12px',
+                fontFamily: '"PT Sans", sans-serif',
+                offsetY: 13,
+                offsetX: 8,
+                labels: {
+                    colors: "#fff"
+                },
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 15
+                },
+                markers: {
+                    width: 17,
+                    height: 11,
+                    radius: 0,
+                },
+            }
+        };
+
+        var bar_chartExterno2 = new ApexCharts(document.querySelector("#apex_bar-chartExterno2"), bar_optionsExterno2);
+        bar_chartExterno2.render();
 
     }).fail(function(jqXHR,textStatus){
         clearInterval(timer);

@@ -616,7 +616,7 @@ li.dropdown i.fa.dropdown-toggle {
 /* --------------- BreadCrumb --------------- */
 
 .page-title {
-    background: url('../images/page_title_bg.png') no-repeat left center;
+    background: url('/images/page_title_bg.png') no-repeat left center;
     background-size: cover;
     padding: 70px 0;
 }
@@ -700,14 +700,14 @@ li.dropdown i.fa.dropdown-toggle {
 .flex-direction-nav a:before {
     content: " ";
     display: block;
-    background: url('../images/arrow-left.png') no-repeat;
+    background: url('/images/arrow-left.png') no-repeat;
     width: 54px;
     height: 100px;
 }
 
 .flex-direction-nav a.flex-next:before {
     content: " ";
-    background: url('../images/arrow-right.png') no-repeat;
+    background: url('/images/arrow-right.png') no-repeat;
 }
 
 .flex-control-nav {
@@ -1527,14 +1527,14 @@ span.date {
 }
 
 .blog-slide .flex-direction-nav a:before {
-    background: url('../images/blog-arrow-left.png') no-repeat;
+    background: url('/images/blog-arrow-left.png') no-repeat;
     width: 32px;
     height: 49px;
 }
 
 .blog-slide .flex-direction-nav a.flex-next:before {
     content: " ";
-    background: url('../images/blog-arrow-right.png') no-repeat;
+    background: url('/images/blog-arrow-right.png') no-repeat;
 }
 
 .blog-slide:hover .flex-direction-nav .flex-prev {
@@ -3333,14 +3333,14 @@ section.services-highlights {
 }
 
 .service-slider .flex-direction-nav a:before {
-    background: url('../images/service-arrow-left.png') no-repeat;
+    background: url('/images/service-arrow-left.png') no-repeat;
     width: 32px;
     height: 49px;
 }
 
 .service-slider .flex-direction-nav a.flex-next:before {
     content: " ";
-    background: url('../images/service-arrow-right.png') no-repeat;
+    background: url('/images/service-arrow-right.png') no-repeat;
 }
 
 .service-slider:hover .flex-direction-nav .flex-prev {
@@ -3418,7 +3418,7 @@ section.services-highlights {
     overflow: hidden;
     text-indent: 100%;
     white-space: nowrap;
-    background: #00A3EF url(../images/cd-top-arrow.svg) no-repeat center 50%;
+    background: #00A3EF url(/images/cd-top-arrow.svg) no-repeat center 50%;
     visibility: hidden;
     opacity: 0;
     -webkit-transition: opacity .3s 0s, visibility 0s .3s;
