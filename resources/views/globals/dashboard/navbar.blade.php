@@ -26,8 +26,9 @@
                   </a>
                   
                   <div class="dropdown-menu">
+                     <a href="{{ route('index') }}">Inicio</a>
                      @if (Auth::user())
-                     <a href="{{ route('updateperson', [Auth::user()->id]) }}">My Profile</a>
+                     <a href="{{ route('updateperson', [Auth::user()->id]) }}">Mi Perfil</a>
                      <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();">Cerrar sesión</a>
@@ -53,14 +54,6 @@
                      </div>
                      @endif
                   @endif
-                  @auth
-                  <ul class="nav">
-                     <li class="d-none d-lg-flex">
-                        {{ Auth::user()->person->name }}
-                     </li>
-                  </ul>
-                  @endauth
-                  
                   
                   <!-- End Main Header Menu -->
                </div>
@@ -72,33 +65,10 @@
                <div class="main-header-right d-flex justify-content-end">
                   <ul class="nav">
                      
-                     
-                     <li class="d-none d-lg-flex">
-                        <!-- Main Header Time -->
-                        <div class="main-header-date-time text-right">
-                           <h3 class="time">
-                              <span id="hours">21</span>
-                              <span id="point">:</span>
-                              <span id="min">06</span>
-                           </h3>
-                           <span class="date"><span id="date">Tue, 12 October 2019</span></span>
-                        </div>
-                        <!-- End Main Header Time -->
-                     </li>
-                     
                      <li class="order-2 order-sm-0">
-                        <!-- Main Header Search -->
-                        <div class="main-header-search">
-                           <form action="#" class="search-form">
-                              <div class="theme-input-group header-search">
-                                 <input type="text" class="theme-input-style" placeholder="Search Here">
-
-                                 <button type="submit"><img src="{{ asset('assets/img/svg/search-icon.svg') }}" alt=""
-                                       class="svg"></button>
-                              </div>
-                           </form>
-                        </div>
-                        <!-- End Main Header Search -->
+                        @auth
+                        {{ Auth::user()->person->name }}
+                        @endauth
                      </li>
                      
                   </ul>
