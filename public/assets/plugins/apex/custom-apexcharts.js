@@ -16,7 +16,7 @@ $(function() {
         method:"GET",
         url: $('.ruta').attr('href'),
     }).done(function(response){
-        console.log(response);
+        
 
         /*==================================
         01: Apex Area Chart
