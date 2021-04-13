@@ -94,9 +94,8 @@
                     <label for="corr_prev_pos" class="mb-2 bold d-block">Tipo de Comportamiento</label>
                     <div class="custom-select style--two">
                         <select class="theme-input-style" onChange="selectChangeComportamiento(this);" id="corr_prev_pos" name="corr_prev_pos">
-                            <option value="CORRECTIVO" >CORRECTIVO</option>
-                            <option value="PREVENTIVO" >PREVENTIVO</option>
-                            <option value="POSITIVO" >POSITIVO</option>
+                            <option value="COMPORTAMIENTO INSEGURO" >COMPORTAMIENTO INSEGURO</option>
+                            <option value="COMPORTAMIENTO SEGURO" >COMPORTAMIENTO SEGURO</option>
                         </select>
                     </div>
                 </div>

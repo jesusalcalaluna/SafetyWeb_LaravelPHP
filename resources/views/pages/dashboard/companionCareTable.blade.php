@@ -48,7 +48,7 @@
                                 <td>{{$item->shift_supervisor}}</td>
                                 <td>{{$item->turn}}</td>
                                 <td>{{$item->description}}</td>
-                                <td class="@if($item->corr_prev_pos == "CORRECTIVO") bg-danger @endif @if($item->corr_prev_pos == "PREVENTIVO") bg-warning text-dark @endif @if($item->corr_prev_pos == "POSITIVO") bg-success @endif">{{$item->corr_prev_pos}}</td>
+                                <td class="@if($item->corr_prev_pos == "COMPORTAMIENTO INSEGURO") bg-danger @endif @if($item->corr_prev_pos == "COMPORTAMIENTO SEGURO") bg-success @endif">{{$item->corr_prev_pos}}</td>
 
                                 <td>{{$item->behavior_group[0]->group_name}}</td>
                                 <td>{{$item->acts_types[0]->type_name}}</td>
