@@ -177,7 +177,7 @@
                 <!-- Form Group Area -->
                 <div class="form-group mb-4">
                     <label for="area" class="mb-2 bold">Area</label>
-                    <input type="text" class="theme-input-style" id="area" placeholder="Nombre del Compañero cuidado" name="area">
+                    <input type="text" class="theme-input-style" id="area" placeholder="Nombre del area..." name="area">
                 </div>
                 <!-- End Form Group -->
 
