@@ -28,31 +28,47 @@ class CompanionCareController extends Controller
 
     public function writeCompanionCare(Request $request){
         
-        //dd($request);
-        DB::table('companion_care_records')->insert([
-            'companion_to_care'=> $request->companion_to_care,
-            'company_department_id' => $request->company_department_id,
-            'position_id' => $request->position_id,
+        
+        if($request->acts_types_id){
+            DB::table('companion_care_records')->insert([
+                'companion_to_care_id'=> $request->companion_to_care_id,
+    
+                'turn' => $request->turn,
+                'shift_supervisor' => $request->shift_supervisor,
+                'description' => $request->description,
+                'corr_prev_pos' => $request->corr_prev_pos,
+    
+                'behavior_group_id' => $request->behavior_group_id,
+                'acts_types_id' => $request->acts_types_id,
+                
+                'sif' => $request->sif,
+                'gold_rules_id' => $request->gold_rules_id,
+    
+                'detection_source' => $request->detection_source,
+                'department_where_happens_id' => $request->department_where_happens_id,
+                'specific_area' => $request->specific_area,
+                'people_id' => $request->people_id,
+            ]);
+        }else {
+            DB::table('companion_care_records')->insert([
+                'companion_to_care_id'=> $request->companion_to_care_id,
+    
+                'turn' => $request->turn,
+                'shift_supervisor' => $request->shift_supervisor,
+                'description' => $request->description,
+                'corr_prev_pos' => $request->corr_prev_pos,
+    
+                'behavior_group_id' => $request->behavior_group_id,
+    
+                'detection_source' => $request->detection_source,
+                'department_where_happens_id' => $request->department_where_happens_id,
+                'specific_area' => $request->specific_area,
+                'people_id' => $request->people_id,
+            ]);
+        }
+        
 
-            'turn' => $request->turn,
-            'shift_supervisor' => $request->shift_supervisor,
-            'description' => $request->description,
-            'corr_prev_pos' => $request->corr_prev_pos,
-
-            'behavior_group_id' => $request->behavior_group_id,
-            'acts_types_id' => $request->acts_types_id,
-            
-            'sif' => $request->sif,
-            'gold_rules_id' => $request->gold_rules_id,
-
-            'detection_source' => $request->detection_source,
-            'department_where_happens_id' => $request->department_where_happens_id,
-            'specific_area' => $request->specific_area,
-            'informant_department_company_id' => $request->informant_department_company_id,
-            'people_id' => $request->people_id,
-        ]);
-
-        return redirect(route('index'));
+        return back()->with('success', 'Registro exitoso');
     }
 
     public function readCompanionCare(){
@@ -70,6 +86,6 @@ class CompanionCareController extends Controller
     }
 
     public function updateCompanionCare(){
-
+        return "";
     }
 }

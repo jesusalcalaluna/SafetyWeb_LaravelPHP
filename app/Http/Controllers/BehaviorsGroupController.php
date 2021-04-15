@@ -20,10 +20,10 @@ class BehaviorsGroupController extends Controller
     }
 
     public function readBehaviorGroup(){
-
+        return "";
     }
 
     public function updateBehaviorGroup(){
-
+        return "";
     }
 }

@@ -15,10 +15,8 @@ class CreateCompanionCareRecordsTable extends Migration
     {
         Schema::create('companion_care_records', function (Blueprint $table) {
             $table->id();
-            $table->string('companion_to_care');
-            
-            $table->unsignedBigInteger('company_department_id');
-            $table->foreign('company_department_id')->references('id')->on('companies_and_departments');
+            $table->unsignedBigInteger('companion_to_care_id');
+            $table->foreign('companion_to_care_id')->references('id')->on('people');
 
             $table->string('turn');
             $table->string('shift_supervisor');
@@ -38,8 +36,7 @@ class CreateCompanionCareRecordsTable extends Migration
             $table->unsignedBigInteger('department_where_happens_id');
             $table->foreign('department_where_happens_id')->references('id')->on('companies_and_departments');
             $table->string('specific_area');
-            $table->unsignedBigInteger('informant_department_company_id');
-            $table->foreign('informant_department_company_id')->references('id')->on('companies_and_departments');
+
             $table->unsignedBigInteger('people_id');
             $table->foreign('people_id')->references('id')->on('people');
             $table->timestamps();
