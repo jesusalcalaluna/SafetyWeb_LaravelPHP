@@ -239,7 +239,7 @@
                 <!-- Button Group -->
                 <div class="button-group pt-2">
                     <button type="submit" class="btn long">Registrar</button>
-                    <button type="reset" class="link-btn bg-transparent ml-3 soft-pink">Cancelar</button>
+                    <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                 </div>
                 <!-- End Button Group -->
             </form>

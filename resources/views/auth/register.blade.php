@@ -3,6 +3,7 @@
 @endsection
 
 @section('navbar')
+    @include('globals.dashboard.navbar')
 @endsection
 @section('clear.content')
 
@@ -81,6 +82,7 @@
                                     <div class="d-flex align-items-center pt-4">
                                         <button type="submit" class="btn long mr-20">Registrar</button>
                                         <a href="#start" id="userPerson" class="font-12 text_color" onclick="changue(this);">¿No se encuentra tu SAP o ID?</a>
+                                        <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                                     </div>
                                 </form>
                              </div>
@@ -179,7 +181,9 @@
         
                                     <div class="d-flex align-items-center pt-4">
                                         <button type="submit" class="btn long mr-20">Registrar</button>
+                                        
                                         <a href="#start" id="user" class="font-12 text_color" onclick="changue(this);">¿Tu SAP o ID ya esta registrado?</a>
+                                        <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                                     </div>
                                 </form>
                              </div>

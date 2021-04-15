@@ -1,4 +1,7 @@
 @extends('layouts.app_dashboard')
+@section('navbar')
+    @include('globals.dashboard.navbar')
+@endsection
 @section('clear.content')
 <div class="mn-vh-100 d-flex align-items-center">
     <div class="container">
@@ -42,6 +45,7 @@
 
                         <div class="d-flex align-items-center">
                             <button type="submit" class="btn long mr-20">Iniciar Sesión</button>
+                            <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                         </div>
                     </form>
                 </div>                                    
