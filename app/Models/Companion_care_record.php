@@ -15,9 +15,7 @@ class Companion_care_record extends Model
      * @var array
      */
     protected $fillable = [
-            'companion_to_care',
-            'company_department_id',
-            'position_id',
+            'companion_to_care_id',
             'turn',
             'shift_supervisor',
             'description',
@@ -33,19 +31,14 @@ class Companion_care_record extends Model
             'people_id',
         ];
 
-    public function company_department(){
+    public function companionToCare(){
 
-        return $this->hasMany(Companies_and_departments::class, 'id', 'company_department_id');
+        return $this->hasMany(People::class, 'id', 'companion_to_care_id');
     }
 
     public function behavior_group(){
 
         return $this->hasMany(Behaviors_group::class, 'id', 'behavior_group_id');
-    }
-
-    public function position(){
-
-        return $this->hasMany(Position::class, 'id', 'position_id');
     }
 
     public function acts_types(){
@@ -62,11 +55,6 @@ class Companion_care_record extends Model
     public function department_where_happens(){
 
         return $this->hasMany(Companies_and_departments::class, 'id', 'department_where_happens_id');
-    }
-
-    public function informant_department_company(){
-
-        return $this->hasMany(Companies_and_departments::class, 'id', 'informant_department_company_id');
     }
 
     public function people(){
