@@ -39,7 +39,6 @@
                                 <label for="remember_me" class="font-14">Recordarme</label>
                             </div>
                             
-                            <a href="{{ route('register') }}" class="font-12 text_color">¿Aun no estas registrado?</a>
                             
                         </div>
 

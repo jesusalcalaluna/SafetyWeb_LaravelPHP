@@ -17,7 +17,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if(Auth::user()->role->role_name == $role){
+        if(Auth::user()->role->role_name == $role || Auth::user()->role->role_name == "ADMINISTRADOR"){
+            return $next($request);
+        }
+        elseif (Auth::user()->role->role_name == $role) {
             return $next($request);
         }
         return back()->with('error', 'No cuentas con los permisos necesarios');

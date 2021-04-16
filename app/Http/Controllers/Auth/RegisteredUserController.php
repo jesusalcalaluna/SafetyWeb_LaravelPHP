@@ -96,6 +96,7 @@ class RegisteredUserController extends Controller
 
         return back()->with('success', 'Registro exitoso');
     }
+    
     public function storeAdmin(Request $request)
     {
         
