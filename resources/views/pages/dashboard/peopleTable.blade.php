@@ -39,57 +39,60 @@
                     <table class="text-nowrap dh-table" id="table">
                         <thead>
                             <tr>
-                                <th>@if(Route::current()->getName() == 'pepleTable')SAP @else ID @endif</th>
+                                <th>SAP</th>
                                 <th>Nombre </th>
-                                <th>@if(Route::current()->getName() == 'pepleTable')Departamento @else Compañia @endif</th>
+                                <th>Puesto</th>
+                                @if (Auth::user()->role->role_name == "ADMINISTRADOR") <th >Departamento</th> @else <th hidden> </th> @endif
                                 <th>Accion </th>
                             </tr>
                         </thead>
                         <tbody>
                             @isset($people)
                             @foreach ($people as $item)
-                            @if (Route::current()->getName() == 'pepleTable' && $item->company_and_department->origin == "INTERNO")
+                            @if (Auth::user()->role->role_name == "ADMINISTRADOR")
                             <tr>
                                 <td>{{$item->sap}}</td>
                                 <td>{{$item->name}}</td>
+                                <td>{{$item->position}}</td>
                                 <td>{{$item->company_and_department->name}}</td>
                                 <td>
                                     <!-- Edit Invoice Button -->
                                     <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
-                   
+                
                                         <!-- Edit Invoice Button -->
                                         <div class="edit-invoice-btn pr-1">
-                                           <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
-                                              <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
-                                           </a>
+                                        <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
+                                            <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
+                                        </a>
                                         </div>
                                         <!-- End Edit Invoice Button -->
-                                     </div>
+                                    </div>
                                 </td>
                             </tr>
-                            @endif
-                            @if (Route::current()->getName() == 'pepleTableExtern' && $item->company_and_department->origin == "EXTERNO")
-                            <tr>
-                                <td>{{$item->sap}}</td>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->company_and_department->name}}</td>
-                                <td>
-                                    <!-- Edit Invoice Button -->
-                                    <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
-                   
+                            @else
+                                @if(Auth::user()->person->company_and_department->id ==  $item->company_and_department->id)
+                                <tr>
+                                    <td>{{$item->sap}}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->position}}</td>
+                                    <td hidden>{{$item->company_and_department->name}}</td>
+                                    <td>
                                         <!-- Edit Invoice Button -->
-                                        <div class="edit-invoice-btn pr-1">
-                                           <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
-                                              <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
-                                           </a>
+                                        <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
+                    
+                                            <!-- Edit Invoice Button -->
+                                            <div class="edit-invoice-btn pr-1">
+                                            <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
+                                                <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
+                                            </a>
+                                            </div>
+                                            <!-- End Edit Invoice Button -->
                                         </div>
-                                        <!-- End Edit Invoice Button -->
-                                     </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                                @endif      
                             @endif
-                            
-                            
+                                                 
                             @endforeach
                             @endisset
                         </tbody>

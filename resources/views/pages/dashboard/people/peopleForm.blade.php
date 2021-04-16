@@ -31,21 +31,21 @@
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
                                                 <label for="name" class="mb-2 font-14 bold">Name</label>
-                                                <input type="text" id="name" class="theme-input-style" placeholder="Type Here" name="name">
+                                                <input type="text" id="name" class="theme-input-style" placeholder="Nombre de la persona..." name="name">
                                             </div>
                                             <!-- End Form Group -->
-                                            @if (Route::current()->getName() == 'newPersonForm')
+                                            
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
                                                 <label for="sap" class="mb-2 font-14 bold">SAP</label>
-                                                <input type="text" id="sap" class="theme-input-style" placeholder="Type Here" name="sap">
+                                                <input type="text" id="sap" class="theme-input-style" placeholder="Si es Externo deja vacio este campo..." name="sap">
                                             </div>
                                             <!-- End Form Group -->
-                                            @endif
+                                            
                                             <!-- Form Group -->
                                             <div class="form-group mb-20">
                                                 <label for="position" class="mb-2 font-14 bold">Puesto</label>
-                                                <input type="text" id="position" class="theme-input-style" placeholder="Type Here" name="position">
+                                                <input type="text" id="position" class="theme-input-style" placeholder="Nombre del puesto de la persona..." name="position">
                                             </div>
                                             <!-- End Form Group -->
                                             <!-- Form Group Department -->
@@ -55,11 +55,12 @@
                                                     <select class="theme-input-style" id="companie_and_department_id" name="companie_and_department_id">
                                                         @isset($departments)
                                                         @foreach ($departments as $item)
-                                                        @if(Route::current()->getName() == 'newPersonForm' && $item->origin == "INTERNO")
+                                                        @if (Auth::user()->role->role_name == "ADMINISTRADOR")
+                                                        <option value="{{$item->id}}" >{{$item->name}}</option>
+                                                        @else
+                                                        @if(Auth::user()->person->company_and_department->id == $item->id)
                                                         <option value="{{$item->id}}" >{{$item->name}}</option>
                                                         @endif
-                                                        @if(Route::current()->getName() == 'newPersonFormExtern' && $item->origin == "EXTERNO")
-                                                        <option value="{{$item->id}}" >{{$item->name}}</option>
                                                         @endif
                                                         @endforeach
                                                         @endisset
@@ -73,7 +74,7 @@
                                         <div class="col-lg-12">
                                             <div class="button-group mt-30 mt-xl-n5">
                                                 <button type="submit" class="btn">Guardar</button>
-                                                <button type="reset" class="link-btn bg-transparent ml-3 soft-pink">Cancelar</button>
+                                                <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                                             </div>
                                         </div>
                                     </div>
