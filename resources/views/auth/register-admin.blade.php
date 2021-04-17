@@ -268,7 +268,7 @@
                    
                                         <!-- Edit Invoice Button -->
                                         <div class="edit-invoice-btn pr-1">
-                                           <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
+                                           <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
                                               <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
                                            </a>
                                         </div>
