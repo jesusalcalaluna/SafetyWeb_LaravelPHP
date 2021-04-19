@@ -14,22 +14,60 @@
             <form action="{{ route('companionCare')}}" method="POST">
                 @csrf
 
-                <!-- Form Group -->
-                <div class="form-group mb-20">
-                    <label for="companionCareSAP" class="mb-2 font-14 bold">Compañero cuidado</label>
-                    <input type="search"  oninput="selectCompanionCare(this)" class="theme-input-style " id="companionCareSAP" autocomplete="off" placeholder="SAP/ID del Compañero cuidado" name="companion_to_care_id">
-                    <div class="valid-feedback" id="companionCareName">
-                        
+                <!-- Form Group
+                    <div class="form-group mb-20">
+                        <label for="companionCareSAP" class="mb-2 font-14 bold">Compañero cuidado</label>
+                        <input type="search"  oninput="selectCompanionCare(this)" class="theme-input-style " id="companionCareSAP" autocomplete="off" placeholder="SAP/ID del Compañero cuidado" name="companion_to_care_id">
+                        <div class="valid-feedback" id="companionCareName">
+                        </div> 
                     </div>
-                    
+                    <datalist id="peopleList1">
+                        @isset($people)
+                        @foreach ($people as $item)
+                        <option value="{{$item->sap}}" data-name ="{{$item->name}}">
+                        @endforeach
+                        @endisset
+                    </datalist>
+                End Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-4">
+                    <label for="companion_to_care_name" class="mb-2 bold">Compañero Cuidado</label>
+                    <input type="text" class="theme-input-style" id="companion_to_care_name" placeholder="Nombre del Compañero cuidado" name="companion_to_care_name">
                 </div>
-                <datalist id="peopleList1">
-                    @isset($people)
-                    @foreach ($people as $item)
-                    <option value="{{$item->sap}}" data-name ="{{$item->name}}">
-                    @endforeach
-                    @endisset
-                </datalist>
+                <!-- End Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-4">
+                    <label for="exampleSelect3" class="mb-2 bold d-block">Tipo de Trabajador</label>
+                    <div class="custom-select style--two">
+                        <select class="theme-input-style" onChange="selectChange(this);" id="exampleSelect3">
+                            <option value="01">INTERNO</option>
+                            <option value="02">EXTERNO</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- End Form Group -->
+                
+                <!-- Form Group -->
+                <div class="form-group mb-4" id="EXTERNO">
+                    <label for="company_department_name" class="mb-2 bold d-block">Compañia</label>
+                    <div class="custom-select style--two">
+                        <select class="theme-input-style" id="company_department_name" name="company_department_name">
+                            @isset($companies_departments)
+                            @foreach ($companies_departments as $item)
+                                <option class="{{$item->origin}}" value="{{$item->name}}" >{{$item->name}}</option>   
+                            @endforeach
+                            @endisset
+                        </select>
+                    </div>
+                </div>
+                <!-- End Form Group -->
+                <!-- Form Group -->
+                <div class="form-group mb-4">
+                    <label for="position_name" class="mb-2 bold">Puesto</label>
+                    <input type="text" class="theme-input-style" id="position_name" placeholder="Puesto del Compañero cuidado" name="position_name">
+                </div>
                 <!-- End Form Group -->
                 <!-- Form Group -->
                 <div class="form-group mb-4">
@@ -215,7 +253,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-20">
                     <label for="sap" class="mb-2 font-14 bold">SAP de quien reporta</label>
-                    <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_id">
+                    <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_sap">
                     <div class="valid-feedback" id="personName">
                         
                     </div>
@@ -255,8 +293,61 @@
 @section('js')
     <script type="text/JavaScript">
         $(document).ready(function(){
-            
+            $(".EXTERNO").hide(1);
+            $(".INTERNO").show(1);
+            $("#positions").parent().parent().show(1000);
         });
+
+        function selectChange(selected){
+            if("INTERNO" == selected.options[selected.selectedIndex].text){
+                $(".EXTERNO").hide(1);
+                $(".INTERNO").show(1);
+                $("#positions").parent().parent().show(1000);
+            }
+            if("EXTERNO" == selected.options[selected.selectedIndex].text){
+                $(".INTERNO").hide(1);
+                $(".EXTERNO").show(1);
+                $("#positions").val("3");
+                $("#positions").parent().parent().hide(1000);
+                
+
+            }
+        }
+
+        function selectChangeInformantDepartment(selected){
+            if("INTERNO" == selected.options[selected.selectedIndex].text){
+                $(".reportEXTERNO").hide(1);
+                $(".reportINTERNO").show(1);
+            }
+            if("EXTERNO" == selected.options[selected.selectedIndex].text){
+                $(".reportINTERNO").hide(1);
+                $(".reportEXTERNO").show(1);
+
+            }
+        }
+
+        function selectChangeInformantName(selected) {
+            console.log(selected.value);
+            $("#people_id").val("0");
+            $("#people_id").children().each(function (i) {
+                count = 0;
+                if ($(this).hasClass("departmentOrCompanyId-"+selected.value)) {
+                    $(this).show(1);
+
+                    if (count == 0) {
+                        console.log("entra");
+                        count+1;
+                        console.log($(this).val())
+                        $("#people_id").val($(this).val());
+                    }
+                    
+                } else {
+                    $(this).hide(1);
+                }
+
+             });
+            
+        }
 
         function selectChangeComportamiento(selected){
             
@@ -272,7 +363,6 @@
             }
             
         }
-
 
         function selectPerson() {
             

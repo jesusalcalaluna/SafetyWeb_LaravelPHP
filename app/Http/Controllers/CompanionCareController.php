@@ -26,19 +26,22 @@ class CompanionCareController extends Controller
     }
 
     public function writeCompanionCare(Request $request){
+
+        //return $request;
         
         try {
-            $companion_to_care_id = People::where('SAP',$request->companion_to_care_id )->first();
-            $people_id = People::where('SAP',$request->people_id )->first();
+            $people_id = People::where('SAP', $request->people_sap)->first();
         } catch (\Throwable $th) {
-            return back()->with('error', 'Algo salio mal, intentalo de nuevo.');
+            return back()->with('error', 'Algo salio mal con tu sap, intentalo de nuevo.');
         }
         
 
         try {
             if($request->acts_types_id){
                 DB::table('companion_care_records')->insert([
-                    'companion_to_care_id'=> $companion_to_care_id->id,
+                    'companion_to_care_name' => $request->companion_to_care_name,
+                    'company_department_name' => $request->company_department_name,
+                    'position_name' => $request->position_name,
         
                     'turn' => $request->turn,
                     'shift_supervisor' => $request->shift_supervisor,
@@ -58,19 +61,21 @@ class CompanionCareController extends Controller
                 ]);
             }else {
                 DB::table('companion_care_records')->insert([
-                    'companion_to_care_id'=> $request->companion_to_care_id,
-        
+                    'companion_to_care_name' => $request->companion_to_care_name,
+                    'company_department_name' => $request->company_department_name,
+                    'position_name' => $request->position_name,
+
                     'turn' => $request->turn,
                     'shift_supervisor' => $request->shift_supervisor,
                     'description' => $request->description,
                     'corr_prev_pos' => $request->corr_prev_pos,
-        
+
                     'behavior_group_id' => $request->behavior_group_id,
         
                     'detection_source' => $request->detection_source,
                     'department_where_happens_id' => $request->department_where_happens_id,
                     'specific_area' => $request->specific_area,
-                    'people_id' => $request->people_id,
+                    'people_id' => $people_id->id,
                 ]);
             }
         } catch (\Throwable $th) {

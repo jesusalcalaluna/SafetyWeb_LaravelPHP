@@ -15,8 +15,9 @@ class CreateCompanionCareRecordsTable extends Migration
     {
         Schema::create('companion_care_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('companion_to_care_id');
-            $table->foreign('companion_to_care_id')->references('id')->on('people');
+            $table->string('companion_to_care_name');
+            $table->string('company_department_name');
+            $table->string('position_name');
 
             $table->string('turn');
             $table->string('shift_supervisor');
