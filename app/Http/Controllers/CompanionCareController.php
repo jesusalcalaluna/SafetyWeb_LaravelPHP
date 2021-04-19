@@ -38,7 +38,7 @@ class CompanionCareController extends Controller
 
         try {
             if($request->acts_types_id){
-                DB::table('companion_care_records')->insert([
+                Companion_care_record::create([
                     'companion_to_care_name' => $request->companion_to_care_name,
                     'company_department_name' => $request->company_department_name,
                     'position_name' => $request->position_name,
@@ -60,7 +60,7 @@ class CompanionCareController extends Controller
                     'people_id' => $people_id->id,
                 ]);
             }else {
-                DB::table('companion_care_records')->insert([
+                Companion_care_record::create([
                     'companion_to_care_name' => $request->companion_to_care_name,
                     'company_department_name' => $request->company_department_name,
                     'position_name' => $request->position_name,
@@ -93,8 +93,9 @@ class CompanionCareController extends Controller
                                                         ->with('gold_rules')
                                                         ->with('department_where_happens')
                                                         ->with('people')
-                                                        ->with('companionToCare')->get();
-                                                        return $companion_care_record;
+                                                        ->with('people.company_and_department')
+                                                        ->get();
+                                                        //return $companion_care_record;
 
         return view('pages.dashboard.companionCareTable', compact('companion_care_record'));
     }

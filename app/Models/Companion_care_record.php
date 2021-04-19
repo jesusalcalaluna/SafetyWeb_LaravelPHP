@@ -15,20 +15,25 @@ class Companion_care_record extends Model
      * @var array
      */
     protected $fillable = [
-            'companion_to_care_id',
-            'turn',
-            'shift_supervisor',
-            'description',
-            'corr_prev_pos',
-            'behavior_group_id',
-            'acts_types_id',
-            'sif',
-            'gold_rules_id',
-            'detection_source',
-            'department_where_happens_id',
-            'specific_area',
-            'informant_department_company_id',
-            'people_id',
+        'companion_to_care_name',
+        'company_department_name',
+        'position_name',
+
+        'turn',
+        'shift_supervisor',
+        'description',
+        'corr_prev_pos',
+
+        'behavior_group_id',
+        'acts_types_id',
+        
+        'sif',
+        'gold_rules_id',
+
+        'detection_source',
+        'department_where_happens_id',
+        'specific_area',
+        'people_id',
         ];
 
     public function companionToCare(){
