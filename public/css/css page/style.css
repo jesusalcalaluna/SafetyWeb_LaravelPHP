@@ -616,7 +616,7 @@ li.dropdown i.fa.dropdown-toggle {
 /* --------------- BreadCrumb --------------- */
 
 .page-title {
-    background: url('/images/page_title_bg.png') no-repeat left center;
+    background: url("{{ asset('/images/page_title_bg.png')}}" ) no-repeat left center;
     background-size: cover;
     padding: 70px 0;
 }

@@ -12,6 +12,7 @@
 
         @include('globals.css')
 
+
     </head>
     <body class="homepage">
         <!--<h2 class="color-title-red text-center">¡PAGINA EN DESARROLLO!</h2> -->
