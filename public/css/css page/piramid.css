@@ -1,19 +1,156 @@
 .piramid_body{
     position: relative;
-    border-style: solid;
-    border-color: transparent transparent #959595 transparent;
-    border-width: 0px 250px 500px 250px;
-    width: 0px;
-    height: 0px;
+    display: inline-block;
+    width: 696px;
+}
+.lti{
+    position:absolute;
+    width: 22px;
+    left: 339px;
+    top: 52px;
+    text-align: center;
 }
 
-.lti{
-    position: absolute;
-    bottom: -260px;
-    left: -50px;
-    border-style: solid;
-    border-color: transparent transparent red transparent;
-    border-width: 0px 50px 250px 50px;
+.lti-2{
+    position:absolute;
+    width: 22px;
+    left: 371px;
+    top: 52px;
+    text-align: center;
+}
 
+.mdi{
+    position:absolute;
+    width: 22px;
+    left: 339px;
+    top: 106px;
+    text-align: center;
+}
 
+.mdi-2{
+    position:absolute;
+    width: 22px;
+    left: 379px;
+    top: 106px;
+    text-align: center;
+}
+
+.mmti{
+    position:absolute;
+    width: 22px;
+    left: 339px;
+    top: 171px;
+    text-align: center;
+}
+
+.mmti-2{
+    position:absolute;
+    width: 22px;
+    left: 399px;
+    top: 171px;
+    text-align: center;
+}
+
+.fai{
+    position:absolute;
+    width: 22px;
+    left: 339px;
+    top: 243px;
+    text-align: center;
+}
+
+.fai-2{
+    position:absolute;
+    width: 22px;
+    left: 424px;
+    top: 243px;
+    text-align: center;
+}
+
+.sif{
+    position:absolute;
+    width: 22px;
+    left: 339px;
+    top: 311px;
+    text-align: center;
+}
+
+.incidentes-2{
+    position:absolute;
+    width: 22px;
+    left: 446px;
+    top: 311px;
+    text-align: center;
+}
+
+.seguros{
+    position:absolute;
+    width: 72px;
+    left: 172px;
+    top: 379px;
+    text-align: center;
+}
+
+.inseguros{
+    position:absolute;
+    width: 72px;
+    left: 254px;
+    top: 379px;
+    text-align: center;
+}
+
+.detectadas{
+    position:absolute;
+    width: 50px;
+    left: 362px;
+    top: 379px;
+    text-align: center;
+}
+
+.atendidas{
+    position:absolute;
+    width: 50px;
+    left: 421px;
+    top: 379px;
+    text-align: center;
+}
+
+.avance{
+    position:absolute;
+    width: 50px;
+    left: 479px;
+    top: 379px;
+    text-align: center;
+}
+
+.p-participacion-cc{
+    position:absolute;
+    width: 72px;
+    left: 149px;
+    top: 451px;
+    text-align: center;
+}
+
+.p-participacion-ci{
+    position:absolute;
+    width: 72px;
+    left: 258px;
+    top: 451px;
+    text-align: center;
+}
+
+.monitoreos{
+    position:absolute;
+    width: 72px;
+    left: 372px;
+    top: 451px;
+    text-align: center;
+}
+
+.owd{
+    position:absolute;
+    width: 72px;
+    left: 464px;
+    top: 451px;
+    text-align: center;
 }
