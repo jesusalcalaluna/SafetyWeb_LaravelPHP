@@ -15,9 +15,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name("index");
+Route::get('/','LandingController@getIndex')->name("index");
 
 //Diseños prueba
 Route::get('/test', 'test@test')->name('test');

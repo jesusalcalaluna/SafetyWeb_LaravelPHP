@@ -161,4 +161,127 @@
         display: inline-block;
         width: 375px;
     }
+
+    .lti, .lti-2, .mdi, .mdi-2, .mmti, .mmti-2, .fai, .fai-2, .sif, .incidentes-2, .seguros,
+    .inseguros, .detectadas, .atendidas, .avance, .p-participacion-cc, .p-participacion-ci, 
+    .monitoreos, .owd{
+        font-weight: 800;
+        position:absolute;
+        text-align: center;
+        font-size: 10px;
+    }
+
+    .lti{
+        width: 22px;
+        left: 178px;
+        top: 27px;
+    }
+    
+    .lti-2{
+        width: 22px;
+        left: 194px;
+        top: 27px;
+    }
+    
+    .mdi{
+        width: 22px;
+        left: 178px;
+        top: 56px;
+    }
+    
+    .mdi-2{
+        width: 22px;
+        left: 199px;
+        top: 56px;
+    }
+    
+    .mmti{
+        width: 22px;
+        left: 178px;
+        top: 90px;
+    }
+    
+    .mmti-2{
+        width: 22px;
+        left: 210px;
+        top: 90px;
+    }
+    
+    .fai{
+        width: 22px;
+        left: 178px;
+        top: 130px;
+    }
+    
+    .fai-2{
+        width: 22px;
+        left: 224px;
+        top: 130px;
+    }
+    
+    .sif{
+        width: 22px;
+        left: 178px;
+        top: 166px;
+    }
+    
+    .incidentes-2{
+        width: 22px;
+        left: 235px;
+        top: 166px;
+    }
+    
+    .seguros{
+        width: 72px;
+        left: 75px;
+        top: 204px;
+    }
+    
+    .inseguros{
+        width: 72px;
+        left: 119px;
+        top: 204px;
+    }
+    
+    .detectadas{
+        width: 50px;
+        left: 183px;
+        top: 204px;
+    }
+    
+    .atendidas{
+        width: 50px;
+        left: 214px;
+        top: 204px;
+    }
+    
+    .avance{
+        width: 50px;
+        left: 246px;
+        top: 204px;
+    }
+    
+    .p-participacion-cc{
+        width: 72px;
+        left: 63px;
+        top: 242px;
+    }
+    
+    .p-participacion-ci{
+        width: 72px;
+        left: 122px;
+        top: 242px;
+    }
+    
+    .monitoreos{
+        width: 72px;
+        left: 183px;
+        top: 242px;
+    }
+    
+    .owd{
+        width: 72px;
+        left: 233px;
+        top: 242px;
+    }
 }

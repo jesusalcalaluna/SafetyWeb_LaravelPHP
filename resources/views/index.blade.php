@@ -18,15 +18,15 @@
         <div class="fai-2">10</div>
         <div class="sif">10</div>
         <div class="incidentes-2">10</div>
-        <div class="seguros">10</div>
-        <div class="inseguros">10</div>
-        <div class="detectadas">10</div>
-        <div class="atendidas">10</div>
-        <div class="avance">10</div>
-        <div class="p-participacion-cc">10</div>
-        <div class="p-participacion-ci">10</div>
-        <div class="monitoreos">10</div>
-        <div class="owd">10</div>
+        <div class="seguros">{{$seguros}}</div>
+        <div class="inseguros">{{$inseguros}}</div>
+        <div class="detectadas">{{$detectadas}}</div>
+        <div class="atendidas">{{$atendidas}}</div>
+        <div class="avance">%{{$avance}}</div>
+        <div class="p-participacion-cc">100</div>
+        <div class="p-participacion-ci">100</div>
+        <div class="monitoreos">100</div>
+        <div class="owd">100</div>
     </div>
     
 @endsection
