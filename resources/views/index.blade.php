@@ -4,6 +4,8 @@
 @endsection
 @section('content')
     @include('components.index.slider')
+
+    <div></div>
     <div class="piramid_body">
         <img src="/images/piramide.png" alt="">
         <div class="lti">10</div>
@@ -26,4 +28,5 @@
         <div class="monitoreos">10</div>
         <div class="owd">10</div>
     </div>
+    
 @endsection
