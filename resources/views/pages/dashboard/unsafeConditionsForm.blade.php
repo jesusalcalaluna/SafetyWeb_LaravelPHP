@@ -288,11 +288,6 @@
                             <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
                             <div class="valid-feedback" id="personName"></div>
                         </div>
-                        @if ( Auth::user() == false)
-                        <div class="col-sm-6">
-                            <a href="{{ route('register') }}" class="font-12 text_color">¿Tu SAP o ID no se encuentra?</a>
-                        </div>
-                        @endif
                     </div>
                     
                     

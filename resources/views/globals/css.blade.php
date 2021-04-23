@@ -13,3 +13,5 @@
 
 <!-- Custom styles for this template -->
 <link href="{{ asset('css/css page/style.css')}}" rel="stylesheet">
+
+@yield('css')
