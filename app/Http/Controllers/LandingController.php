@@ -42,9 +42,6 @@ class LandingController extends Controller
             $avance = number_format(($atendidas/$detectadas)*100 ,0);
         }
 
-        //prioridad completadas
-        
-
-        return view('index', compact('detectadas', 'atendidas', 'avance'));
+        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros'));
     }
 }
