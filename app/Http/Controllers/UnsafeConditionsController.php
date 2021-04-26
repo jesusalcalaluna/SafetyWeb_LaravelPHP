@@ -85,7 +85,7 @@ class UnsafeConditionsController extends Controller
                 'attention_priority' => $attention_priority,
                 'scope' => $request->scope,
                 'notice_number' => $request->notice_number,
-                'person_id' => $person->id,
+                'people_id' => $person->id,
             ]);
         } catch (\Throwable $th) {
             return back()->with('error', 'Algo salio mal, intentalo de nuevo.');

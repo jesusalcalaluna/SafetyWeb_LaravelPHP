@@ -34,8 +34,8 @@ class CreateUnsafeConditionsRecordsTable extends Migration
             $table->string('attention_priority');
             $table->string('scope');
             $table->string('notice_number');
-            $table->unsignedBigInteger('person_id');
-            $table->foreign('person_id')->references('id')->on('people');
+            $table->unsignedBigInteger('people_id');
+            $table->foreign('people_id')->references('id')->on('people');
             $table->timestamps();
         });
     }
