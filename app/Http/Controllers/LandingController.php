@@ -72,50 +72,112 @@ class LandingController extends Controller
         //CUMPLIMIENTO A LA RUTINA
         //monitoreos
         $canti_monitoreos_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
-        ->where('detection_origin', 'Monitoreo de Seguridad')
-        ->select("people_id")
-        ->groupBy("people_id")
-        ->get();
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_origin', 'Monitoreo de Seguridad')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
         $canti_monitoreos_cc = Companion_care_record::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
-        ->where('detection_source', 'Monitoreo de Seguridad')
-        ->select("people_id")
-        ->groupBy("people_id")
-        ->get();
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_source', 'Monitoreo de Seguridad')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
 
-        $canti_total_moniutoreo = new ArrayObject();
-        foreach ($canti_monitoreos_ci as $key1 => $value1) {
+        $agrupar_moniutoreo = new ArrayObject();
+        foreach ($canti_monitoreos_ci as $key1 => $value) {  
             
-            foreach ($canti_monitoreos_cc as $key2 => $value2) {
-
-                if ($value1 == $value2) {
-                    foreach ($canti_total_moniutoreo as $key => $value) {
-                        if ($value1 == $value) {
-                            # code...
-                        } else {
-                            $canti_total_moniutoreo->append($value1);
-                        }
-                        
-                    }
-                    
+            if (!sizeof($agrupar_moniutoreo)) {
+                $agrupar_moniutoreo->append($value);
+            } 
+            
+            foreach ($agrupar_moniutoreo as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
                 }else {
-                    foreach ($canti_total_moniutoreo as $key => $value) {
-                        if ($value2 == $value) {
-                            # code...
-                        } else {
-                            $canti_total_moniutoreo->append($value2);
-                        }
-                        
-                    }
-                    
+                    $agrupar_moniutoreo->append($value);
+                    break ;
                 }
 
             }
         }
-        return $canti_total_moniutoreo;
-        //OWD
+        
+        foreach ($canti_monitoreos_cc as $key2 => $value) {
+            if (!sizeof($agrupar_moniutoreo)) {
+                $agrupar_moniutoreo->append($value);
+            } 
+            
+            foreach ($agrupar_moniutoreo as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_moniutoreo->append($value);
+                    break ;
+                }
 
-        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros', 'participacion_cc', 'participacion_ci'));
+            }
+        }
+        $canti_total_moniutoreo = $agrupar_moniutoreo->count();
+        $p_monitoreos = 0;
+        if ($cantidad_personas_activas) {
+            $p_monitoreos = number_format(($canti_total_moniutoreo/$cantidad_personas_activas)*100 ,1);
+        }
+        //OWD
+        $canti_owd_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_origin', 'DTO (OWD)')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
+        $canti_owd_cc = Companion_care_record::whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_source', 'DTO (OWD)')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
+
+        $agrupar_owd = new ArrayObject();
+        foreach ($canti_owd_ci as $key1 => $value) {  
+            
+            if (!sizeof($agrupar_owd)) {
+                $agrupar_owd->append($value);
+            } 
+            
+            foreach ($agrupar_owd as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_owd->append($value);
+                    break ;
+                }
+
+            }
+        }
+        
+        foreach ($canti_owd_cc as $key2 => $value) {
+            if (!sizeof($agrupar_owd)) {
+                $agrupar_owd->append($value);
+            } 
+            
+            foreach ($agrupar_owd as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_owd->append($value);
+                    break ;
+                }
+
+            }
+        }
+        
+        $canti_total_owd = $agrupar_owd->count();
+        
+        $p_owd = 0;
+        if ($cantidad_personas_activas) {
+            $p_owd = number_format(($canti_total_owd/$cantidad_personas_activas)*100 ,1);
+        }
+        
+
+        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros', 'participacion_cc', 'participacion_ci', 'p_monitoreos', 'p_owd'));
     }
 }
