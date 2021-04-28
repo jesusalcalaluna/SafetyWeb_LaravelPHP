@@ -41,9 +41,9 @@
                 <div class="form-group mb-4">
                     <label for="exampleSelect3" class="mb-2 bold d-block">Tipo de Trabajador</label>
                     <div class="custom-select style--two">
-                        <select class="theme-input-style" onChange="selectChange(this);" id="exampleSelect3">
-                            <option value="01">INTERNO</option>
-                            <option value="02">EXTERNO</option>
+                        <select class="theme-input-style" onChange="selectChangeOrigin(this);" id="exampleSelect3">
+                            <option value="INTERNO">INTERNO</option>
+                            <option value="EXTERNO">EXTERNO</option>
                         </select>
                     </div>
                 </div>
@@ -312,20 +312,37 @@
             });
         }
 
-        function selectChange(selected){
-            if("INTERNO" == selected.options[selected.selectedIndex].text){
+        function selectChangeOrigin(selected){
+            $("#company_department_name").val("0");
+            $("#company_department_name").children().each(function(i) {
+
+                count = 0;
+                if ($(this).hasClass(selected.value)) {
+                    $(this).show(1);
+
+                    if (count == 0) {
+                        count + 1;
+                        
+                        $("#company_department_name").val($(this).val());
+                    }
+                    
+                } else {
+                    $(this).hide(1);
+                }
+                
+            });
+
+            /*if("INTERNO" == selected.options[selected.selectedIndex].text){
                 $(".EXTERNO").hide(1);
                 $(".INTERNO").show(1);
-                $("#positions").parent().parent().show(1000);
+                $("#positions").parent().parent().show(1);
             }
             if("EXTERNO" == selected.options[selected.selectedIndex].text){
                 $(".INTERNO").hide(1);
                 $(".EXTERNO").show(1);
                 $("#positions").val("3");
-                $("#positions").parent().parent().hide(1000);
-                
-
-            }
+                $("#positions").parent().parent().hide(1);
+            }*/
         }
 
         function selectChangeInformantDepartment(selected){
