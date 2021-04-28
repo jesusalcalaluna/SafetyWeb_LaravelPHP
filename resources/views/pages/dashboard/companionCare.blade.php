@@ -131,7 +131,7 @@
                             <select class="theme-input-style" id="acts_types_id" name="acts_types_id">
                                 @isset($act_types)
                                 @foreach ($act_types as $item)
-                                <option class="{{$item->behavior_group_id}}" value="{{$item->id}}" >{{$item->type_name}}</option>
+                                <option class="behaviorGroupId_{{$item->behavior_group_id}}" value="{{$item->id}}" >{{$item->type_name}}</option>
                                 @endforeach
                                 @endisset
                             </select>
@@ -248,8 +248,6 @@
                 </div>
                 <!-- End Form Group -->
 
-  
-
                 <!-- Form Group -->
                 <div class="form-group mb-20">
                     <label for="sap" class="mb-2 font-14 bold">SAP de quien reporta</label>
@@ -266,11 +264,7 @@
                     @endforeach
                     @endisset
                 </datalist>
-                <!-- End Form Group -->
-
-
                 <div class="mb-4">
-                    
                 </div>
                 <!-- End Form Group -->
 
@@ -297,6 +291,26 @@
             $(".INTERNO").show(1);
             $("#positions").parent().parent().show(1000);
         });
+
+        function selectChangeBehaviorGroup(selected) {
+            $('#acts_types_id').val("0");
+            $("#acts_types_id").children().each(function(i) {
+                cont = 0;
+                if ($(this).hasClass("behaviorGroupId_"+selected.value)) {
+                    $(this).show(1);
+
+                    if (cont == 0) {
+                        cont+1;
+                        $("#acts_types_id").val($(this).val());
+                        
+                    }
+                    
+                } else {
+                    $(this).hide(1);
+                }
+                
+            });
+        }
 
         function selectChange(selected){
             if("INTERNO" == selected.options[selected.selectedIndex].text){

@@ -290,8 +290,6 @@
                         </div>
                     </div>
                     
-                    
-                    
                 </div>
                 <datalist id="peopleList">
                     @isset($people)
