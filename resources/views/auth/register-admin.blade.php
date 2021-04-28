@@ -297,6 +297,9 @@
 @endsection
 @section('js')
 <script>
+    function deleteUserAlert(){
+        
+    }
     function selectPerson() {
             
             
