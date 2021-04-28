@@ -267,10 +267,13 @@
                                     <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
                    
                                         <!-- Edit Invoice Button -->
-                                        <div class="edit-invoice-btn pr-1">
+                                        <div class="edit-invoice-btn pr-1 ">
                                            <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
                                               <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
                                            </a>
+                                           <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle ">
+                                            <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
+                                         </a>
                                         </div>
                                         <!-- End Edit Invoice Button -->
                                      </div>

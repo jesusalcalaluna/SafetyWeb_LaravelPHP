@@ -1,8 +1,14 @@
 @extends('layouts.app_dashboard')
 
 @section('navbar')
+
     @include('globals.dashboard.navbar')
-    @include('globals.dashboard.sidebar')
+    @auth
+    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+        @include('globals.dashboard.sidebar')
+    @endif
+    @endauth
+
 @endsection
 @section('content')
 <div class="main-content">
@@ -332,17 +338,6 @@
                 
             });
 
-            /*if("INTERNO" == selected.options[selected.selectedIndex].text){
-                $(".EXTERNO").hide(1);
-                $(".INTERNO").show(1);
-                $("#positions").parent().parent().show(1);
-            }
-            if("EXTERNO" == selected.options[selected.selectedIndex].text){
-                $(".INTERNO").hide(1);
-                $(".EXTERNO").show(1);
-                $("#positions").val("3");
-                $("#positions").parent().parent().hide(1);
-            }*/
         }
 
         function selectChangeInformantDepartment(selected){
