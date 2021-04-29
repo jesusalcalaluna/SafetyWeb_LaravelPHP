@@ -16,7 +16,7 @@
                         
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">
-                                <a href="@if(Route::current()->getName() == 'pepleTable') {{ route('newPersonForm') }} @else {{ route('newPersonFormExtern') }} @endif" class="btn-circle">
+                                <a href="{{ route('newPersonForm') }}" class="btn-circle">
                                    <img src="../../../assets/img/svg/plus_white.svg" class="svg">
                                 </a>
                             </div>

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             conditionGroupsSeeder::class,
             typeConditionSeeder::class,
             superUserSeeder::class,
+            companyPrefixSeeder::class,
         ]);
     }
 }

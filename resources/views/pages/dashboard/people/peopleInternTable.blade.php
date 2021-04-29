@@ -16,7 +16,7 @@
                         
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">
-                                <a href="@if(Route::current()->getName() == 'pepleTable') {{ route('newPersonForm') }} @else {{ route('newPersonFormExtern') }} @endif" class="btn-circle">
+                                <a href="{{ route('newPersonForm') }}" class="btn-circle">
                                    <img src="../../../assets/img/svg/plus_white.svg" class="svg">
                                 </a>
                             </div>
@@ -24,7 +24,7 @@
                             <div class="mr-20 mt-3 mt-sm-0">
                                 <div  class="search-form">
                                     <div class="theme-input-group">
-                                       <input type="text" class="theme-input-style" id="search"  placeholder="Busca aqui..." ">
+                                       <input type="text" class="theme-input-style" id="search"  placeholder="Busca aqui...">
 
                                        <button id="btnSearch" type="button" onclick="search();"> <img src="../../../assets/img/svg/search-icon.svg" alt=""  class="svg"></button>
                                     </div>

@@ -49,8 +49,6 @@ Route::group(['middleware' => ['auth']], function () {
 
         //PERSONAL
         //registrar personal
-        Route::get('/newPersonExtern', 'PeopleController@createPersonForm')->name('newPersonFormExtern');
-        Route::post('/newPersonExtern', 'PeopleController@createPersonExtern')->name('newPersonExtern');
         Route::get('/newPerson', 'PeopleController@createPersonForm')->name('newPersonForm');
         Route::post('/newPerson', 'PeopleController@createPerson')->name('newPerson');
         //Tablas de personal
