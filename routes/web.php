@@ -72,12 +72,15 @@ Route::group(['middleware' => ['auth']], function () {
             //Permisos soloo para los administradores
             //----------------------------------------
 
+            //USUARIOS
             //Registro de nuevos usuarios
             Route::get('/registerUsers', [RegisteredUserController::class, 'createAdmin'])->name('registerUsers');
             Route::post('/registerUsers', [RegisteredUserController::class, 'storeAdmin']);
             //Actualizar usuarios
             Route::post('/updateUser', 'UserController@updateUser')->name('updateuser');
             Route::post('/updateUserPass', 'UserController@updatePass')->name('updateuserpass');
+            //Eliminar Usuario
+            Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
                 
             
         });
