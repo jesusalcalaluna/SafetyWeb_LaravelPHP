@@ -39,46 +39,24 @@
                     <table class="text-nowrap dh-table" id="table">
                         <thead>
                             <tr>
-                                <th>SAP</th>
+                                <th>SAP/ID</th>
                                 <th>Nombre </th>
                                 <th>Puesto</th>
-                                @if (Auth::user()->role->role_name == "ADMINISTRADOR") <th >Departamento</th> @else <th hidden> </th> @endif
                                 <th>Accion </th>
                             </tr>
                         </thead>
                         <tbody>
                             @isset($people)
                             @foreach ($people as $item)
-                            @if (Auth::user()->role->role_name == "ADMINISTRADOR")
-                            <tr>
-                                <td>{{$item->sap}}</td>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->position}}</td>
-                                <td>{{$item->company_and_department->name}}</td>
-                                <td>
-                                    <!-- Edit Invoice Button -->
-                                    <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
-                
-                                        <!-- Edit Invoice Button -->
-                                        <div class="edit-invoice-btn pr-1">
-                                        <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
-                                            <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
-                                        </a>
-                                        </div>
-                                        <!-- End Edit Invoice Button -->
-                                    </div>
-                                </td>
-                            </tr>
-                            @else
+                            
                                 @if(Auth::user()->person->company_and_department->id ==  $item->company_and_department->id)
                                 <tr>
                                     <td>{{$item->sap}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->position}}</td>
-                                    <td hidden>{{$item->company_and_department->name}}</td>
                                     <td>
                                         <!-- Edit Invoice Button -->
-                                        <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
+                                        <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
                     
                                             <!-- Edit Invoice Button -->
                                             <div class="edit-invoice-btn pr-1">
@@ -86,12 +64,19 @@
                                                 <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
                                             </a>
                                             </div>
+                                            <div>
+                                                <form method="POST" action="{{route('deactivatePerson')}}">
+                                                    <input hidden="true" value="{{$item->id}}" name="id">
+                                                    <a onclick="deactivatePersonAlert(this);" class="btn-circle ">
+                                                    <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
+                                                </a>
+                                                </form>
+                                            </div>
                                             <!-- End Edit Invoice Button -->
                                         </div>
                                     </td>
                                 </tr>
-                                @endif      
-                            @endif
+                                @endif
                                                  
                             @endforeach
                             @endisset
@@ -111,6 +96,45 @@
 @endsection
 @section('js')
 <script type="text/JavaScript">
+    function deactivatePersonAlert(selected){
+        
+        Swal.fire({
+            title: "¿Estas seguro?",
+            text: "¡No podras revertirlo!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "¡Si, eliminalo!",
+            confirmButtonClass: "btn long",
+            cancelButtonClass: "btn long bg-danger ml-1",
+            cancelButtonText: "Cancelar",
+            buttonsStyling: !1,
+        }).then(function (t) {
+
+            if (t.value) {
+                $.ajax({
+                type: "POST",
+                url: selected.parentNode.action,
+                data: { "_token" : "{{ csrf_token() }}",
+                        "id" : $(selected).parent().find('input[name="id"]').val()},
+                success:  function(data){
+
+                    $(selected).parent().parent().parent().parent().parent().remove()
+                    
+                }
+            }).done(function() {
+                Swal.fire({ type: "success", title: "¡Eliminado!", text: "Persona eliminada. :(", confirmButtonClass: "btn btn-success" })
+            }).fail(function(err) {
+                Swal.fire({ title: "Error!", text: " ¡Algo salio mal! intentalo nuevamente", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
+            });
+                
+            }else{
+                t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "¡Eso estuvo cerca! ;)", type: "error", confirmButtonClass: "btn btn-success" });
+            }
+        });
+        
+    }
     $("#search").keyup(function(){
         
         if (event.keyCode === 13) {

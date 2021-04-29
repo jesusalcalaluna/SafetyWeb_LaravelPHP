@@ -72,7 +72,7 @@
                                             
                                         </div>
                                         <div class="col-lg-12">
-                                            <div class="button-group mt-30 mt-xl-n5">
+                                            <div class="button-group mt-30">
                                                 <button type="submit" class="btn">Guardar</button>
                                                 <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                                             </div>

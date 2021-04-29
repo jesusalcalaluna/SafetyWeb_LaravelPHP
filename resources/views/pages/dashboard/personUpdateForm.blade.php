@@ -85,7 +85,7 @@
                                             <!-- End Form Group -->
                                         </div>
                                         <div class="col-lg-12">
-                                            <div class="button-group mt-30 mt-xl-n5">
+                                            <div class="button-group mt-30">
                                                 <button type="submit" class="btn">Guardar Cambios</button>
                                                 <button type="reset" class="link-btn bg-transparent ml-3 soft-pink">Cancelar</button>
                                             </div>
@@ -128,7 +128,7 @@
                                             <!-- End Form Group -->
                                         </div>
                                         <div class="col-lg-12">
-                                            <div class="button-group mt-30 mt-xl-n5">
+                                            <div class="button-group mt-30">
                                                 <button type="submit" class="btn">Guardar cambios</button>
                                                 <button type="button" class="link-btn bg-transparent ml-3 soft-pink">Cancel</button>
                                             </div>

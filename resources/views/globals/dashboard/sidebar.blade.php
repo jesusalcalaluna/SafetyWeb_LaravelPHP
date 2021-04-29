@@ -60,8 +60,9 @@
                 <span class="link-title">Administrar Usuarios</span>
             </a>
          </li>
-         <li class="@if(Route::current()->getName() == 'pepleTable') active  @endif">
-            <a href="{{ route('pepleTable') }}">
+         @if (Auth::user()->role->role_name == "ADMINISTRADOR")
+         <li class="@if(Route::current()->getName() == 'pepleTableIntern') active  @endif">
+            <a href="{{ route('pepleTableIntern') }}">
                 <i class="icofont-people"></i>
                 <span class="link-title">Personal Interno</span>
             </a>
@@ -72,6 +73,17 @@
                 <span class="link-title">Personal Externo</span>
             </a>
          </li>
+         @else
+         <li class="@if(Route::current()->getName() == 'pepleTable') active  @endif">
+            <a href="{{ route('pepleTable') }}">
+                <i class="icofont-people"></i>
+                <span class="link-title">Personal</span>
+            </a>
+         </li>
+         @endif
+         
+         
+         
        </ul>
        <!-- End Nav -->
     </div>

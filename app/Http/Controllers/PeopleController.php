@@ -60,9 +60,27 @@ class PeopleController extends Controller
 
     public function getPeople()
     {
-        $people = People::orderBy('name', 'ASC')->with('company_and_department')->get();
+        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->get();
         
-        return view('pages.dashboard.peopleTable', compact('people'));
+        return view('pages.dashboard.people.peopleTable', compact('people'));
+    }
+
+    public function getPeopleIntern()
+    {
+        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+            return $query->where('origin', 'INTERNO');
+        })->get();
+        
+        return view('pages.dashboard.people.peopleInternTable', compact('people'));
+    }
+
+    public function getPeopleExtern()
+    {
+        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+            return $query->where('origin', 'EXTERNO');
+        })->get();
+        
+        return view('pages.dashboard.people.peopleExternTable', compact('people'));
     }
 
     public function updatePersonForm($id){
@@ -94,5 +112,16 @@ class PeopleController extends Controller
         }
         return back()->with('success', 'Registro exitoso');
         
+    }
+
+    public function deactivatePerson(Request $request)
+    {
+        try {
+            $person = People::where('id',  $request->id)
+            ->update(['status' => 'INACTIVO']);
+        } catch (\Throwable $th) {
+            return "error";
+        }
+        return $person;
     }
 }
