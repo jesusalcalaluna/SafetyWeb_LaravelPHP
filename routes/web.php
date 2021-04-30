@@ -27,6 +27,8 @@ Route::post('/unsafeConditionsForm', 'UnsafeConditionsController@writeUnsafeCond
 //Cuidado
 Route::get('/companionCare', 'CompanionCareController@showWriteCompanionCare')->name('companionCareForm');
 Route::post('/companionCare', 'CompanionCareController@writeCompanionCare')->name('companionCare');
+//Incidentes
+
 //-----------------------------------
 
 
