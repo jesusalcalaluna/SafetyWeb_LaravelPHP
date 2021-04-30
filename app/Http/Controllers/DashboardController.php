@@ -62,8 +62,7 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja'));
     }
 
-    function getRecordsByDepartment_CurrentDay()
-    {
+    function getRecordsByDepartment_CurrentDay(){
         date_default_timezone_set('America/Monterrey');
         $par_UnsefeConditions = DB::table('unsafe_conditions_records')
             ->join('companies_and_departments', 'unsafe_conditions_records.department_id','=','companies_and_departments.id')
