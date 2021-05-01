@@ -17,7 +17,7 @@ class DashboardController extends Controller
         ->where('companies_and_departments.origin','INTERNO')
         ->count();
 
-        $par_UnsefeConditions = Unsafe_conditions_record::groupBy('person_id')
+        $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
             ->whereDate('created_at', '=', date('Y-m-d'))
             ->count();
         $participation = ($par_UnsefeConditions/$people)*100;
@@ -62,8 +62,7 @@ class DashboardController extends Controller
         return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja'));
     }
 
-    function getRecordsByDepartment_CurrentDay()
-    {
+    function getRecordsByDepartment_CurrentDay(){
         date_default_timezone_set('America/Monterrey');
         $par_UnsefeConditions = DB::table('unsafe_conditions_records')
             ->join('companies_and_departments', 'unsafe_conditions_records.department_id','=','companies_and_departments.id')
@@ -211,118 +210,118 @@ class DashboardController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $AGUAS_AMB = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','AGUAS-AMB')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $CALIDAD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','CALIDAD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $COCIMIENTOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','COCIMIENTOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $CUARTOS_FRIOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','CUARTOS FRIOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $ENVASADO_LIDERAZGO = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LIDERAZGO')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
         
         $ENVASADO_LINEA_1 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #1')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $ENVASADO_LINEA_2_3 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #2 & 3')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $ENVASADO_LINEA_4 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #4')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
         $FINANZAS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FINANZAS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $GENTE_GESTION = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','GENTE Y GESTION')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $GERENCIA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','GERENCIA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $LOGÍSTICA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','LOGÍSTICA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $MTTO_GENERAL = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MTTO GENERAL')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $PROTECCION_PATRIMONIAL = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','PROTECCIÓN PATRIMONIAL')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $PROYECTOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','PROYECTOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $SEGURIDAD_SALUD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SEGURIDAD Y SALUD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $SERVICIO_ENERGIA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SERVICIO Y ENERGIA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -356,7 +355,7 @@ class DashboardController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $AGUAS_AMB = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','AGUAS-AMB')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -364,7 +363,7 @@ class DashboardController extends Controller
             ->count();
 
         $CALIDAD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','CALIDAD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -372,7 +371,7 @@ class DashboardController extends Controller
             ->count();
 
         $COCIMIENTOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','COCIMIENTOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -380,7 +379,7 @@ class DashboardController extends Controller
             ->count();
 
         $CUARTOS_FRIOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','CUARTOS FRIOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -388,7 +387,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LIDERAZGO = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LIDERAZGO')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -396,7 +395,7 @@ class DashboardController extends Controller
             ->count();
 
         $FINANZAS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FINANZAS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -404,7 +403,7 @@ class DashboardController extends Controller
             ->count();
 
         $GENTE_GESTION = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','GENTE Y GESTION')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -412,7 +411,7 @@ class DashboardController extends Controller
             ->count();
 
         $GERENCIA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','GERENCIA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -420,7 +419,7 @@ class DashboardController extends Controller
             ->count();
 
         $LOGÍSTICA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','LOGÍSTICA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -428,7 +427,7 @@ class DashboardController extends Controller
             ->count();
 
         $MTTO_GENERAL = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MTTO GENERAL')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -436,7 +435,7 @@ class DashboardController extends Controller
             ->count();
 
         $PROTECCION_PATRIMONIAL = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','PROTECCIÓN PATRIMONIAL')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -444,7 +443,7 @@ class DashboardController extends Controller
             ->count();
 
         $PROYECTOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','PROYECTOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -452,7 +451,7 @@ class DashboardController extends Controller
             ->count();
 
         $SEGURIDAD_SALUD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SEGURIDAD Y SALUD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -460,7 +459,7 @@ class DashboardController extends Controller
             ->count();
 
         $SERVICIO_ENERGIA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SERVICIO Y ENERGIA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -468,7 +467,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LINEA_1 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #1')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -476,7 +475,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LINEA_2_3 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #2 & 3')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -484,7 +483,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LINEA_4 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #4')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -517,7 +516,7 @@ class DashboardController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $AGUAS_AMB = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','AGUAS-AMB')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -526,7 +525,7 @@ class DashboardController extends Controller
             ->count();
 
         $CALIDAD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','CALIDAD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -535,7 +534,7 @@ class DashboardController extends Controller
             ->count();
 
         $COCIMIENTOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','COCIMIENTOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -544,7 +543,7 @@ class DashboardController extends Controller
             ->count();
 
         $CUARTOS_FRIOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','CUARTOS FRIOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -553,7 +552,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LIDERAZGO = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LIDERAZGO')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -562,7 +561,7 @@ class DashboardController extends Controller
             ->count();
 
         $FINANZAS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FINANZAS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -571,7 +570,7 @@ class DashboardController extends Controller
             ->count();
 
         $GENTE_GESTION = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','GENTE Y GESTION')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -580,7 +579,7 @@ class DashboardController extends Controller
             ->count();
 
         $GERENCIA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','GERENCIA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -589,7 +588,7 @@ class DashboardController extends Controller
             ->count();
 
         $LOGÍSTICA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','LOGÍSTICA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -598,7 +597,7 @@ class DashboardController extends Controller
             ->count();
 
         $MTTO_GENERAL = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MTTO GENERAL')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -607,7 +606,7 @@ class DashboardController extends Controller
             ->count();
 
         $PROTECCION_PATRIMONIAL = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','PROTECCIÓN PATRIMONIAL')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -616,7 +615,7 @@ class DashboardController extends Controller
             ->count();
 
         $PROYECTOS = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','PROYECTOS')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -625,7 +624,7 @@ class DashboardController extends Controller
             ->count();
 
         $SEGURIDAD_SALUD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SEGURIDAD Y SALUD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -634,7 +633,7 @@ class DashboardController extends Controller
             ->count();
 
         $SERVICIO_ENERGIA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SERVICIO Y ENERGIA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -643,7 +642,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LINEA_1 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #1')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -652,7 +651,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LINEA_2_3 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #2 & 3')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -661,7 +660,7 @@ class DashboardController extends Controller
             ->count();
 
         $ENVASADO_LINEA_4 = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ENVASADO LÍNEA #4')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -695,130 +694,130 @@ class DashboardController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $BRITE = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','BRITE')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $FEMOSA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FEMOSA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $SALN = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SALN')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $SGM = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SGM')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $ECOLAB = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ECOLAB')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
         
         $NALCO = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','NALCO')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $LYM = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','L&M')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $MBSA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MBSA (Montajes Bocanegra)')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
         $Lopez = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','J. Lopéz')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $JPAP = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','JPAP')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $Quiroz = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','R. Quiroz')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $FUMYCA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FUMYCA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $kitchen = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','kitchen (comedor)')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $CYH = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','C&H')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $MATRESA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MATRESA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $Practicante = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Practicante')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
 
         $Visita = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Visita')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
         $Proyectos = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Proyectos')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->count();
         $Transportista = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Transportista')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -855,7 +854,7 @@ class DashboardController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $BRITE = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','BRITE')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -863,7 +862,7 @@ class DashboardController extends Controller
             ->count();
 
         $FEMOSA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FEMOSA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -871,7 +870,7 @@ class DashboardController extends Controller
             ->count();
 
         $SALN = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SALN')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -879,7 +878,7 @@ class DashboardController extends Controller
             ->count();
 
         $SGM = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SGM')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -887,7 +886,7 @@ class DashboardController extends Controller
             ->count();
 
         $ECOLAB = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ECOLAB')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -895,7 +894,7 @@ class DashboardController extends Controller
             ->count();
         
         $NALCO = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','NALCO')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -903,7 +902,7 @@ class DashboardController extends Controller
             ->count();
 
         $LYM = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','L&M')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -911,14 +910,14 @@ class DashboardController extends Controller
             ->count();
 
         $MBSA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MBSA (Montajes Bocanegra)')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->whereMonth('unsafe_conditions_records.created_at',date('m'))
             ->count();
         $Lopez = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','J. Lopéz')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -926,7 +925,7 @@ class DashboardController extends Controller
             ->count();
 
         $JPAP = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','JPAP')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -934,7 +933,7 @@ class DashboardController extends Controller
             ->count();
 
         $Quiroz = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','R. Quiroz')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -942,7 +941,7 @@ class DashboardController extends Controller
             ->count();
 
         $FUMYCA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FUMYCA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -950,7 +949,7 @@ class DashboardController extends Controller
             ->count();
 
         $kitchen = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','kitchen (comedor)')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -958,7 +957,7 @@ class DashboardController extends Controller
             ->count();
 
         $CYH = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','C&H')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -966,7 +965,7 @@ class DashboardController extends Controller
             ->count();
 
         $MATRESA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MATRESA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -974,7 +973,7 @@ class DashboardController extends Controller
             ->count();
 
         $Practicante = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Practicante')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -982,21 +981,21 @@ class DashboardController extends Controller
             ->count();
 
         $Visita = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Visita')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->whereMonth('unsafe_conditions_records.created_at',date('m'))
             ->count();
         $Proyectos = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Proyectos')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
             ->whereMonth('unsafe_conditions_records.created_at',date('m'))
             ->count();
         $Transportista = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Transportista')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1030,7 +1029,7 @@ class DashboardController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $BRITE = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','BRITE')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1039,7 +1038,7 @@ class DashboardController extends Controller
             ->count();
 
         $FEMOSA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FEMOSA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1048,7 +1047,7 @@ class DashboardController extends Controller
             ->count();
 
         $SALN = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SALN')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1057,7 +1056,7 @@ class DashboardController extends Controller
             ->count();
 
         $SGM = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SGM')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1066,7 +1065,7 @@ class DashboardController extends Controller
             ->count();
 
         $ECOLAB = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','ECOLAB')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1075,7 +1074,7 @@ class DashboardController extends Controller
             ->count();
         
         $NALCO = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','NALCO')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1084,7 +1083,7 @@ class DashboardController extends Controller
             ->count();
 
         $LYM = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','L&M')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1093,7 +1092,7 @@ class DashboardController extends Controller
             ->count();
 
         $MBSA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MBSA (Montajes Bocanegra)')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1101,7 +1100,7 @@ class DashboardController extends Controller
             ->whereDay('unsafe_conditions_records.created_at',date('d'))
             ->count();
         $Lopez = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','J. Lopéz')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1110,7 +1109,7 @@ class DashboardController extends Controller
             ->count();
 
         $JPAP = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','JPAP')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1119,7 +1118,7 @@ class DashboardController extends Controller
             ->count();
 
         $Quiroz = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','R. Quiroz')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1128,7 +1127,7 @@ class DashboardController extends Controller
             ->count();
 
         $FUMYCA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','FUMYCA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1137,7 +1136,7 @@ class DashboardController extends Controller
             ->count();
 
         $kitchen = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','kitchen (comedor)')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1146,7 +1145,7 @@ class DashboardController extends Controller
             ->count();
 
         $CYH = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','C&H')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1155,7 +1154,7 @@ class DashboardController extends Controller
             ->count();
 
         $MATRESA = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','MATRESA')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1164,7 +1163,7 @@ class DashboardController extends Controller
             ->count();
 
         $Practicante = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Practicante')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1173,7 +1172,7 @@ class DashboardController extends Controller
             ->count();
 
         $Visita = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Visita')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1181,7 +1180,7 @@ class DashboardController extends Controller
             ->whereDay('unsafe_conditions_records.created_at',date('d'))
             ->count();
         $Proyectos = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Proyectos')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))
@@ -1189,7 +1188,7 @@ class DashboardController extends Controller
             ->whereDay('unsafe_conditions_records.created_at',date('d'))
             ->count();
         $Transportista = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','Transportista')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))

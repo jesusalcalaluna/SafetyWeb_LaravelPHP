@@ -67,10 +67,10 @@
         <div class="detectadas">{{$detectadas}}</div>
         <div class="atendidas">{{$atendidas}}</div>
         <div class="avance">%{{$avance}}</div>
-        <div class="p-participacion-cc">100</div>
-        <div class="p-participacion-ci">100</div>
-        <div class="monitoreos">100</div>
-        <div class="owd">100</div>
+        <div class="p-participacion-cc">%{{$participacion_cc}}</div>
+        <div class="p-participacion-ci">%{{$participacion_ci}}</div>
+        <div class="monitoreos">%{{$p_monitoreos}}</div>
+        <div class="owd">%{{$p_owd}}</div>
     </div>
     
 @endsection

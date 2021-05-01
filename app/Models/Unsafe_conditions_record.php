@@ -34,7 +34,7 @@ class Unsafe_conditions_record extends Model
             'attention_priority',
             'scope',
             'notice_number',
-            'person_id',
+            'people_id',
     ];
 
     public function type_condition(){
@@ -47,6 +47,6 @@ class Unsafe_conditions_record extends Model
         return $this->hasOne(Companies_and_departments::class, 'id', 'department_id');
     }
     public function reporter(){
-        return $this->hasOne(People::class, 'id', 'person_id');
+        return $this->hasOne(People::class, 'id', 'people_id');
     }
 }

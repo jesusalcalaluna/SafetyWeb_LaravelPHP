@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Companion_care_record;
 use App\Models\People;
 use App\Models\Unsafe_conditions_record;
+use ArrayObject;
 use Illuminate\Support\Facades\DB;
 
 class LandingController extends Controller
@@ -14,7 +15,7 @@ class LandingController extends Controller
     public function getIndex(){
         date_default_timezone_set('America/Monterrey');
 
-        $contPersonasActivas = People::where('status', 'ACTIVO')->count();
+        $cantidad_personas_activas = People::where('status', "ACTIVO")->count();
 
         //COMPAÑEROS CUIDADOS
         //seguros
@@ -44,14 +45,139 @@ class LandingController extends Controller
             $avance = number_format(($atendidas/$detectadas)*100 ,0);
         }
 
-        //PARTICIPACION EN DETECCION
+        //PARTICIPACION DE DETECCION
         //cuidado del compañero
-        $coun_parti_cc = Companion_care_record::groupBy('people_id')->count();
-        return $coun_parti_cc;
+        $cant_cc = Companion_care_record::whereYear('created_at',date('Y'))
+        ->whereMonth('created_at',date('m'))
+        ->select("people_id")
+        ->groupBy("people_id")
+        ->get()
+        ->count();
         $participacion_cc = 0;
+        if ($cantidad_personas_activas) {
+            $participacion_cc = number_format(($cant_cc/$cantidad_personas_activas)*100 ,1);
+        }
         //condiciones inseguras
+        $cant_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
+        ->whereMonth('created_at',date('m'))
+        ->select("people_id")
+        ->groupBy("people_id")
+        ->get()
+        ->count();
         $participacion_ci = 0;
+        if ($cantidad_personas_activas) {
+            $participacion_ci = number_format(($cant_ci/$cantidad_personas_activas)*100 ,1);
+        }
 
-        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros','participacion_cc', 'participacion_ci'));
+        //CUMPLIMIENTO A LA RUTINA
+        //monitoreos
+        $canti_monitoreos_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_origin', 'Monitoreo de Seguridad')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
+        $canti_monitoreos_cc = Companion_care_record::whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_source', 'Monitoreo de Seguridad')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
+
+        $agrupar_moniutoreo = new ArrayObject();
+        foreach ($canti_monitoreos_ci as $key1 => $value) {  
+            
+            if (!sizeof($agrupar_moniutoreo)) {
+                $agrupar_moniutoreo->append($value);
+            } 
+            
+            foreach ($agrupar_moniutoreo as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_moniutoreo->append($value);
+                    break ;
+                }
+
+            }
+        }
+        
+        foreach ($canti_monitoreos_cc as $key2 => $value) {
+            if (!sizeof($agrupar_moniutoreo)) {
+                $agrupar_moniutoreo->append($value);
+            } 
+            
+            foreach ($agrupar_moniutoreo as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_moniutoreo->append($value);
+                    break ;
+                }
+
+            }
+        }
+        $canti_total_moniutoreo = $agrupar_moniutoreo->count();
+        $p_monitoreos = 0;
+        if ($cantidad_personas_activas) {
+            $p_monitoreos = number_format(($canti_total_moniutoreo/$cantidad_personas_activas)*100 ,1);
+        }
+        //OWD
+        $canti_owd_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_origin', 'DTO (OWD)')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
+        $canti_owd_cc = Companion_care_record::whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('detection_source', 'DTO (OWD)')
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get();
+
+        $agrupar_owd = new ArrayObject();
+        foreach ($canti_owd_ci as $key1 => $value) {  
+            
+            if (!sizeof($agrupar_owd)) {
+                $agrupar_owd->append($value);
+            } 
+            
+            foreach ($agrupar_owd as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_owd->append($value);
+                    break ;
+                }
+
+            }
+        }
+        
+        foreach ($canti_owd_cc as $key2 => $value) {
+            if (!sizeof($agrupar_owd)) {
+                $agrupar_owd->append($value);
+            } 
+            
+            foreach ($agrupar_owd as $key2 => $value1) {
+                if($value->people_id == $value1->people_id){
+                    break ;
+                }else {
+                    $agrupar_owd->append($value);
+                    break ;
+                }
+
+            }
+        }
+        
+        $canti_total_owd = $agrupar_owd->count();
+        
+        $p_owd = 0;
+        if ($cantidad_personas_activas) {
+            $p_owd = number_format(($canti_total_owd/$cantidad_personas_activas)*100 ,1);
+        }
+        
+
+        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros', 'participacion_cc', 'participacion_ci', 'p_monitoreos', 'p_owd'));
     }
 }

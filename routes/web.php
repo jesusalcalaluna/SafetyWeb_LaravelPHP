@@ -27,6 +27,8 @@ Route::post('/unsafeConditionsForm', 'UnsafeConditionsController@writeUnsafeCond
 //Cuidado
 Route::get('/companionCare', 'CompanionCareController@showWriteCompanionCare')->name('companionCareForm');
 Route::post('/companionCare', 'CompanionCareController@writeCompanionCare')->name('companionCare');
+//Incidentes
+
 //-----------------------------------
 
 
@@ -47,17 +49,19 @@ Route::group(['middleware' => ['auth']], function () {
         //Permisos para los administradores y supervisores
         //-------------------------------------------------
 
+        //PERSONAL
         //registrar personal
-        Route::get('/newPersonExtern', 'PeopleController@createPersonForm')->name('newPersonFormExtern');
-        Route::post('/newPersonExtern', 'PeopleController@createPersonExtern')->name('newPersonExtern');
         Route::get('/newPerson', 'PeopleController@createPersonForm')->name('newPersonForm');
         Route::post('/newPerson', 'PeopleController@createPerson')->name('newPerson');
         //Tablas de personal
         Route::get('/peopleTable', 'PeopleController@getPeople')->name('pepleTable');
-        Route::get('/peopleTableExtern', 'PeopleController@getPeople')->name('pepleTableExtern');
+        Route::get('/peopleTableExtern', 'PeopleController@getPeopleExtern')->name('pepleTableExtern');
+        Route::get('/peopleTableIntern', 'PeopleController@getPeopleIntern')->name('pepleTableIntern');
         //Actualizar Personal
         Route::get('/updateperson/{id}', 'PeopleController@updatePersonForm')->name('updateperson');
-        Route::post('/updateperson', 'UserController@updatePerson')->name('updateper');
+        Route::post('/updateperson', 'PeopleController@updatePerson')->name('updateper');
+        //Desactivar Personal
+        Route::post('/deactivatePerson', 'PeopleController@deactivatePerson')->name('deactivatePerson');
 
         //Condiciones Inseguras
         Route::get('/UnsafeConditions', 'UnsafeConditionsController@readUnsafeConditions')->name('getUnsafeConditions');
@@ -72,12 +76,15 @@ Route::group(['middleware' => ['auth']], function () {
             //Permisos soloo para los administradores
             //----------------------------------------
 
+            //USUARIOS
             //Registro de nuevos usuarios
             Route::get('/registerUsers', [RegisteredUserController::class, 'createAdmin'])->name('registerUsers');
             Route::post('/registerUsers', [RegisteredUserController::class, 'storeAdmin']);
             //Actualizar usuarios
             Route::post('/updateUser', 'UserController@updateUser')->name('updateuser');
             Route::post('/updateUserPass', 'UserController@updatePass')->name('updateuserpass');
+            //Eliminar Usuario
+            Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
                 
             
         });

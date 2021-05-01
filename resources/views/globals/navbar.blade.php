@@ -3,6 +3,13 @@
         <ul class="main-menu">
             <li class="@if(Route::current()->getName() == 'index') active @endif"> <a href="{{route("index")}}"> Home </a></li>
             <li class="@if(Route::current()->getName() == 'dashboard') active @endif"> <a href="{{route('dashboard')}}"> Panel de Administrador </a></li>
+            <li class="dropdown"> <a href="#" data-toggle="dropdown"> Reportes
+                <i class="fa fa-chevron-down dropdown-toggle"> </i>  </a>
+                <ul>
+                    <li> <a href="{{route('unsafeConditionsForm')}}"> Condiciones Inseguras </a> </li>
+                    <li> <a href="{{route('companionCareForm')}}"> Cuidado del Compañero </a> </li>
+                </ul>
+            </li>
             <li class="dropdown"> <a href="#" data-toggle="dropdown"> Juntas
                 <i class="fa fa-chevron-down dropdown-toggle"> </i>  </a>
                 <ul>

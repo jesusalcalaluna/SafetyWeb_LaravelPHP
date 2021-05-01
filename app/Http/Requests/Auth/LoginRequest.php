@@ -43,7 +43,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
-        $this->ensureIsNotRateLimited();
+        //$this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
@@ -65,7 +65,9 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited()
     {
+        
         if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            dd('entra');
             return;
         }
 

@@ -264,13 +264,21 @@
                                 <td>{{$item->role->role_name}}</td>
                                 <td>
                                     <!-- Edit Invoice Button -->
-                                    <div class="invoice-header-right d-flex align-items-center justify-content-around justify-content-sm-end mt-3 mt-sm-0">
+                                    <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
                    
                                         <!-- Edit Invoice Button -->
-                                        <div class="edit-invoice-btn pr-1">
-                                           <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
-                                              <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
-                                           </a>
+                                        <div class="edit-invoice-btn pr-1 ">
+                                            <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
+                                                <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form method="POST" action="{{route('deleteUser')}}">
+                                                <input hidden="true" value="{{$item->id}}" name="id">
+                                                <a onclick="deleteUserAlert(this);" class="btn-circle ">
+                                                <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
+                                            </a>
+                                            </form>
                                         </div>
                                         <!-- End Edit Invoice Button -->
                                      </div>
@@ -294,6 +302,45 @@
 @endsection
 @section('js')
 <script>
+    function deleteUserAlert(selected){
+        
+        Swal.fire({
+            title: "¿Estas seguro?",
+            text: "¡No podras revertirlo!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "¡Si, eliminalo!",
+            confirmButtonClass: "btn long",
+            cancelButtonClass: "btn long bg-danger ml-1",
+            cancelButtonText: "Cancelar",
+            buttonsStyling: !1,
+        }).then(function (t) {
+
+            if (t.value) {
+                $.ajax({
+                type: "POST",
+                url: selected.parentNode.action,
+                data: { "_token" : "{{ csrf_token() }}",
+                        "id" : $(selected).parent().find('input[name="id"]').val()},
+                success:  function(data){
+
+                    $(selected).parent().parent().parent().parent().parent().remove()
+                    
+                }
+            }).done(function() {
+                Swal.fire({ type: "success", title: "¡Eliminado!", text: "Usuario eliminado.", confirmButtonClass: "btn btn-success" })
+            }).fail(function(err) {
+                Swal.fire({ title: "Error!", text: " ¡Algo salio mal! intentalo nuevamente", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
+            });
+                
+            }else{
+                t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "El usuario esta a salvo :)", type: "error", confirmButtonClass: "btn btn-success" });
+            }
+        });
+        
+    }
     function selectPerson() {
             
             

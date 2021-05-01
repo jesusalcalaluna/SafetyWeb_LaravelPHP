@@ -49,4 +49,18 @@ class UserController extends Controller
         return back()->with('success', 'Registro exitoso');
         
     }
+
+    public function deleteUser(Request $request){
+
+        try {
+            $user = User::findOrFail($request->id);
+            $user->delete();
+        } catch (\Throwable $th) {
+            return 'error';
+        }
+        
+
+        return $user;
+        
+    }
 }

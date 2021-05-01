@@ -90,7 +90,7 @@ class test extends Controller
         }
 
         $SEGURIDAD_SALUD = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.person_id')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->where('companies_and_departments.name','SEGURIDAD')
             ->whereYear('unsafe_conditions_records.created_at',date('Y'))

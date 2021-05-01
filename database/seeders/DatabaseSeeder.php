@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Dangers;
+use App\Models\Incident;
+use App\Models\IncidentRecord;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +28,10 @@ class DatabaseSeeder extends Seeder
             conditionGroupsSeeder::class,
             typeConditionSeeder::class,
             superUserSeeder::class,
+            companyPrefixSeeder::class,
+            incidentTypeSeeder::class,
+            incidentSeeder::class,
+            incidentRecordSeeder::class,
         ]);
     }
 }

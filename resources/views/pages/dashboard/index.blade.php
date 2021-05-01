@@ -116,7 +116,11 @@
                             <div class="">
                                 <h4 class="mb-2">Participacion Interna</h4>
                             </div>
+                            
                             <div class="d-flex align-items-center">
+                              <div class="">
+                                 <h4 class="mb-3">Hoy</h4>
+                             </div>
                                 <!-- Dropdown Button -->
                                 <div class="dropdown-button">
                                     <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
@@ -157,6 +161,9 @@
                                 <h4 class="mb-2">Participacion Externa</h4>
                             </div>
                             <div class="d-flex align-items-center">
+                              <div class="">
+                                 <h4 id="" class="mb-3">Hoy</h4>
+                              </div>
                                 <!-- Dropdown Button -->
                                 <div class="dropdown-button">
                                     <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
@@ -200,42 +207,42 @@
 <script src="{{ asset('assets/plugins/apex/custom-apexcharts.js') }}"></script>
 <a class="ruta" href="{{ route('dashboardCharts') }}"></a>
 <script>
-function chartschange(params) {
+   function chartschange(params) {
 
-    $('#test2').hide(0);
-    $('#test3').hide(0);
-    $('#test1').show(0);
-}
-function chartschange1(params) {
-    $('#test1').hide(0);
-    $('#test3').hide(0);
-    $('#test2').show(0);
-}
-function chartschange2(params) {
-    $('#test1').hide(0);
-    $('#test2').hide(0);
-    $('#test3').show(0);
-}
+      $('#test2').hide(0);
+      $('#test3').hide(0);
+      $('#test1').show(0);
+   }
+   function chartschange1(params) {
+      $('#test1').hide(0);
+      $('#test3').hide(0);
+      $('#test2').show(0);
+   }
+   function chartschange2(params) {
+      $('#test1').hide(0);
+      $('#test2').hide(0);
+      $('#test3').show(0);
+   }
 
-function chartschangeExterno(params) {
-$('#testExterno2').hide(0);
-$('#testExterno3').hide(0);
-$('#testExterno1').show(0);
-}
-function chartschangeExterno1(params) {
-$('#testExterno1').hide(0);
-$('#testExterno3').hide(0);
-$('#testExterno2').show(0);
-}
-function chartschangeExterno2(params) {
-$('#testExterno1').hide(0);
-$('#testExterno2').hide(0);
-$('#testExterno3').show(0);
-}
+   function chartschangeExterno(params) {
+   $('#testExterno2').hide(0);
+   $('#testExterno3').hide(0);
+   $('#testExterno1').show(0);
+   }
+   function chartschangeExterno1(params) {
+   $('#testExterno1').hide(0);
+   $('#testExterno3').hide(0);
+   $('#testExterno2').show(0);
+   }
+   function chartschangeExterno2(params) {
+   $('#testExterno1').hide(0);
+   $('#testExterno2').hide(0);
+   $('#testExterno3').show(0);
+   }
 
-$(function() {
-    
-});
+   $(function() {
+      
+   });
 </script>
 <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
 @endsection

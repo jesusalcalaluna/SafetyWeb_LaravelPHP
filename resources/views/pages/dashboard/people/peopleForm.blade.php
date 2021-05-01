@@ -21,10 +21,10 @@
                             <div class="tab-pane fade show active" id="personal">
                                 <div class="d-flex align-items-center mb-3">
                                     <a href="{{ redirect()->getUrlGenerator()->previous() }}" class="mr-2"><img src="../../../assets/img/svg/angle-left.svg" alt="" class="svg"></a>
-                                    <h4 class="regular mr-3 font-20 ">Informacion Personal</h4>
+                                    <h4 class="regular mr-3 font-20 ">Nuevo Personal</h4>
                                 </div>
 
-                                <form @if (Route::current()->getName() == 'newPerson') action="{{ route('newPerson')}}"  @else action="{{ route('newPersonExtern')}}" @endif  method="POST">
+                                <form action="{{ route('newPerson')}}" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-6">
@@ -36,10 +36,13 @@
                                             <!-- End Form Group -->
                                             
                                             <!-- Form Group -->
+                                            @if (Auth::user()->person->company_and_department->origin == "INTERNO" || Auth::user()->role->role_name == "ADMINISTRADOR")
                                             <div class="form-group mb-20">
                                                 <label for="sap" class="mb-2 font-14 bold">SAP</label>
                                                 <input type="text" id="sap" class="theme-input-style" placeholder="Si es Externo deja vacio este campo..." name="sap">
                                             </div>
+                                            @endif
+                                            
                                             <!-- End Form Group -->
                                             
                                             <!-- Form Group -->
@@ -72,7 +75,7 @@
                                             
                                         </div>
                                         <div class="col-lg-12">
-                                            <div class="button-group mt-30 mt-xl-n5">
+                                            <div class="button-group mt-30">
                                                 <button type="submit" class="btn">Guardar</button>
                                                 <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                                             </div>
