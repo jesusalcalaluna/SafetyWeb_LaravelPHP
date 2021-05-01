@@ -14,6 +14,8 @@ class LandingController extends Controller
     public function getIndex(){
         date_default_timezone_set('America/Monterrey');
 
+        $contPersonasActivas = People::where('status', 'ACTIVO')->count();
+
         //COMPAÑEROS CUIDADOS
         //seguros
         $seguros = DB::table('companion_care_records')
@@ -42,6 +44,14 @@ class LandingController extends Controller
             $avance = number_format(($atendidas/$detectadas)*100 ,0);
         }
 
-        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros'));
+        //PARTICIPACION EN DETECCION
+        //cuidado del compañero
+        $coun_parti_cc = Companion_care_record::groupBy('people_id')->count();
+        return $coun_parti_cc;
+        $participacion_cc = 0;
+        //condiciones inseguras
+        $participacion_ci = 0;
+
+        return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros','participacion_cc', 'participacion_ci'));
     }
 }
