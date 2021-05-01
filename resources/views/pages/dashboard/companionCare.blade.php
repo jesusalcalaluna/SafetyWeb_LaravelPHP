@@ -70,11 +70,34 @@
                 </div>
                 <!-- End Form Group -->
                 <!-- Form Group -->
-                <div class="form-group mb-4">
-                    <label for="position_name" class="mb-2 bold">Puesto</label>
-                    <input type="text" class="theme-input-style" id="position_name" placeholder="Puesto del Compañero cuidado" name="position_name">
+                <div id="puesto_interno" class="form-group mb-4">
+                    <label class="mb-3 d-block font-14 bold">Puesto</label>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="Empleado" name="position_name" value="Empleado">
+                            <label for="Empleado"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="Empleado">Empleado</label>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="Trabajador" name="position_name" value="Trabajador">
+                            <label for="Trabajador"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="Trabajador">Trabajador</label>
+                    </div>
                 </div>
                 <!-- End Form Group -->
+
+                
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="turn" class="mb-2 bold d-block">Turno</label>
@@ -320,6 +343,12 @@
 
         function selectChangeOrigin(selected){
             $("#company_department_name").val("0");
+            if (selected.value == "EXTERNO") {
+                $('#puesto_interno').hide(1);
+            } else {
+                $('#puesto_interno').show(1);
+            }
+
             $("#company_department_name").children().each(function(i) {
 
                 count = 0;
@@ -337,7 +366,6 @@
                 }
                 
             });
-
         }
 
         function selectChangeInformantDepartment(selected){

@@ -52,6 +52,18 @@
             </ul>
             <!-- End Sub Menu -->
          </li>
+         <li class="has-sub-item @if(Route::current()->getName() == 'incidentForm') active sub-menu-opened @endif">
+            <a href="#">
+                  <i class="icofont-exclamation-circle "></i>
+                <span class="link-title">Incidentes</span>
+            </a>
+            <!-- Sub Menu -->
+            <ul class="nav sub-menu" style="display: none;">
+                <li class="@if(Route::current()->getName() == 'incidentForm') active @endif"><a href="{{route('incidentForm')}}">Formulario</a></li>
+                <li class="@if(Route::current()->getName() == 'incidentTable') active @endif"><a href="{{route('incidentTable')}}">Registros</a></li>
+            </ul>
+            <!-- End Sub Menu -->
+         </li>
 
          <li class="nav-category">Trabajadores</li>
          <li class="">

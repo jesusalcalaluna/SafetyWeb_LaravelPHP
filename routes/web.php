@@ -28,7 +28,8 @@ Route::post('/unsafeConditionsForm', 'UnsafeConditionsController@writeUnsafeCond
 Route::get('/companionCare', 'CompanionCareController@showWriteCompanionCare')->name('companionCareForm');
 Route::post('/companionCare', 'CompanionCareController@writeCompanionCare')->name('companionCare');
 //Incidentes
-
+Route::get('/incidentForm', 'IncidentController@getForm')->name('incidentForm');
+Route::post('/setIncident', 'IncidentController@setIncidentRecord')->name('setIncident');
 //-----------------------------------
 
 
@@ -63,14 +64,16 @@ Route::group(['middleware' => ['auth']], function () {
         //Desactivar Personal
         Route::post('/deactivatePerson', 'PeopleController@deactivatePerson')->name('deactivatePerson');
 
+        //REPORTES
         //Condiciones Inseguras
         Route::get('/UnsafeConditions', 'UnsafeConditionsController@readUnsafeConditions')->name('getUnsafeConditions');
         Route::post('/updateUnsafeCondition', 'UnsafeConditionsController@updateUnsafeConditions')->name('updateUnsafeCondition');
         Route::get('/UnsafeConditions/{id}', 'UnsafeConditionsController@readUnsafeConditionDetails')->name('unsafeConditionDetails');
         Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
-
         //Cuidado del compañero
         Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
+        //Incidentes
+        Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
 
         Route::group(['middleware' => ['checkRole:ADMINISTRADOR']], function (){
             //Permisos soloo para los administradores
