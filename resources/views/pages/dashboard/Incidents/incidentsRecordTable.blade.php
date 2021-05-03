@@ -34,17 +34,17 @@
                     <table class="text-nowrap dh-table" id="table">
                         <thead>
                             <tr>
+                                <th>Estado</th>
+                                <th>Tipo</th>
+                                <th>Incidente </th>
                                 <th>Fecha </th>
                                 <th>Departamento </th>
-                                <th>Incidente </th>
-                                <th>Razon </th>
-                                <th>Quien Reporta </th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            @isset($unsafeConditionRecord)
+                            @isset($i)
                             @foreach ($unsafeConditionRecord as $item)
                             @if (Auth::user()->role->role_name == 'ADMINISTRADOR')
                                 <tr>
@@ -83,7 +83,7 @@
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
-                                    <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
+                                    <td><a href="{{ route('incidentDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
                                 @endif
                             @endif

@@ -61,7 +61,9 @@
                             @isset($departments)
                             @foreach ($departments as $item)
                             @if ($item->origin == "INTERNO")
+                            @if (!str_contains($item->name, 'LÍNEA'))
                             <option value="{{$item->id}}" >{{$item->name}}</option>
+                            @endif
                             @endif
                             @endforeach
                             @endisset

@@ -150,7 +150,9 @@
                             @isset($departments)
                             @foreach ($departments as $item)
                             @if ($item->origin == "INTERNO")
-                            <option value="{{$item->id}}" >{{$item->name}}</option>
+                                @if (!str_contains($item->name, 'LÍNEA'))
+                                <option value="{{$item->id}}" >{{$item->name}}</option>
+                                @endif
                             @endif
                             @endforeach
                             @endisset

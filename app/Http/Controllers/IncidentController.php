@@ -38,7 +38,7 @@ class IncidentController extends Controller
                 'people_id' => $person->id,
             ]);
         } catch (\Throwable $th) {
-            dd($th);
+            
             return back()->with('error', 'Algo salio mal, intentalo de nuevo.');
         }
         return back()->with('success', 'Registro exitoso');
@@ -46,6 +46,13 @@ class IncidentController extends Controller
 
     public function getIncidenteTable()
     {
-        return view('pages.dashboard.Incidents.incidentsRecordTable');
+        $incidents = IncidentRecord::with('incident')->with('incident.incident_type')->with('department')->with('reporter')->get();
+        
+        return view('pages.dashboard.Incidents.incidentsRecordTable', compact('incidents'));
+    }
+
+    public function getIncidentDetails($id)
+    {
+        view('pages.dashboard.Incidents.incidentsRecordDetails');
     }
 }

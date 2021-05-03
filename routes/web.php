@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
         //Incidentes
         Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
+        Route::get('/incidentDetails/{id}', 'IncidentController@getIncidentDetails')->name('incidentDetails');
 
         Route::group(['middleware' => ['checkRole:ADMINISTRADOR']], function (){
             //Permisos soloo para los administradores

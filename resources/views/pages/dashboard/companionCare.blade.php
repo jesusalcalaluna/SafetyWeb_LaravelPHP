@@ -62,7 +62,9 @@
                         <select class="theme-input-style" id="company_department_name" name="company_department_name">
                             @isset($companies_departments)
                             @foreach ($companies_departments as $item)
-                                <option class="{{$item->origin}}" value="{{$item->name}}" >{{$item->name}}</option>   
+                            @if (!str_contains($item->name, 'LÍNEA'))
+                            <option class="{{$item->origin}}" value="{{$item->name}}" >{{$item->name}}</option>  
+                            @endif
                             @endforeach
                             @endisset
                         </select>

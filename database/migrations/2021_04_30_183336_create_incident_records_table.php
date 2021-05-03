@@ -28,6 +28,7 @@ class CreateIncidentRecordsTable extends Migration
             $table->string('solution_description');
             $table->unsignedBigInteger('people_id');
             $table->foreign('people_id')->references('id')->on('people');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         }); 
     }
