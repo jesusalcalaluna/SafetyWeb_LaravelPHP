@@ -8,6 +8,8 @@
 <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalerts.js') }}"></script>
+<script src="{{ asset('assets/plugins/blockUI/jquery.blockUI.js') }}"></script>
+<script src="{{ asset('assets/plugins/blockUI/custom-blockUi.js') }}"></script>
 <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
 
 

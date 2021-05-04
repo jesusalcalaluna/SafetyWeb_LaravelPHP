@@ -8,9 +8,29 @@ Author url    :  http://themelooks.com
 ** Block Ui
 
 ----------------------------------------------*/
+$(window).block({
+  message: '<i class="icofont-spinner icon-spin"></i>',
+  
+  overlayCSS: {
+    backgroundColor: '#8280FD',
+    opacity: 1,
+    cursor: 'wait'
+  },
+  css: {
+    border: 0,
+    padding: 0,
+    colo: '#fff',
+    backgroundColor: 'transparent'
+  }
+});
+
 
 $(function() {
+
+  
     $(document).ready(function () {
+      $(window).unblock();
+      
         // 			Block Examples			//
         //----------------------------
       
@@ -69,6 +89,8 @@ $(function() {
             }
           });
         });
+
+        
       
         //     Message Options			//
         // --------------------------
