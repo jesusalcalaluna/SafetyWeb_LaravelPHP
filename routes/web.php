@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
         //Incidentes
         Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
         Route::get('/incidentDetails/{id}', 'IncidentController@getIncidentDetails')->name('incidentDetails');
+        Route::get('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
 
         Route::group(['middleware' => ['checkRole:ADMINISTRADOR']], function (){
             //Permisos soloo para los administradores

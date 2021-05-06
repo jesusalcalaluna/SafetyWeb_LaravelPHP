@@ -44,24 +44,25 @@
                         </thead>
                         <tbody>
                             
-                            @isset($i)
-                            @foreach ($unsafeConditionRecord as $item)
+                            @isset($incidents)
+                            @foreach ($incidents as $item)
                             @if (Auth::user()->role->role_name == 'ADMINISTRADOR')
                                 <tr>
                                     <td>
                                         <div class="priority">
-                                            <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == "RETRASADA") bg-danger @endif @if($item->status == "NO INICIADA") bg-dark @endif @if($item->status == "EN PROCESO") bg-warning @endif @if($item->status == "COMPLETA") bg-success @endif " data-toggle="dropdown" aria-expanded="false">{{$item->status}}</a>
+                                            <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == 0) bg-danger @endif @if($item->status == 1) bg-success @endif " data-toggle="dropdown" aria-expanded="false">@if($item->status == 1) APROBADO @else DESAPROBADO @endif</a>
                                             <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="RETRASADA" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>RETRASADA</a></form>
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="NO INICIADA" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-dark"></span>NO INICIADA</a></form>
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="EN PROCESO" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-warning"></span>EN PROCESO</a></form>
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="COMPLETA" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-success"></span>COMPLETA</a></form>
+                                                @if ($item->status == 0)
+                                                <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="1" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-success"></span>APROBADO</a></form>
+                                                @else
+                                                <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="0" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>DESAPROBADO</a></form>    
+                                                @endif
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{$item->deadline}}</td>
-                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
-                                    <td>{{$item->type_condition->condition_group->group_name}}</td>
+                                    <td>{{$item->incident->incident_type->type_name}}</td>
+                                    <td>{{$item->incident->incident_name}}</td>
+                                    <td>{{$item->event_date}}</td>
                                     <td>{{$item->department->name}}</td>
                                     <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
@@ -70,7 +71,7 @@
                                 <tr>
                                     <td>
                                         <div class="priority">
-                                            <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == "RETRASADA") bg-danger @endif @if($item->status == "NO INICIADA") bg-dark @endif @if($item->status == "EN PROCESO") bg-warning @endif @if($item->status == "COMPLETA") bg-success @endif " data-toggle="dropdown" aria-expanded="false">{{$item->status}}</a>
+                                            <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == "0") bg-danger @endif @if($item->status == "1") bg-success @endif " data-toggle="dropdown" aria-expanded="false">{{$item->status}}</a>
                                             <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
                                                 <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="RETRASADA" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>RETRASADA</a></form>
                                                 <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="NO INICIADA" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-dark"></span>NO INICIADA</a></form>
@@ -79,11 +80,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{$item->deadline}}</td>
-                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
-                                    <td>{{$item->type_condition->condition_group->group_name}}</td>
+                                    <td>{{$item->incident->incident_type->type_name}}</td>
+                                    <td>{{$item->incident->incident_name}}</td>
+                                    <td>{{$item->event_date}}</td>
                                     <td>{{$item->department->name}}</td>
-                                    <td><a href="{{ route('incidentDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
+                                    <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
                                 @endif
                             @endif

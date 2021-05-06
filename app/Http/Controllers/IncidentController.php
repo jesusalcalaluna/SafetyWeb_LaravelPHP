@@ -55,4 +55,9 @@ class IncidentController extends Controller
     {
         view('pages.dashboard.Incidents.incidentsRecordDetails');
     }
+
+    public function updateIncident(Request $request)
+    {
+        # code...
+    }
 }
