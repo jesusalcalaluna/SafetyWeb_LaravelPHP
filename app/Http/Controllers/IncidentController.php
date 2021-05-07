@@ -53,7 +53,14 @@ class IncidentController extends Controller
 
     public function getIncidentDetails($id)
     {
-        view('pages.dashboard.Incidents.incidentsRecordDetails');
+        $IDatails = IncidentRecord::with('incident')
+        ->with('incident.incident_type')
+        ->with('department')
+        ->with('reporter')
+        ->with('reporter.company_and_department')
+        ->where('id', $id)->get();
+        
+        return view('pages.dashboard.Incidents.incidentsRecordDetails', compact('IDatails'));
     }
 
     public function updateIncident(Request $request)
