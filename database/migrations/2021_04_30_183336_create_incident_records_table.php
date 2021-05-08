@@ -15,6 +15,8 @@ class CreateIncidentRecordsTable extends Migration
     {
         Schema::create('incident_records', function (Blueprint $table) {
             $table->id();
+            $table->string('classification')->notNullable();
+            $table->boolean('sif')->notNullable()->default(false);
             $table->date('event_date')->notNullable();
             $table->string('description')->notNullable();
             $table->unsignedBigInteger('department_id');

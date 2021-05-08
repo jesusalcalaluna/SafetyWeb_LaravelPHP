@@ -15,6 +15,8 @@ class IncidentRecord extends Model
      * @var array
      */
     protected $fillable = [
+        'classification',
+        'sif',
         'event_date',
         'description',
         'department_id',

@@ -26,6 +26,8 @@ class IncidentController extends Controller
         try {
             $person = People::where('sap', $request->sap)->first();
             IncidentRecord::create([
+                'sif' => $request->sif,
+                'classification' => $request->classification,
                 'event_date' => $request->event_date,
                 'description' => $request->description,
                 'department_id' => $request->department_id,

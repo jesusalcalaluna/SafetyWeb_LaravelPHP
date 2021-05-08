@@ -48,6 +48,64 @@
                 <!-- End Form Group -->
                 <!-- Form Group -->
                 <div class="form-group mb-4">
+                    <label class="mb-3 d-block font-14 bold">Clasificacion</label>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="LTI" name="classification" value="LTI">
+                            <label for="LTI"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="LTI">LTI (Accidente con dias perdidos)</label>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="MDI" name="classification" value="MDI">
+                            <label for="MDI"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="MDI">MDI (Accidente con modificacion de tarea)</label>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="MTI" name="classification" value="MTI">
+                            <label for="MTI"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="MTI">MTI (Accidente con tratamiento medico interno)</label>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="FAI" name="classification" value="FAI">
+                            <label for="FAI"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="FAI">FAI (Accidente con primeros auxiolios)</label>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="INCIDENTES" name="classification" value="INCIDENTES">
+                            <label for="INCIDENTES"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="INCIDENTES">INCIDENTES</label>
+                    </div>
+                </div>
+                <!-- End Form Group -->
+                <!-- Form Group -->
+                <div class="form-group mb-4">
                     <label for="condition_detected" class="mb-2 bold">Descripcion del Incidente</label>
                     <textarea type="text" class="theme-input-style" id="condition_detected" placeholder="Describe como ocurrio..." name="description"></textarea>
                 </div>
@@ -152,9 +210,35 @@
                 </div>
                 <!-- End Form Group -->
                 <!-- Form Group -->
+                <div class="form-group mb-4">
+                    <label class="mb-3 d-block font-14 bold">SIF</label>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="SI" name="sif" value="1">
+                            <label for="SI"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="SI">SI</label>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Custom Radio -->
+                        <div class="custom-radio mr-3">
+                            <input type="radio" id="NO" name="sif" value="0">
+                            <label for="NO"></label>
+                        </div>
+                        <!-- End Custom Radio -->
+                        
+                        <label for="NO">NO</label>
+                    </div>
+                </div>
+                <!-- End Form Group -->
+                <!-- Form Group -->
                 <div class="form-group mb-20 ">
                     
-                    <label for="sap" class="mb-2 font-14 bold">SAP de quien reporta</label>
+                    <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta </label>
                     <div class="row align-items-center">
                         <div class="col-sm-6">
                             <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
