@@ -45,12 +45,12 @@
                      <div class="col-md-4">
                         <!-- Invoice Right -->
                         <div class="invoice-right  mt-md-0">
-                           <h3 class="white font-20 mb-3">Incidente</h3>
+                           <h3 class="white font-20 mb-3">INCIDENTE</h3>
 
                            <ul class="status-list">
                               <li><span class="key font-14">Fecha:</span> <span class="white bold font-17">{{ $item->event_date }}</span></li>
                               <li><span class="key font-14">Incidente:</span> <span class="white bold font-17">{{ $item->incident->incident_type->type_name }}</span></li>
-                              <li><span class="key font-14">Departamento:</span> <span class="white bold font-17">{{ $item->department }}</span></li>
+                              <li><span class="key font-14">Departamento:</span> <span class="white bold font-17">{{ $item->department->name }}</span></li>
                               <li><span class="key font-14">Estado:</span> <span class="white status-btn  @if($item->status == 0) bg-danger @endif @if($item->status == 1) bg-success @endif ">@if($item->status == 1) APROBADO @else DESAPROBADO @endif</span></li>
                            </ul>
                         </div>
@@ -66,7 +66,7 @@
                         <div class="col-xl-4 col-md-6">
                             <!-- Invoice Payment Details -->
                             <div class="invoice payment-details">
-                                <div class="invoice-title c4 bold font-14 mb-3">Incidente:</div>
+                                <div class="invoice-title c4 bold font-14 mb-3">Incidente</div>
 
                                 <ul class="status-list">
                                     <li><span class="key">Descripcion:</span> <span class="font-17 bold">{{ $item->description }}</span></li>
@@ -79,7 +79,7 @@
                         <div class="col-xl-4 col-md-6">
                             <!-- Invoice Payment Details -->
                             <div class="invoice payment-details">
-                                <div class="invoice-title c4 bold font-14 mb-3">Detalles:</div>
+                                <div class="invoice-title c4 bold font-14 mb-3">Detalles</div>
 
                                 <ul class="status-list">
                                     <li><span class="key">Rason:</span> <span class="font-17 bold">{{ $item->incident_reason }}</span></li>
@@ -90,32 +90,17 @@
                             <!-- End Invoice Payment Details -->
                         </div>
 
-                        <div class="col-xl-4 col-md-6">
+                        <div class="col-xl-4 col-md-6 mt-5">
                             <!-- Invoice Form -->
                             <div class="invoice invoice-form">
-                            <div class="invoice-title c4 bold font-14 mb-3">Responsable</div>
+                            <div class="invoice-title c4 bold font-14 mb-3">Involucrados</div>
 
                             <ul class="list-invoice">
-                                <li class="user bold font-17">{{ $item->responsable->name }}</li>
-                                <li class="location">{{ $item->department->name }}<br>
-                                    {{ $item->area }}</li>
+                                <li class="user bold font-17">{{ $item->involbed_people_names }}</li>
+
                             </ul>
                             </div>
                             <!-- End Invoice Form -->
-                        </div>
-
-                        <div class="col-xl-4 col-md-6">
-                            <!-- Invoice To -->
-                            <div class="invoice invoice-to mt-5 mt-xl-0">
-                            <div class="invoice-title c4 bold font-14 mb-3">Quien reporta</div>
-
-                            <ul class="list-invoice">
-                                <li class="user bold font-17">{{ $item->reporter->name }}</li>
-                                <li class="location">{{ $item->reporter->company_and_department->name }}<br>
-                                    </li>
-                            </ul>
-                            </div>
-                            <!-- End Invoice To -->
                         </div>
 
                     </div>
@@ -128,43 +113,19 @@
                   <!-- Cart Collaterals -->
                   <div class="cart-collaterals">
                      <div class="cart_totals calculated_shipping">
-                        <table class="shop_table style-two">
-                           <tbody>
-                              <tr class="cart-subtotal">
-                                 <th>Probabilidad</th>
-                                 <th>
-                                    <span class="Price-amount amount">
-                                       <span class="Price-currencySymbol"> </span>{{ $item->probability }}</span>
-                                 </th>
-                              </tr>
-                              <tr class="cart-tax">
-                                 <td>Frecuencia</td>
-                                 <td>
-                                    <span class="Price-amount amount">
-                                       <span class="Price-currencySymbol">x </span>{{ $item->frequency }}</span>
-                                 </td>
-                              </tr>
-                              <tr class="cart-tax">
-                                 <td>Impacto</td>
-                                 <td>
-                                    <span class="Price-amount amount">
-                                       <span class="Price-currencySymbol">x </span>{{ $item->impact }}
-                                       </span>
-                                 </td>
-                              </tr>
-               
-                              <tr class="order-total">
-                                 <td>Riesgo</td>
-                                 <td>
-                                    <strong>
-                                        <span class="Price-amount amount"><span class="Price-currencySymbol"></span>{{ $item->risk }} <p>
-                                            {{ $item->risk_type }}
-                                        </span>
-                                    </strong> 
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
+                        <div class="col-xl-4 col-md-6">
+                           <!-- Invoice To -->
+                           <div class="invoice invoice-to mt-5 mt-xl-0">
+                           <div class="invoice-title c4 bold font-14 mb-3">Quien reporta</div>
+
+                           <ul class="list-invoice">
+                               <li class="user bold font-17">{{ $item->reporter->name }}</li>
+                               <li class="location">{{ $item->reporter->company_and_department->name }}<br>
+                                   </li>
+                           </ul>
+                           </div>
+                           <!-- End Invoice To -->
+                       </div>
                      </div>
                   </div>
                   <!-- End Cart Collaterals -->
