@@ -99,8 +99,13 @@ class test extends Controller
             ->count();
         
 
-        
+        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+            return $query->where('origin', 'EXTERNO');
+        })->with('unsafe_conditions', function($query){
+            return $query->whereMonth('unsafe_conditions_records.created_at', '=', date('m'))
+                         ->whereYear('unsafe_conditions_records.created_at', '=', date('Y'));
+        })->limit(15)->get();
 
-        return $SEGURIDAD_SALUD;
+        return $people;
     }
 }

@@ -20,6 +20,7 @@ Route::get('/','LandingController@getIndex')->name("index");
 //Diseños prueba
 Route::get('/test', 'test@test')->name('test');
 
+
 //-------------------------Formularios
 //Condiciones
 Route::get('/unsafeConditionsForm', 'UnsafeConditionsController@showWriteUnsafeConditions')->name('unsafeConditionsForm');

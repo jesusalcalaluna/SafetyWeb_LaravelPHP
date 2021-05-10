@@ -26,4 +26,8 @@ class People extends Model
     public function user(){
         return $this->hasOne(User::class, 'people_id', 'id');
     }
+
+    public function unsafe_conditions(){
+        return $this->hasMany(Unsafe_conditions_record::class, 'people_id', 'id');
+    }
 }

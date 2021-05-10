@@ -8,6 +8,7 @@ use App\Models\People;
 use App\Models\Role;
 use App\Models\User;
 use ArrayObject;
+use Faker\Provider\ar_JO\Person;
 use Illuminate\Http\Request;
 
 class PeopleController extends Controller
@@ -139,9 +140,11 @@ class PeopleController extends Controller
         return $person;
     }
 
-    public function makeCompanyId($company_id)
-    {
-        $prefix = CompanyPrefix::where('company_id', $company_id)->get();
-        dd($prefix);
+    public function getParticipation(){
+        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+            return $query->where('origin', 'EXTERNO');
+        })->get();
+        return "participation";
     }
+
 }
