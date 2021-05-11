@@ -41,8 +41,10 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Nombre </th>
-                                <th>Puesto</th>
                                 <th>Departamento</th>
+                                <th>Puesto</th>
+                                <th>PCC</th>
+                                <th>PCI</th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
@@ -53,8 +55,21 @@
                             <tr>
                                 <td>{{$item->sap}}</td>
                                 <td>{{$item->name}}</td>
-                                <td>{{$item->position}}</td>
                                 <td>{{$item->company_and_department->name}}</td>
+                                <td>{{$item->position}}</td>
+
+                                @if (count($item->companion_care_records) )
+                                <td class="bg-success">SI</td>
+                                @else
+                                <td class="bg-danger">NO</td>
+                                @endif 
+
+                                @if (count($item->unsafe_condition_records) )
+                                <td class="bg-success">SI</td>
+                                @else
+                                <td class="bg-danger">NO</td>
+                                @endif
+
                                 <td>
                                     <!-- Edit Invoice Button -->
                                     <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">

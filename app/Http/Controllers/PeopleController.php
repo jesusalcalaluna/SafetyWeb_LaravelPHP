@@ -86,6 +86,12 @@ class PeopleController extends Controller
     public function getPeopleIntern(){
         $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'INTERNO');
+        })->with('unsafe_condition_records', function($query){
+            return $query->whereMonth('created_at', '=', date('m'))
+                         ->whereYear('created_at', '=', date('Y'));
+        })->with('companion_care_records', function($query){
+            return $query->whereMonth('created_at', '=', date('m'))
+                         ->whereYear('created_at', '=', date('Y'));
         })->get();
         
         return view('pages.dashboard.people.peopleInternTable', compact('people'));
@@ -94,6 +100,12 @@ class PeopleController extends Controller
     public function getPeopleExtern(){
         $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'EXTERNO');
+        })->with('unsafe_condition_records', function($query){
+            return $query->whereMonth('created_at', '=', date('m'))
+                         ->whereYear('created_at', '=', date('Y'));
+        })->with('companion_care_records', function($query){
+            return $query->whereMonth('created_at', '=', date('m'))
+                         ->whereYear('created_at', '=', date('Y'));
         })->get();
         
         return view('pages.dashboard.people.peopleExternTable', compact('people'));
