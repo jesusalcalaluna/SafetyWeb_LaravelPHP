@@ -65,6 +65,7 @@
                     </li>
                 </ul>
             </li>
+            <li class="@if(Route::current()->getName() == 'dashboard') active @endif"> <a href="{{route('dashboard')}}"> Equipo y Herramienta</a></li>
 
         </ul>
     </div>
