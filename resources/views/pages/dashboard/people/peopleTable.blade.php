@@ -42,6 +42,8 @@
                                 <th>SAP/ID</th>
                                 <th>Nombre </th>
                                 <th>Puesto</th>
+                                <th>PCC</th>
+                                <th>PCI</th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
@@ -54,6 +56,17 @@
                                     <td>{{$item->sap}}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->position}}</td>
+                                    @if (count($item->companion_care_records) )
+                                    <td class="bg-success">{{count($item->companion_care_records)}}</td>
+                                    @else
+                                    <td class="bg-danger">{{count($item->companion_care_records)}}</td>
+                                    @endif 
+
+                                    @if (count($item->unsafe_condition_records) )
+                                    <td class="bg-success">{{count($item->unsafe_condition_records)}}</td>
+                                    @else
+                                    <td class="bg-danger">{{count($item->unsafe_condition_records)}}</td>
+                                    @endif
                                     <td>
                                         <!-- Edit Invoice Button -->
                                         <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">

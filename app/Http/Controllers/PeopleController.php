@@ -10,6 +10,7 @@ use App\Models\User;
 use ArrayObject;
 use Faker\Provider\ar_JO\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeopleController extends Controller
 {
@@ -78,7 +79,14 @@ class PeopleController extends Controller
     }
 
     public function getPeople(){
-        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->get();
+        $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)
+        ->with('unsafe_condition_records', function($query){
+            return $query->whereMonth('created_at', '=', date('m'))
+                         ->whereYear('created_at', '=', date('Y'));
+        })->with('companion_care_records', function($query){
+            return $query->whereMonth('created_at', '=', date('m'))
+                         ->whereYear('created_at', '=', date('Y'));
+        })->get();
         
         return view('pages.dashboard.people.peopleTable', compact('people'));
     }
