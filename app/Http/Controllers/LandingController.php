@@ -181,48 +181,58 @@ class LandingController extends Controller
         $incidentes_lti = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'LTI')
+        ->where('status', 1)
         ->count();
         $incidentes_mdi = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'MDI')
+        ->where('status', 1)
         ->count();
         $incidentes_mti = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'MTI')
+        ->where('status', 1)
         ->count();
         $incidentes_fai = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'FAI')
+        ->where('status', 1)
         ->count();
         $incidentes = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'INCIDENTE')
+        ->where('status', 1)
         ->count();
 
         $incidentes_lti_sif = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'LTI')
         ->where('sif', 1)
+        ->where('status', 1)
         ->count();
         $incidentes_mdi_sif = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'MDI')
         ->where('sif', 1)
+        ->where('status', 1)
         ->count();
         $incidentes_mti_sif = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'MTI')
         ->where('sif', 1)
+        ->where('status', 1)
         ->count();
         $incidentes_fai_sif = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'FAI')
         ->where('sif', 1)
+        ->where('status', 1)
         ->count();
         $incidentes_sif = IncidentRecord::whereYear('created_at',date('Y'))
         ->whereMonth('created_at',date('m'))
         ->where('classification', 'INCIDENTE')
         ->where('sif', 1)
+        ->where('status', 1)
         ->count();
         
         return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros', 'participacion_cc', 'participacion_ci', 'p_monitoreos', 'p_owd', 'incidentes_lti', 'incidentes_mdi', 'incidentes_mti', 'incidentes_fai', 'incidentes_lti_sif', 'incidentes_mdi_sif', 'incidentes_mti_sif', 'incidentes_fai_sif', 'incidentes_sif', 'incidentes'));

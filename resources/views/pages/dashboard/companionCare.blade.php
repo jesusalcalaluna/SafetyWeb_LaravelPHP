@@ -281,8 +281,8 @@
 
                 <!-- Form Group -->
                 <div class="form-group mb-20">
-                    <label for="sap" class="mb-2 font-14 bold">SAP de quien reporta</label>
-                    <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_sap">
+                    <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta</label>
+                    <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_sap">
                     <div class="valid-feedback" id="personName">
                         
                     </div>

@@ -241,7 +241,7 @@
                     <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta </label>
                     <div class="row align-items-center">
                         <div class="col-sm-6">
-                            <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
+                            <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
                             <div class="valid-feedback" id="personName"></div>
                         </div>
                     </div>

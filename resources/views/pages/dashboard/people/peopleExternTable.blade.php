@@ -59,15 +59,15 @@
                                 <td>{{$item->position}}</td>
 
                                 @if (count($item->companion_care_records) )
-                                <td class="bg-success">SI</td>
+                                <td class="bg-success">{{count($item->companion_care_records)}}</td>
                                 @else
-                                <td class="bg-danger">NO</td>
+                                <td class="bg-danger">{{count($item->companion_care_records)}}</td>
                                 @endif 
 
                                 @if (count($item->unsafe_condition_records) )
-                                <td class="bg-success">SI</td>
+                                <td class="bg-success">{{count($item->unsafe_condition_records)}}</td>
                                 @else
-                                <td class="bg-danger">NO</td>
+                                <td class="bg-danger">{{count($item->unsafe_condition_records)}}</td>
                                 @endif
 
                                 <td>
