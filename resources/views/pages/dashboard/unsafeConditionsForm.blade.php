@@ -44,7 +44,7 @@
                         <select class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups">
                             @isset($condition_groups)
                             @foreach ($condition_groups as $item)
-                                <option value="{{$item->id}}" >{{$item->group_name}}</option>   
+                                <option  value="{{$item->id}}" >{{$item->group_name}}</option>   
                             @endforeach
                             @endisset
                         </select>
@@ -345,6 +345,21 @@
             $("#probability").val("0");
             $("#impact").val("0");
             $("#frequency").val("0");
+            $("#type_condition_id").val("0");
+            
+            $("#type_condition_id").children().each(function (i) {
+                count = 0;
+                if ($(this).hasClass("conditionGroupId_"+$("#condition_groups").val())){
+
+                    $(this).show(1);
+                    if (count == 0) {
+                        count+1;
+                        $("#type_condition_id").val($(this).val());
+                    }
+                } else {
+                    $(this).hide(1);
+                }
+            });
 
             
         });
