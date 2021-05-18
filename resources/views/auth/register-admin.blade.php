@@ -256,7 +256,8 @@
                         <tbody>
                             @isset($users)
                             @foreach ($users as $item)
-                            
+                            @if(Auth::user()->person->company_and_department->id ==  $item->person->company_and_department->id)
+                            @if (Auth::user()->person->sap != $item->person->sap)
                             <tr>
                                 <td>{{$item->person->sap}}</td>
                                 <td>{{$item->person->name}}</td>
@@ -284,7 +285,8 @@
                                      </div>
                                 </td>
                             </tr>
-                                 
+                            @endif
+                            @endif
                             @endforeach
                             @endisset
                         </tbody>
