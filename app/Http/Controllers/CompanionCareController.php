@@ -20,7 +20,7 @@ class CompanionCareController extends Controller
         $act_types = Acts_type::all();
         $behaviors_group = Behaviors_group::all();
         $gold_rules = Gold_rule::all();
-        $people = People::all();
+        $people = People::where('status', 'ACTIVO')->get();
 
         return view('pages.dashboard.companionCare', compact('companies_departments', 'behaviors_group', 'act_types', 'gold_rules', 'people'));
     }

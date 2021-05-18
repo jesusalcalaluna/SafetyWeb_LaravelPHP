@@ -16,7 +16,7 @@ class IncidentController extends Controller
         $incident = Incident::all();
         $incidentType = IncidentType::all();
         $departments = Companies_and_departments::all();
-        $people = People::all();
+        $people = People::where('status', 'ACTIVO')->get();
         return view('pages.dashboard.Incidents.incidentsRecordForm', compact('incident', 'incidentType', 'departments', 'people'));
     }
 
