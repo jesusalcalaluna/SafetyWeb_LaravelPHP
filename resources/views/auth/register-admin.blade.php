@@ -57,7 +57,13 @@
                                                 <select class="theme-input-style" id="role" name="role_id">
                                                     @isset($roles)
                                                     @foreach ($roles as $item)
+                                                        @if (Auth::user()->role->id == 1)
                                                             <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @else
+                                                            @if ($item->id != 1)
+                                                                <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                            @endif
+                                                        @endif
                                                     @endforeach
                                                     @endisset
                                                 </select>
@@ -170,7 +176,15 @@
                                                 <select class="theme-input-style" id="role" name="role_id">
                                                     @isset($roles)
                                                     @foreach ($roles as $item)
+                                                        @if (Auth::user()->role->id == 1)
                                                             <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                        @else
+                                                            @if ($item->id != 1)
+                                                                <option value="{{$item->id}}" >{{$item->role_name}}</option>
+                                                            @endif
+                                                            
+                                                        @endif
+                                                            
                                                     @endforeach
                                                     @endisset
                                                 </select>
@@ -255,39 +269,71 @@
                         </thead>
                         <tbody>
                             @isset($users)
-                            @foreach ($users as $item)
-                            @if(Auth::user()->person->company_and_department->id ==  $item->person->company_and_department->id)
-                            @if (Auth::user()->person->sap != $item->person->sap)
-                            <tr>
-                                <td>{{$item->person->sap}}</td>
-                                <td>{{$item->person->name}}</td>
-                                <td>{{$item->person->position}}</td>
-                                <td>{{$item->role->role_name}}</td>
-                                <td>
-                                    <!-- Edit Invoice Button -->
-                                    <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
-                   
-                                        <!-- Edit Invoice Button -->
-                                        <div class="edit-invoice-btn pr-1 ">
-                                            <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
-                                                <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <form method="POST" action="{{route('deleteUser')}}">
-                                                <input hidden="true" value="{{$item->id}}" name="id">
-                                                <a onclick="deleteUserAlert(this);" class="btn-circle ">
-                                                <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
-                                            </a>
-                                            </form>
-                                        </div>
-                                        <!-- End Edit Invoice Button -->
-                                     </div>
-                                </td>
-                            </tr>
-                            @endif
-                            @endif
-                            @endforeach
+                                @foreach ($users as $item)
+                                    @if (Auth::user()->role->id == 1)
+                                        @if (Auth::user()->person->sap != $item->person->sap)
+                                        <tr>
+                                            <td>{{$item->person->sap}}</td>
+                                            <td>{{$item->person->name}}</td>
+                                            <td>{{$item->person->position}}</td>
+                                            <td>{{$item->role->role_name}}</td>
+                                            <td>
+                                                <!-- Edit Invoice Button -->
+                                                <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
+                            
+                                                    <!-- Edit Invoice Button -->
+                                                    <div class="edit-invoice-btn pr-1 ">
+                                                        <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
+                                                            <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        <form method="POST" action="{{route('deleteUser')}}">
+                                                            <input hidden="true" value="{{$item->id}}" name="id">
+                                                            <a onclick="deleteUserAlert(this);" class="btn-circle ">
+                                                            <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
+                                                        </a>
+                                                        </form>
+                                                    </div>
+                                                    <!-- End Edit Invoice Button -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @else
+                                        @if(Auth::user()->person->company_and_department->id ==  $item->person->company_and_department->id)
+                                            @if (Auth::user()->person->sap != $item->person->sap)
+                                            <tr>
+                                                <td>{{$item->person->sap}}</td>
+                                                <td>{{$item->person->name}}</td>
+                                                <td>{{$item->person->position}}</td>
+                                                <td>{{$item->role->role_name}}</td>
+                                                <td>
+                                                    <!-- Edit Invoice Button -->
+                                                    <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
+                                
+                                                        <!-- Edit Invoice Button -->
+                                                        <div class="edit-invoice-btn pr-1 ">
+                                                            <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
+                                                                <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            <form method="POST" action="{{route('deleteUser')}}">
+                                                                <input hidden="true" value="{{$item->id}}" name="id">
+                                                                <a onclick="deleteUserAlert(this);" class="btn-circle ">
+                                                                <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
+                                                            </a>
+                                                            </form>
+                                                        </div>
+                                                        <!-- End Edit Invoice Button -->
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @endif
+                                    @endif
+                                @endforeach
                             @endisset
                         </tbody>
                     </table>

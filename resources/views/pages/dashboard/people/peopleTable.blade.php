@@ -13,7 +13,15 @@
                 <div class="card-body">
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Lista del Personal</h4>
-                        
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL</span>{{count($people)}}</div>
+                        </div>
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI</span></div>
+                        </div>
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC</span>50</div>
+                        </div>
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">
                                 <a href="{{ route('newPersonForm') }}" class="btn-circle">
@@ -24,7 +32,7 @@
                             <div class="mr-20 mt-3 mt-sm-0">
                                 <div  class="search-form">
                                     <div class="theme-input-group">
-                                       <input type="text" class="theme-input-style" id="search"  placeholder="Busca aqui..." ">
+                                       <input type="text" class="theme-input-style" id="search"  placeholder="Busca aqui...">
 
                                        <button id="btnSearch" type="button" onclick="search();"> <img src="../../../assets/img/svg/search-icon.svg" alt=""  class="svg"></button>
                                     </div>

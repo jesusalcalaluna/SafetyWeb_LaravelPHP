@@ -87,6 +87,9 @@ class PeopleController extends Controller
             return $query->whereMonth('created_at', '=', date('m'))
                          ->whereYear('created_at', '=', date('Y'));
         })->get();
+
+        $countPeopleDepartment = People::where('status', 'ACTIVO')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)->count();
+        
         
         return view('pages.dashboard.people.peopleTable', compact('people'));
     }
