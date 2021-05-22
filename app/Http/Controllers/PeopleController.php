@@ -79,6 +79,9 @@ class PeopleController extends Controller
     }
 
     public function getPeople(){
+
+        $countCC = 0;
+        $countUC = 0;
         $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)
         ->with('unsafe_condition_records', function($query){
             return $query->whereMonth('created_at', '=', date('m'))
@@ -88,13 +91,37 @@ class PeopleController extends Controller
                          ->whereYear('created_at', '=', date('Y'));
         })->get();
 
+        foreach ($people as $key => $value) {
+            
+            if (count($value->unsafe_condition_records)) {
+                $countUC ++;
+            }
+
+            if (count($value->companion_care_records)) {
+                $countCC ++;
+            }
+            
+        }
+
         $countPeopleDepartment = People::where('status', 'ACTIVO')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)->count();
         
-        
-        return view('pages.dashboard.people.peopleTable', compact('people'));
+        $ppcc = 0;
+        if ($countPeopleDepartment) {
+            $ppcc = number_format(($countCC/$countPeopleDepartment)*100 );
+        }
+
+        $ppuc = 0;
+        if ($countPeopleDepartment) {
+            $ppuc = number_format(($countUC/$countPeopleDepartment)*100 );
+        }
+
+        return view('pages.dashboard.people.peopleTable', compact('people', 'ppuc', 'ppcc'));
     }
 
     public function getPeopleIntern(){
+
+        $countCC = 0;
+        $countUC = 0;
         $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'INTERNO');
         })->with('unsafe_condition_records', function($query){
@@ -104,11 +131,40 @@ class PeopleController extends Controller
             return $query->whereMonth('created_at', '=', date('m'))
                          ->whereYear('created_at', '=', date('Y'));
         })->get();
+
+        foreach ($people as $key => $value) {
+            
+            if (count($value->unsafe_condition_records)) {
+                $countUC ++;
+            }
+
+            if (count($value->companion_care_records)) {
+                $countCC ++;
+            }
+            
+        }
+
+        $countPeopleDepartment = People::where('status', 'ACTIVO')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+            return $query->where('origin', 'INTERNO');
+        })->count();
         
-        return view('pages.dashboard.people.peopleInternTable', compact('people'));
+        $ppcc = 0;
+        if ($countPeopleDepartment) {
+            $ppcc = number_format(($countCC/$countPeopleDepartment)*100,1 );
+        }
+
+        $ppuc = 0;
+        if ($countPeopleDepartment) {
+            $ppuc = number_format(($countUC/$countPeopleDepartment)*100,1 );
+        }
+        
+        return view('pages.dashboard.people.peopleInternTable', compact('people', 'ppuc', 'ppcc'));
     }
 
     public function getPeopleExtern(){
+
+        $countCC = 0;
+        $countUC = 0;
         $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'EXTERNO');
         })->with('unsafe_condition_records', function($query){
@@ -118,8 +174,34 @@ class PeopleController extends Controller
             return $query->whereMonth('created_at', '=', date('m'))
                          ->whereYear('created_at', '=', date('Y'));
         })->get();
+
+        foreach ($people as $key => $value) {
+            
+            if (count($value->unsafe_condition_records)) {
+                $countUC ++;
+            }
+
+            if (count($value->companion_care_records)) {
+                $countCC ++;
+            }
+            
+        }
+
+        $countPeopleDepartment = People::where('status', 'ACTIVO')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+            return $query->where('origin', 'EXTERNO');
+        })->count();
         
-        return view('pages.dashboard.people.peopleExternTable', compact('people'));
+        $ppcc = 0;
+        if ($countPeopleDepartment) {
+            $ppcc = number_format(($countCC/$countPeopleDepartment)*100, 1 );
+        }
+
+        $ppuc = 0;
+        if ($countPeopleDepartment) {
+            $ppuc = number_format(($countUC/$countPeopleDepartment)*100, 1 );
+        }
+        
+        return view('pages.dashboard.people.peopleExternTable', compact('people', 'ppuc', 'ppcc'));
     }
 
     public function updatePersonForm($id){
