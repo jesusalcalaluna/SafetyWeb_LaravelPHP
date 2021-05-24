@@ -33,7 +33,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="condition_detected" class="mb-2 bold">Condicion Detectada</label>
-                    <input type="text" class="theme-input-style" id="condition_detected" placeholder="" name="condition_detected">
+                    <input type="text" class="theme-input-style" id="condition_detected" placeholder="" name="condition_detected" value="{{ old('condition_detected') }}">
                 </div>
                 <!-- End Form Group -->
 
@@ -41,10 +41,10 @@
                 <div class="form-group mb-4">
                     <label for="condition_groups" class="mb-2 bold d-block">Tipo de Condicion</label>
                     <div class="custom-select style--two">
-                        <select class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups">
+                        <select class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups" name="condition_groups">
                             @isset($condition_groups)
                             @foreach ($condition_groups as $item)
-                                <option  value="{{$item->id}}" >{{$item->group_name}}</option>   
+                                <option  value="{{$item->id}}" {{ old('condition_groups') == $item->id ? 'selected' : '' }}>{{$item->group_name}}</option>   
                             @endforeach
                             @endisset
                         </select>
@@ -59,7 +59,7 @@
                         <select class="theme-input-style" id="type_condition_id" name="type_condition_id">
                             @isset($type_conditions)
                             @foreach ($type_conditions as $item)
-                                <option class="conditionGroupId_{{$item->condition_group_id}}" value="{{$item->id}}" >{{$item->action_name}}</option>   
+                                <option class="conditionGroupId_{{$item->condition_group_id}}" value="{{$item->id}}" {{ old('type_condition_id') == $item->condition_group_id ? 'selected' : '' }}>{{$item->action_name}}</option>   
                             @endforeach
                             @endisset
                         </select>
@@ -136,7 +136,7 @@
                           <img src="../../../assets/img/svg/calender.svg" alt="" class="svg">
                         </span>
 
-                       <input type="text" id="default-date" placeholder="Select Date" name="deadline"/>
+                       <input type="text" id="default-date" placeholder="Select Date" name="deadline" value="{{ old('deadline') }}"/>
                     </div>
                     <!-- End Date Picker -->
                 </div>
@@ -179,7 +179,7 @@
                 <!-- Form Group Area -->
                 <div class="form-group mb-4">
                     <label for="area" class="mb-2 bold">Area</label>
-                    <input type="text" class="theme-input-style" id="area" placeholder="Nombre del area..." name="area">
+                    <input type="text" class="theme-input-style" id="area" placeholder="Nombre del area..." name="area" value="{{ old('area') }}">
                 </div>
                 <!-- End Form Group -->
 
@@ -277,7 +277,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="notice_number" class="mb-2 bold"># de aviso SAP</label>
-                    <input type="text" class="theme-input-style" id="notice_number" placeholder="Alcance" name="notice_number">
+                    <input type="text" class="theme-input-style" id="notice_number" placeholder="Alcance" name="notice_number" value="{{ old('notice_number') }}">
                 </div>
                 <!-- End Form Group -->
 
@@ -287,7 +287,7 @@
                     <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta</label>
                     <div class="row align-items-center">
                         <div class="col-sm-6">
-                            <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
+                            <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap" value="{{ old('sap') }}">
                             <div class="valid-feedback" id="personName"></div>
                         </div>
                     </div>

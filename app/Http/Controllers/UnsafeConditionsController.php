@@ -38,7 +38,7 @@ class UnsafeConditionsController extends Controller
                 'sap' => 'required',
             ]);
         } catch (\Throwable $th) {
-            return back()->with('error', 'Falta un campo por llenar');
+            return back()->with('error', 'Falta un campo por llenar')->withInput();
         }
         
         
@@ -88,7 +88,7 @@ class UnsafeConditionsController extends Controller
                 'people_id' => $person->id,
             ]);
         } catch (\Throwable $th) {
-            return back()->with('error', 'Algo salio mal, intentalo de nuevo.');
+            return back()->with('error', 'Algo salio mal, intentalo de nuevo.')->withInput();
         }
         
         return back()->with('success', 'Registro exitoso');
