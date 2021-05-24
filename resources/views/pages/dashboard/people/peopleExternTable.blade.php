@@ -13,15 +13,17 @@
                 <div class="card-body">
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Lista del Personal Externo</h4>
+
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL</span>{{count($people)}}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{count($people)}}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI</span>%{{ $ppcc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppcc }}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC</span>%{{ $ppuc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC:</span>%{{ $ppuc }}</div>
                         </div>
+
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">
                                 <a href="{{ route('newPersonForm') }}" class="btn-circle">
@@ -40,6 +42,7 @@
                             </div>
                             <!-- End search -->
                         </div>
+                        
                     </div>
                 </div>
                 <div class="table-responsive">

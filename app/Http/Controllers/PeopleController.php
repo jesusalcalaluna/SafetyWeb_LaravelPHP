@@ -122,6 +122,7 @@ class PeopleController extends Controller
 
         $countCC = 0;
         $countUC = 0;
+
         $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'INTERNO');
         })->with('unsafe_condition_records', function($query){
@@ -157,8 +158,11 @@ class PeopleController extends Controller
         if ($countPeopleDepartment) {
             $ppuc = number_format(($countUC/$countPeopleDepartment)*100,1 );
         }
+
+        $departments = Companies_and_departments::where('origin', 'INTERNO')->get();
         
-        return view('pages.dashboard.people.peopleInternTable', compact('people', 'ppuc', 'ppcc'));
+        
+        return view('pages.dashboard.people.peopleInternTable', compact('people', 'ppuc', 'ppcc', 'departments'));
     }
 
     public function getPeopleExtern(){
@@ -200,8 +204,9 @@ class PeopleController extends Controller
         if ($countPeopleDepartment) {
             $ppuc = number_format(($countUC/$countPeopleDepartment)*100, 1 );
         }
+        $companies = Companies_and_departments::where('origin', 'EXTERNO')->get();
         
-        return view('pages.dashboard.people.peopleExternTable', compact('people', 'ppuc', 'ppcc'));
+        return view('pages.dashboard.people.peopleExternTable', compact('people', 'ppuc', 'ppcc', 'companies'));
     }
 
     public function updatePersonForm($id){

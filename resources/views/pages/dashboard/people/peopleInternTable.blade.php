@@ -14,13 +14,21 @@
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Lista del Personal Interno</h4>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL</span>{{count($people)}}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{count($people)}}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI</span>%{{ $ppcc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppcc }}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC</span>%{{ $ppuc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC:</span>%{{ $ppuc }}</div>
+                        </div>
+                        <div class="priority">
+                            <a href="#" id="status" class="assign-menu bold font-14  " data-toggle="dropdown" aria-expanded="false">FILTRO</a>
+                            <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
+                                @foreach ($departments as $item)
+                                <a onclick="submitForm(this, {{ $item->name }});" ><span class="tag_color bg-success"></span>{{ $item->name }}</a>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">
@@ -167,6 +175,22 @@
             $("#btnSearch").click();
         }
     });
+    function searchDepartment(selected, department){
+         console.log(department);
+        _this = $("#search");
+
+        console.log($("#search"));
+        console.log(_this);
+        // Show only matching TR, hide rest of them
+            $.each($("#table tbody tr"), function() {
+                
+                
+            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+            $(this).hide();
+            else
+            $(this).show();
+        });
+    }
     function search(){
         
         _this = $("#search");
