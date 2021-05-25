@@ -74,7 +74,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="Rutina" name="detection_origin" value="Rutina">
+                            <input type="radio" id="Rutina" name="detection_origin" value="Rutina" {{ old('detection_origin') == "Rutina" ? 'checked' : '' }}>
                             <label for="Rutina"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -85,7 +85,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="LOTOTO" name="detection_origin" value="Aud. LOTOTO">
+                            <input type="radio" id="LOTOTO" name="detection_origin" value="Aud. LOTOTO" {{ old('detection_origin') == "Aud. LOTOTO" ? 'checked' : '' }}>
                             <label for="LOTOTO"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -96,7 +96,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="DTO" name="detection_origin" value="DTO (OWD)">
+                            <input type="radio" id="DTO" name="detection_origin" value="DTO (OWD)" {{ old('detection_origin') == "DTO (OWD)" ? 'checked' : '' }}>
                             <label for="DTO"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -106,7 +106,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="DPA" name="detection_origin" value="DPA">
+                            <input type="radio" id="DPA" name="detection_origin" value="DPA" {{ old('detection_origin') == "DPA" ? 'checked' : '' }}>
                             <label for="DPA"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -116,7 +116,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="Monitoreo" name="detection_origin" value="Monitoreo de Seguridad">
+                            <input type="radio" id="Monitoreo" name="detection_origin" value="Monitoreo de Seguridad" {{ old('detection_origin') == "Monitoreo de Seguridad" ? 'checked' : '' }}>
                             <label for="Monitoreo"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -151,7 +151,7 @@
                             @foreach ($departments as $item)
                             @if ($item->origin == "INTERNO")
                                 @if (!str_contains($item->name, 'LÍNEA'))
-                                <option value="{{$item->id}}" >{{$item->name}}</option>
+                                <option value="{{$item->id}}" {{ old('department_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                 @endif
                             @endif
                             @endforeach
@@ -168,7 +168,7 @@
                         <select class="theme-input-style" id="responsable_id" name="responsable_id">
                             @isset($people)
                             @foreach ($people as $item)
-                                <option class="departmentId-{{$item->companie_and_department_id}}" value="{{$item->id}}" >{{$item->name}}</option>
+                                <option class="departmentId-{{$item->companie_and_department_id}}" value="{{$item->id}}" {{ old('responsable_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                             @endforeach
                             @endisset
                         </select>
@@ -188,7 +188,7 @@
                     <label for="probability" class="mb-2 bold d-block">Probabilidad de Incidencia</label>
                     <div class="custom-select style--two">
                         <select class="theme-input-style" id="probability" onChange="getRisk()" name="probability">
-                            <option value="10" >Esperado</option>
+                            <option value="10">Esperado</option>
                             <option value="6" >Posible</option>
                             <option value="3" >Raro</option>
                             <option value="1" >Improbable pero posible</option>
@@ -242,7 +242,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="DEPARTAMENTO" name="scope" value="DEPARTAMENTO">
+                            <input type="radio" id="DEPARTAMENTO" name="scope" value="DEPARTAMENTO" {{ old('scope') == "DEPARTAMENTO" ? 'checked' : '' }}>
                             <label for="DEPARTAMENTO"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -253,7 +253,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="MANTENIMIENTO" name="scope" value="MANTENIMIENTO">
+                            <input type="radio" id="MANTENIMIENTO" name="scope" value="MANTENIMIENTO" {{ old('scope') == "MANTENIMIENTO" ? 'checked' : '' }}>
                             <label for="MANTENIMIENTO"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -264,7 +264,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="CAPEX" name="scope" value="CAPEX">
+                            <input type="radio" id="CAPEX" name="scope" value="CAPEX" {{ old('scope') == "CAPEX" ? 'checked' : '' }}>
                             <label for="CAPEX"></label>
                         </div>
                         <!-- End Custom Radio -->
