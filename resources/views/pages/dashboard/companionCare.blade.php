@@ -39,7 +39,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="companion_to_care_name" class="mb-2 bold">Compañero Cuidado</label>
-                    <input type="text" class="theme-input-style" id="companion_to_care_name" placeholder="Nombre del Compañero cuidado" name="companion_to_care_name">
+                    <input type="text" class="theme-input-style" id="companion_to_care_name" placeholder="Nombre del Compañero cuidado" name="companion_to_care_name" value="{{ old('companion_to_care_name') }}">
                 </div>
                 <!-- End Form Group -->
 
@@ -47,9 +47,9 @@
                 <div class="form-group mb-4">
                     <label for="exampleSelect3" class="mb-2 bold d-block">Tipo de Trabajador</label>
                     <div class="custom-select style--two">
-                        <select class="theme-input-style" onChange="selectChangeOrigin(this);" id="exampleSelect3">
-                            <option value="INTERNO">INTERNO</option>
-                            <option value="EXTERNO">EXTERNO</option>
+                        <select class="theme-input-style" onChange="selectChangeOrigin(this);" id="exampleSelect3" name="workerType">
+                            <option value="INTERNO" {{ old('workerType') == "INTERNO" ? 'selected' : '' }}>INTERNO</option>
+                            <option value="EXTERNO" {{ old('workerType') == "EXTERNO" ? 'selected' : '' }}>EXTERNO</option>
                         </select>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                             @isset($companies_departments)
                             @foreach ($companies_departments as $item)
                             @if (!str_contains($item->name, 'LÍNEA'))
-                            <option class="{{$item->origin}}" value="{{$item->name}}" >{{$item->name}}</option>  
+                            <option class="{{$item->origin}}" value="{{$item->name}}" {{ old('company_department_name') == $item->name ? 'selected' : '' }}>{{$item->name}}</option>  
                             @endif
                             @endforeach
                             @endisset
@@ -78,7 +78,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="Empleado" name="position_name" value="Empleado">
+                            <input type="radio" id="Empleado" name="position_name" value="EMPLEADO" {{ old('position_name') == "EMPLEADO" ? 'checked' : '' }}>
                             <label for="Empleado"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -89,7 +89,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="Trabajador" name="position_name" value="Trabajador">
+                            <input type="radio" id="Trabajador" name="position_name" value="TRABAJADOR" {{ old('position_name') == "TRABAJADOR" ? 'checked' : '' }}>
                             <label for="Trabajador"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -105,9 +105,9 @@
                     <label for="turn" class="mb-2 bold d-block">Turno</label>
                     <div class="custom-select style--two">
                         <select class="theme-input-style" id="turn" name="turn">
-                            <option value="1° Mañana" >1° Mañana</option>
-                            <option value="2° Tarde" >2° Tarde</option>
-                            <option value="3° Noche" >3° Noche</option>
+                            <option value="1° Mañana" {{ old('turn') == "1° Mañana" ? 'selected' : '' }}>1° Mañana</option>
+                            <option value="2° Tarde" {{ old('turn') == "2° Mañana" ? 'selected' : '' }}>2° Tarde</option>
+                            <option value="3° Noche" {{ old('turn') == "3° Mañana" ? 'selected' : '' }}>3° Noche</option>
                         </select>
                     </div>
                 </div>
@@ -116,14 +116,14 @@
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="shift_supervisor" class="mb-2 bold">Supervisor en Turno</label>
-                    <input type="text" class="theme-input-style" id="shift_supervisor" placeholder="Here is default input field size" name="shift_supervisor">
+                    <input type="text" class="theme-input-style" id="shift_supervisor" placeholder="Here is default input field size" name="shift_supervisor" value="{{ old('shift_supervisor') }}">
                 </div>
                 <!-- End Form Group -->
 
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="description" class="mb-2 bold d-block">Descripcion</label>
-                    <textarea id="description" class="theme-input-style" placeholder="Type Here" name="description"></textarea>
+                    <textarea id="description" class="theme-input-style" placeholder="Type Here" name="description" value="{{ old('description') }}"></textarea>
                 </div>
                 <!-- End Form Group -->
 
@@ -132,8 +132,8 @@
                     <label for="corr_prev_pos" class="mb-2 bold d-block">Tipo de Comportamiento</label>
                     <div class="custom-select style--two">
                         <select class="theme-input-style" onChange="selectChangeComportamiento(this);" id="corr_prev_pos" name="corr_prev_pos">
-                            <option value="COMPORTAMIENTO INSEGURO" >COMPORTAMIENTO INSEGURO</option>
-                            <option value="COMPORTAMIENTO SEGURO" >COMPORTAMIENTO SEGURO</option>
+                            <option value="COMPORTAMIENTO INSEGURO" {{ old('corr_prev_pos') == "COMPORTAMIENTO INSEGURO" ? 'selected' : '' }}>COMPORTAMIENTO INSEGURO</option>
+                            <option value="COMPORTAMIENTO SEGURO" {{ old('corr_prev_pos') == "COMPORTAMIENTO SEGURO" ? 'selected' : '' }}>COMPORTAMIENTO SEGURO</option>
                         </select>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                         <select class="theme-input-style" id="behavior_group_id" onChange="selectChangeBehaviorGroup(this);" name="behavior_group_id">
                             @isset($behaviors_group)
                             @foreach ($behaviors_group as $item)
-                            <option value="{{$item->id}}" >{{$item->group_name}}</option>
+                            <option value="{{$item->id}}" {{ old('behavior_group_id') == $item->id ? 'selected' : '' }}>{{$item->group_name}}</option>
                             @endforeach
                             @endisset
                         </select>
@@ -162,7 +162,7 @@
                             <select class="theme-input-style" id="acts_types_id" name="acts_types_id">
                                 @isset($act_types)
                                 @foreach ($act_types as $item)
-                                <option class="behaviorGroupId_{{$item->behavior_group_id}}" value="{{$item->id}}" >{{$item->type_name}}</option>
+                                <option class="behaviorGroupId_{{$item->behavior_group_id}}" value="{{$item->id}}" {{ old('acts_types_id') == $item->id ? 'selected' : '' }}>{{$item->type_name}}</option>
                                 @endforeach
                                 @endisset
                             </select>
@@ -175,8 +175,8 @@
                         <label for="sif" class="mb-2 bold d-block">¿Es un Precursor SIF?</label>
                         <div class="custom-select style--two">
                             <select class="theme-input-style" id="sif" name="sif">
-                                <option value="SI" >Si</option>
-                                <option value="NO" >No</option>
+                                <option value="SI" {{ old('sif') == "SI" ? 'selected' : '' }}>Si</option>
+                                <option value="NO" {{ old('sif') == "NO" ? 'selected' : '' }}>No</option>
                             </select>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                             <select class="theme-input-style" id="gold_rules_id" name="gold_rules_id">
                                 @isset($gold_rules)
                                 @foreach ($gold_rules as $item)
-                                <option value="{{$item->id}}" >{{$item->rule_name}}</option>
+                                <option value="{{$item->id}}" {{ old('gold_rules_id') == $item->id ? 'selected' : '' }}>{{$item->rule_name}}</option>
                                 @endforeach
                                 @endisset
                             </select>
@@ -204,7 +204,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="Rutina" name="detection_source" value="Rutina">
+                            <input type="radio" id="Rutina" name="detection_source" value="Rutina" {{ old('detection_source') == "Rutina" ? 'checked' : '' }}>
                             <label for="Rutina"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -215,7 +215,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="LOTOTO" name="detection_source" value="Aud. LOTOTO">
+                            <input type="radio" id="LOTOTO" name="detection_source" value="Aud. LOTOTO" {{ old('detection_source') == "Aud. LOTOTO" ? 'checked' : '' }}>
                             <label for="LOTOTO"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -226,7 +226,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="DTO" name="detection_source" value="DTO (OWD)">
+                            <input type="radio" id="DTO" name="detection_source" value="DTO (OWD)" {{ old('detection_source') == "DTO (OWD)" ? 'checked' : '' }}>
                             <label for="DTO"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -236,7 +236,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="DPA" name="detection_source" value="DPA">
+                            <input type="radio" id="DPA" name="detection_source" value="DPA" {{ old('detection_source') == "DPA" ? 'checked' : '' }}>
                             <label for="DPA"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -246,7 +246,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <!-- Custom Radio -->
                         <div class="custom-radio mr-3">
-                            <input type="radio" id="Monitoreo" name="detection_source" value="Monitoreo de Seguridad">
+                            <input type="radio" id="Monitoreo" name="detection_source" value="Monitoreo de Seguridad" {{ old('detection_source') == "Monitoreo de Seguridad" ? 'checked' : '' }}>
                             <label for="Monitoreo"></label>
                         </div>
                         <!-- End Custom Radio -->
@@ -263,7 +263,7 @@
                             @isset($companies_departments)
                             @foreach ($companies_departments as $item)
                             @if ($item->origin == "INTERNO")
-                                <option value="{{$item->id}}" >{{$item->name}}</option> 
+                                <option value="{{$item->id}}" {{ old('department_where_happens_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option> 
                             @endif
                             @endforeach
                             @endisset
@@ -275,14 +275,14 @@
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="specific_area" class="mb-2 bold">Área Especifica</label>
-                    <input type="text" class="theme-input-style" id="specific_area" placeholder="Here is default input field size" name="specific_area">
+                    <input type="text" class="theme-input-style" id="specific_area" placeholder="Here is default input field size" name="specific_area" value="{{ old('specific_area') }}">
                 </div>
                 <!-- End Form Group -->
 
                 <!-- Form Group -->
                 <div class="form-group mb-20">
                     <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta</label>
-                    <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_sap">
+                    <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_sap" value="{{ old('people_sap') }}">
                     <div class="valid-feedback" id="personName">
                         
                     </div>

@@ -32,7 +32,7 @@ class CompanionCareController extends Controller
         try {
             $people_id = People::where('SAP', $request->people_sap)->first();
         } catch (\Throwable $th) {
-            return back()->with('error', 'Algo salio mal con tu sap, intentalo de nuevo.');
+            return back()->with('error', 'Algo salio mal con tu sap, intentalo de nuevo.')->withInput();
         }
         
 
@@ -63,7 +63,7 @@ class CompanionCareController extends Controller
 
         } catch (\Throwable $th) {
             //dd($th);
-            return back()->with('error', 'Algo salio mal, intentalo de nuevo.');
+            return back()->with('error', 'Algo salio mal, intentalo de nuevo.')->withInput();
         }
         
         
