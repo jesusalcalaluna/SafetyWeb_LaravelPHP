@@ -8,6 +8,7 @@ use App\Models\Type_condition;
 use App\Models\Companies_and_departments;
 use App\Models\People;
 use App\Models\Unsafe_conditions_record;
+use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Type\Integer;
 
 class UnsafeConditionsController extends Controller
@@ -95,13 +96,14 @@ class UnsafeConditionsController extends Controller
     }
 
     public function readUnsafeConditions(){
-         
+
         $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                                 ->with('type_condition')
                                 ->with('responsable')
                                 ->with('department')
                                 ->with('reporter')
                                 ->get();
+
         if($unsafeConditionRecord){
             $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
             $countProc = Unsafe_conditions_record::where('status', 'EN PROCESO')->get()->count();
@@ -119,15 +121,41 @@ class UnsafeConditionsController extends Controller
                 $porcentCom  =  0;
                 $porcentProc  =  0;
                 $porcentInic  =  0;
-                $porcentRetr  =  0; 
+                $porcentRetr  =  0;
             }
             
         }
-        
-        
 
-             
+        if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
+            $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
+                                ->with('type_condition')
+                                ->with('responsable')
+                                ->with('department')
+                                ->with('reporter')
+                                ->get();
 
+            if($unsafeConditionRecord){
+                $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
+                $countProc = Unsafe_conditions_record::where('status', 'EN PROCESO')->get()->count();
+                $countInic = Unsafe_conditions_record::where('status', 'NO INICIADA')->get()->count();
+                $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
+
+                $total = $countProc + $countInic + $countCom + $countRetr;
+                
+                if($total) {
+                    $porcentCom  = number_format(($countCom / $total) * 100, 1);
+                    $porcentProc  =  number_format(($countProc / $total) * 100, 1);
+                    $porcentInic  =  number_format(($countInic / $total) * 100, 1);
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                }else {
+                    $porcentCom  =  0;
+                    $porcentProc  =  0;
+                    $porcentInic  =  0;
+                    $porcentRetr  =  0;
+                }
+                
+            }
+        }
                                 
         return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
     }

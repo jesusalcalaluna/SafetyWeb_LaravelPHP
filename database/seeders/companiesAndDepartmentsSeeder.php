@@ -36,7 +36,7 @@ class companiesAndDepartmentsSeeder extends Seeder
         ]);
         DB::table('companies_and_departments')->insert([
             'id' => 5,
-            'name' => 'ENVASADO LIDERAZGO',
+            'name' => 'ENVASADO',
             'origin' => 'INTERNO'
         ]);
         DB::table('companies_and_departments')->insert([
