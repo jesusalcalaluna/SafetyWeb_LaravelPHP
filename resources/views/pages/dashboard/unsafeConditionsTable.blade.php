@@ -17,24 +17,24 @@
                         <div class="assign-tag back-end bg-success pl-2">
                             
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['COMPLETA'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['COMPLETA']) }} @endif">
-                                <div class="tag-text font-12 text-dark"><span class="pr-3">{{ $porcentCom }}%</span>COMPLETA</div>
+                                <div class="tag-text font-12 text-dark"><span class="pr-3" id="porcentCom">{{ $porcentCom }}%</span>COMPLETA</div>
                             </a>
                          </div>
                          <div class="assign-tag back-end bg-warning pl-2">
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['EN PROCESO'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['EN PROCESO'])}} @endif">
-                                <div class="tag-text font-12 text-dark"><span class="pr-3">{{ $porcentProc }}%</span>EN PROCESO</div>
+                                <div class="tag-text font-12 text-dark"><span class="pr-3" id="porcentProc">{{ $porcentProc }}%</span>EN PROCESO</div>
                             </a>
                             
                          </div>
                         <div class="assign-tag back-end bg-danger pl-2">
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['RETRASADA'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['RETRASADA']) }} @endif">
-                                <div class="tag-text font-12 text-light"><span class="pr-3">{{ $porcentRetr }}%</span>RETRASADA</div>
+                                <div class="tag-text font-12 text-light"><span class="pr-3" id="porcentRetr">{{ $porcentRetr }}%</span>RETRASADA</div>
                             </a>
                          </div>
 
                          <div class="assign-tag back-end bg-dark pl-2" >
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['NO INICIADA'])) {{ route('getUnsafeConditions') }} @else {{ route( 'unsafeConditionByStatus',['NO INICIADA']) }} @endif">
-                                <div class="tag-text font-12 text-light"><span class="pr-3">{{ $porcentInic }}%</span>NO INICIADA</div>
+                                <div class="tag-text font-12 text-light"><span class="pr-3" id="porcentInic">{{ $porcentInic }}%</span>NO INICIADA</div>
                             </a>
                          </div>
 
@@ -153,10 +153,10 @@
         });
     }
     function submitForm(item){
-        console.log($(item).parent().find('input[name="_token"]').val());
-        console.log($(item).parent().find('input[name="id"]').val());
-        console.log($(item).parent().find('input[name="status"]').val());
-        console.log(item.parentNode.children);
+        //console.log($(item).parent().find('input[name="_token"]').val());
+        //console.log($(item).parent().find('input[name="id"]').val());
+        //console.log($(item).parent().find('input[name="status"]').val());
+        //console.log(item.parentNode.children);
         
         $.ajax({
             type: "POST",
@@ -165,7 +165,13 @@
                     "status" : $(item).parent().find('input[name="status"]').val(),
                     "id" : $(item).parent().find('input[name="id"]').val()},
             success:  function(data){
-                
+
+                //Porcentajes por estado de la CI
+                $('#porcentCom').text(data.porcentCom+"%");
+                $('#porcentProc').text(data.porcentProc+"%");
+                $('#porcentRetr').text(data.porcentRetr+"%");
+                $('#porcentInic').text(data.porcentInic+"%");
+
                 if ($(item).parent().find('input[name="status"]').val() == "NO INICIADA") {
                     $(item).parent().parent().parent().find('#status').removeClass("bg-danger")
                     $(item).parent().parent().parent().find('#status').addClass("bg-dark")
