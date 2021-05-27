@@ -70,14 +70,19 @@
 
                                 @if (isset($item->acts_types[0]->type_name))
                                 <td>{{$item->acts_types[0]->type_name}}</td>
+                                @else
+                                <td>N/A</td>
+                                @endif
+                                @if (isset($item->sif))
                                 <td>{{$item->sif}}</td>
+                                @else
+                                <td>N/A</td>
+                                @endif
+                                @if (isset($item->gold_rules[0]->rule_name))
                                 <td>{{$item->gold_rules[0]->rule_name}}</td>
                                 @else
                                 <td>N/A</td>
-                                <td>N/A</td>
-                                <td>N/A</td>
                                 @endif
-                                
 
                                 <td>{{$item->detection_source}}</td>
                                 <td>{{$item->department_where_happens[0]->name}}</td>
