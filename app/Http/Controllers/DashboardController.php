@@ -7,56 +7,110 @@ use App\Models\People;
 use App\Models\Unsafe_conditions_record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
         date_default_timezone_set('America/Monterrey');
 
-        $people = People::join('companies_and_departments', 'people.companie_and_department_id', '=', 'companies_and_departments.id')
-        ->where('companies_and_departments.origin','INTERNO')
-        ->count();
+        if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
 
-        $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
-            ->whereDate('created_at', '=', date('Y-m-d'))
+            $people = People::join('companies_and_departments', 'people.companie_and_department_id', '=', 'companies_and_departments.id')
+            ->where('companies_and_departments.origin','INTERNO')
             ->count();
-        $participation = ($par_UnsefeConditions/$people)*100;
 
-        $participation = number_format($participation,1) ;
+            $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->count();
+            $participation = ($par_UnsefeConditions/$people)*100;
 
-        //prioridad total
-        $critica_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')->count();
-        $alta_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'ALTA')->count();
-        $media_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'MEDIA')->count();
-        $baja_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'BAJA')->count();
+            $participation = number_format($participation,1) ;
 
-        //prioridad completadas
-        $critica_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')
-        ->where('status', 'COMPLETA')->count();
-        $alta_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'ALTA')
-        ->where('status', 'COMPLETA')->count();
-        $media_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'MEDIA')
-        ->where('status', 'COMPLETA')->count();
-        $baja_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'BAJA')
-        ->where('status', 'COMPLETA')->count();
+            //prioridad total
+            $critica_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')->count();
+            $alta_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'ALTA')->count();
+            $media_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'MEDIA')->count();
+            $baja_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'BAJA')->count();
 
-        //porcentaje completado por prioridad
-        $porcent_critica = 0;
-        if ($critica_total) {
-            $porcent_critica = number_format(($critica_completa/$critica_total)*100 ,0);
+            //prioridad completadas
+            $critica_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')
+            ->where('status', 'COMPLETA')->count();
+            $alta_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'ALTA')
+            ->where('status', 'COMPLETA')->count();
+            $media_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'MEDIA')
+            ->where('status', 'COMPLETA')->count();
+            $baja_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'BAJA')
+            ->where('status', 'COMPLETA')->count();
+
+            //porcentaje completado por prioridad
+            $porcent_critica = 0;
+            if ($critica_total) {
+                $porcent_critica = number_format(($critica_completa/$critica_total)*100 ,0);
+            }
+            $porcent_alta = 0;
+            if ($alta_total) {
+                $porcent_alta = number_format(($alta_completa/$alta_total)*100 ,0);
+            }
+            $porcent_media = 0;
+            if ($media_total) {
+                $porcent_media = number_format(($media_completa/$media_total)*100 ,0);
+            }
+            $porcent_baja = 0;
+            if ($baja_total) {
+                $porcent_baja = number_format(($baja_completa/$baja_total)*100 ,0);
+            }
+        } else {
+
+            $people = People::join('companies_and_departments', 'people.companie_and_department_id', '=', 'companies_and_departments.id')
+                ->where('companies_and_departments.origin','INTERNO')
+                //->where('companie_and_department_id', Auth::user()->person->company_and_department->id)
+                ->count();
+
+            $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->count();
+            $participation = ($par_UnsefeConditions/$people)*100;
+
+            $participation = number_format($participation,1);
+
+            //prioridad total
+            $critica_total = DB::table('unsafe_conditions_records')->where('department_id', Auth::user()->person->company_and_department->id)->where('attention_priority', 'CRITICA')->count();
+            $alta_total = DB::table('unsafe_conditions_records')->where('department_id', Auth::user()->person->company_and_department->id)->where('attention_priority', 'ALTA')->count();
+            $media_total = DB::table('unsafe_conditions_records')->where('department_id', Auth::user()->person->company_and_department->id)->where('attention_priority', 'MEDIA')->count();
+            $baja_total = DB::table('unsafe_conditions_records')->where('department_id', Auth::user()->person->company_and_department->id)->where('attention_priority', 'BAJA')->count();
+
+            //prioridad completadas
+            $critica_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')
+            ->where('status', 'COMPLETA')->count();
+            $alta_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'ALTA')
+            ->where('status', 'COMPLETA')->count();
+            $media_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'MEDIA')
+            ->where('status', 'COMPLETA')->count();
+            $baja_completa = DB::table('unsafe_conditions_records')->where('attention_priority', 'BAJA')
+            ->where('status', 'COMPLETA')->count();
+
+            //porcentaje completado por prioridad
+            $porcent_critica = 0;
+            if ($critica_total) {
+                $porcent_critica = number_format(($critica_completa/$critica_total)*100 ,0);
+            }
+            $porcent_alta = 0;
+            if ($alta_total) {
+                $porcent_alta = number_format(($alta_completa/$alta_total)*100 ,0);
+            }
+            $porcent_media = 0;
+            if ($media_total) {
+                $porcent_media = number_format(($media_completa/$media_total)*100 ,0);
+            }
+            $porcent_baja = 0;
+            if ($baja_total) {
+                $porcent_baja = number_format(($baja_completa/$baja_total)*100 ,0);
+            }
         }
-        $porcent_alta = 0;
-        if ($alta_total) {
-            $porcent_alta = number_format(($alta_completa/$alta_total)*100 ,0);
-        }
-        $porcent_media = 0;
-        if ($media_total) {
-            $porcent_media = number_format(($media_completa/$media_total)*100 ,0);
-        }
-        $porcent_baja = 0;
-        if ($baja_total) {
-            $porcent_baja = number_format(($baja_completa/$baja_total)*100 ,0);
-        }
+        
+
+        
         
         //return $par_CompanionCare;
         return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja'));

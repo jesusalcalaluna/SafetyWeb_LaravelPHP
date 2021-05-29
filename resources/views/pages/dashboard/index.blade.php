@@ -18,11 +18,16 @@
                               <h2>{{ $participation }}<sup>%</sup></h2>
                               <p class="font-14">Participación</p>
                            </div>
-                           <h3 class="card-subtitle mb-2">{{ date('d-m-Y') }}</h3>
-                           <p class="font-16">Condiciones inseguras registradas hoy.</p>
+                           <h3 class="card-subtitle mb-2">Condiciones inseguras</h3>
+                           <p class="font-16">{{ date('d-m-Y') }}</p>
                         </div>
-                        <div class="congratulation-img">
-                           <img src="assets/img/media/congratulation-img.png" alt="">
+                        <div class="increase">
+                           <div class="card-title d-flex align-items-end mb-2">
+                              <h2>{{ $participation }}<sup>%</sup></h2>
+                              <p class="font-14">Participación</p>
+                           </div>
+                           <h3 class="card-subtitle mb-2">Cuidado del Compañero</h3>
+                           <p class="font-16">{{ date('d-m-Y') }}</p>
                         </div>
                      </div>
                   </div>

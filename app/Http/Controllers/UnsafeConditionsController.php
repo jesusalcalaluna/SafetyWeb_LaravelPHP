@@ -176,6 +176,7 @@ class UnsafeConditionsController extends Controller
         $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
                             ->update(['status' => $request->status]);
 
+        //Calcular porcentaje nuevo de estado
         if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
             $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                                 ->with('type_condition')
@@ -355,13 +356,6 @@ class UnsafeConditionsController extends Controller
                 
             }
         }
-
-
-        
-
-
-
-
                 return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
     }
 

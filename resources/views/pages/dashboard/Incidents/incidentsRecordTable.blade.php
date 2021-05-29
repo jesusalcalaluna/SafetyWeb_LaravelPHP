@@ -52,11 +52,8 @@
                                         <div class="priority">
                                             <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == 0) bg-danger @endif @if($item->status == 1) bg-success @endif " data-toggle="dropdown" aria-expanded="false">@if($item->status == 1) APROBADO @else DESAPROBADO @endif</a>
                                             <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
-                                                @if ($item->status == 0)
-                                                <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="1" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-success"></span>APROBADO</a></form>
-                                                @else
-                                                <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="0" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>DESAPROBADO</a></form>    
-                                                @endif
+                                                <form @if ($item->status == 1) hidden @endif  method="POST" action="{{route('updateIncident')}}" id="option1"> <input hidden="true" value="1" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-success"></span>APROBADO</a></form>
+                                                <form @if ($item->status == 0) hidden @endif method="POST" action="{{route('updateIncident')}}" id="option0"> <input hidden="true" value="0" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>DESAPROBADO</a></form>
                                             </div>
                                         </div>
                                     </td>
@@ -131,10 +128,6 @@
         });
     }
     function submitForm(item){
-        console.log($(item).parent().find('input[name="_token"]').val());
-        console.log($(item).parent().find('input[name="id"]').val());
-        console.log($(item).parent().find('input[name="status"]').val());
-        console.log(item.parentNode.children);
         
         $.ajax({
             type: "POST",
@@ -144,39 +137,29 @@
                     "id" : $(item).parent().find('input[name="id"]').val()},
             success:  function(data){
                 
-                if ($(item).parent().find('input[name="status"]').val() == "NO INICIADA") {
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-danger")
-                    $(item).parent().parent().parent().find('#status').addClass("bg-dark")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-warning")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-success")
+                if ($(item).parent().find('input[name="status"]').val() == 1) {
+                    $(item).parent().parent().parent().find('#status').removeClass("bg-danger");
+                    $(item).parent().parent().parent().find('#status').addClass("bg-success");
+                    $(item).parent().parent().parent().find('#status').text("APROBADO");
+                    $('#option0').removeAttr('hidden');
+                    $('#option1').prop("hidden", !this.checked);
                 }
-                if ($(item).parent().find('input[name="status"]').val() == "RETRASADA") {
+                if ($(item).parent().find('input[name="status"]').val() == 0) {
                     $(item).parent().parent().parent().find('#status').addClass("bg-danger")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-dark")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-warning")
                     $(item).parent().parent().parent().find('#status').removeClass("bg-success")
+                    $(item).parent().parent().parent().find('#status').text("DESAPROBADO");
+                    $('#option1').removeAttr('hidden');
+                    $('#option0').prop("hidden", !this.checked);
                 }
-                if ($(item).parent().find('input[name="status"]').val() == "EN PROCESO") {
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-danger")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-dark")
-                    $(item).parent().parent().parent().find('#status').addClass("bg-warning")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-success")
-                }
-                if ($(item).parent().find('input[name="status"]').val() == "COMPLETA") {
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-danger")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-dark")
-                    $(item).parent().parent().parent().find('#status').removeClass("bg-warning")
-                    $(item).parent().parent().parent().find('#status').addClass("bg-success")
-                }
-                $(item).parent().parent().parent().find('#status').text($(item).parent().find('input[name="status"]').val());
+                
 
                 
                 
             }
         }).done(function() {
-            Swal.fire({ title: "Good job!", text: "You clicked the button!", type: "success", confirmButtonClass: "btn long", buttonsStyling: !1 });
+            Swal.fire({ title: "Good job!", text: "Incidente actualizado correctamente!", type: "success", confirmButtonClass: "btn long", buttonsStyling: !1 });
         }).fail(function(err) {
-            Swal.fire({ title: "Error!", text: " You clicked the button!", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
+            Swal.fire({ title: "Error!", text: "Algo salio mal, intente de nuevo mas tarde!", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
         });
     }
     

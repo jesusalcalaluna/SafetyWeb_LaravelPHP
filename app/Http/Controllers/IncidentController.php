@@ -67,6 +67,12 @@ class IncidentController extends Controller
 
     public function updateIncident(Request $request)
     {
-        # code...
+        $incident = IncidentRecord::where('id', $request->id)->get();
+        
+        if( $request->status == $incident[0]->status){
+            return $incident;
+        }
+        $incident = IncidentRecord::where('id', $request->id)
+                            ->update(['status' => $request->status]);
     }
 }

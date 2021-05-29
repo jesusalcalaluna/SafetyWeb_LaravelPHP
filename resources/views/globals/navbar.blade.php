@@ -9,6 +9,7 @@
                 <ul>
                     <li> <a href="{{route('unsafeConditionsForm')}}"> Condiciones Inseguras </a> </li>
                     <li> <a href="{{route('companionCareForm')}}"> Cuidado del Compañero </a> </li>
+                    <li> <a href="{{route('incidentForm')}}"> Incidentes </a> </li>
                 </ul>
             </li>
 
