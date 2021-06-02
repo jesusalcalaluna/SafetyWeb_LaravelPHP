@@ -24,7 +24,13 @@
 
                      <!-- Delete Condition -->
                      <div class="delete_mail mr-20">
-                        <a href="#"><img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg"></a>
+                        <form method="POST" id="deleteForm" action="{{route('deleteUC')}}">
+                           @csrf
+                           <input hidden="true" value="{{$item->id}}" name="id">
+                           <a onclick="deleteUCAlert();" class="btn-circle ">
+                           <img src="{{ asset('assets/img/svg/delete.svg') }}" alt="" class="svg">
+                           </a>
+                       </form>
                      </div>
                      <!-- End Delete Mail -->
 
@@ -168,5 +174,31 @@
     
 @endsection
 @section('js')
+<script>
+   function deleteUCAlert(){
+        
+        Swal.fire({
+            title: "¿Estas seguro?",
+            text: "¡No podras revertirlo!",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "¡Si, eliminalo!",
+            confirmButtonClass: "btn long",
+            cancelButtonClass: "btn long bg-danger ml-1",
+            cancelButtonText: "Cancelar",
+            buttonsStyling: !1,
+        }).then(function (t) {
 
+            if (t.value) {
+                $("#deleteForm").submit();
+                
+            }else{
+                t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "El usuario esta a salvo :)", type: "error", confirmButtonClass: "btn btn-success" });
+            }
+        });
+        
+    }
+</script>
 @endsection

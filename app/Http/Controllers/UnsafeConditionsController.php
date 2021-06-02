@@ -89,7 +89,7 @@ class UnsafeConditionsController extends Controller
                 'people_id' => $person->id,
             ]);
         } catch (\Throwable $th) {
-            return back()->with('error', 'Algo salio mal, intentalo de nuevo.')->withInput();
+            return back()->with('error', 'Algo salio mal, reportalo.')->withInput();
         }
         
         return back()->with('success', 'Registro exitoso');
@@ -357,6 +357,17 @@ class UnsafeConditionsController extends Controller
             }
         }
                 return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
+    }
+
+    public function deleteUnsafeCondition(Request $request){
+        try {
+            $unsafecondition = Unsafe_conditions_record::where('id', $request->id)->first();
+            $unsafecondition->delete();
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Algo salio mal, reportalo.');
+        }
+        return redirect(route('getUnsafeConditions'))->with('success', 'Eliminación exitosa');
+        
     }
 
 }

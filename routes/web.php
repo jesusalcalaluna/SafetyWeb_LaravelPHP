@@ -75,6 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/updateUnsafeCondition', 'UnsafeConditionsController@updateUnsafeConditions')->name('updateUnsafeCondition');
         Route::get('/UnsafeConditions/{id}', 'UnsafeConditionsController@readUnsafeConditionDetails')->name('unsafeConditionDetails');
         Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
+        Route::post('/deleteUnsafeCondition', 'UnsafeConditionsController@deleteUnsafeCondition')->name('deleteUC');
         //Cuidado del compañero
         Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
         //Incidentes
