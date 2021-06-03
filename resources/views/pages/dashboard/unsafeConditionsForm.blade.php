@@ -166,8 +166,8 @@
                     <label for="responsable_id" class="mb-2 bold d-block">Responsable</label>
                     <div class="custom-select style--two">
                         <select class="theme-input-style" id="responsable_id" name="responsable_id">
-                            @isset($people)
-                            @foreach ($people as $item)
+                            @isset($peopleSupervisores)
+                            @foreach ($peopleSupervisores as $item)
                                 <option class="departmentId-{{$item->companie_and_department_id}}" value="{{$item->id}}" {{ old('responsable_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                             @endforeach
                             @endisset
@@ -346,6 +346,7 @@
             $("#impact").val("0");
             $("#frequency").val("0");
             $("#type_condition_id").val("0");
+            $("#department_id").val("0");
             
             $("#type_condition_id").children().each(function (i) {
                 count = 0;

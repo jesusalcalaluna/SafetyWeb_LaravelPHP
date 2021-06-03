@@ -18,7 +18,8 @@ class UnsafeConditionsController extends Controller
         $type_conditions = Type_condition::all();
         $departments = Companies_and_departments::all();
         $people = People::where('status', 'ACTIVO')->get();
-        return view('pages.dashboard.unsafeConditionsForm', compact('condition_groups', 'type_conditions', 'departments', 'people'));
+        $peopleSupervisores = People::where('status', 'ACTIVO')->where("position", 'LIKE','%supervisor%')->get();
+        return view('pages.dashboard.unsafeConditionsForm', compact('condition_groups', 'type_conditions', 'departments', 'people', 'peopleSupervisores'));
     }
 
     public function writeUnsafeConditions(Request $request){
