@@ -38,6 +38,7 @@ class UnsafeConditionsController extends Controller
                 'scope' => 'required',
                 'notice_number' => 'required',
                 'sap' => 'required',
+                'status' => 'required'
             ]);
         } catch (\Throwable $th) {
             return back()->with('error', 'Falta un campo por llenar')->withInput();
@@ -72,6 +73,7 @@ class UnsafeConditionsController extends Controller
         }
         try {
             $unsafeCondition = Unsafe_conditions_record::create([
+                'status' => $request->status,
                 'condition_detected' => $request->condition_detected,
                 'type_condition_id' => $request->type_condition_id,
                 'detection_origin' => $request->detection_origin,

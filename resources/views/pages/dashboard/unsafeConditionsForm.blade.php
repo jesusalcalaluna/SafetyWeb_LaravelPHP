@@ -188,12 +188,12 @@
                     <label for="probability" class="mb-2 bold d-block">Probabilidad de Incidencia</label>
                     <div class="custom-select style--two">
                         <select class="theme-input-style" id="probability" onChange="getRisk()" name="probability">
-                            <option value="10">Esperado</option>
-                            <option value="6" >Posible</option>
-                            <option value="3" >Raro</option>
-                            <option value="1" >Improbable pero posible</option>
-                            <option value="0.5" >Concebible pero improbable</option>
-                            <option value="0.1" >Casi inconcebible</option>
+                            <option value="10" {{ old('probability') == "10" ? 'selected' : '' }}>Esperado</option>
+                            <option value="6"  {{ old('probability') == "6" ? 'selected' : '' }}>Posible</option>
+                            <option value="3"  {{ old('probability') == "3" ? 'selected' : '' }}>Raro</option>
+                            <option value="1"  {{ old('probability') == "1" ? 'selected' : '' }}>Improbable pero posible</option>
+                            <option value="0.5"  {{ old('probability') == "0.5" ? 'selected' : '' }}>Concebible pero improbable</option>
+                            <option value="0.1"  {{ old('probability') == "0.1" ? 'selected' : '' }}>Casi inconcebible</option>
                         </select>
                     </div>
                 </div>
@@ -274,6 +274,20 @@
                 </div>
                 <!-- End Form Group -->
 
+                <!-- Form Group status -->
+                <div class="form-group mb-4">
+                    <label for="status" class="mb-2 bold d-block">Estado de la Condicion </label>
+                    <div class="custom-select style--two">
+                        <select class="theme-input-style" id="status" name="status">
+                            <option value="NO INICIADA" >NO INICIADA</option>
+                            <option value="EN PROCESO" >EN PROCESO</option>
+                            <option value="COMPLETA" >COMPLETA</option>
+                            <option value="RETRASADA" >RETRASADA</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- End Form Group -->
+
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="notice_number" class="mb-2 bold"># de aviso SAP</label>
@@ -340,7 +354,8 @@
     <script type="text/JavaScript">
 
         $(document).ready(function(){
-            
+            console.log(document.referrer);
+            console.log(window.location.host);
             $("#responsable_id").val("0");
             $("#probability").val("0");
             $("#impact").val("0");
