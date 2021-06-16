@@ -111,8 +111,11 @@
                <!-- End Card -->
             </div>
         </div>
-
+@include('pages.dashboard.components.tablaCulturaDeSeguridadDia')
         <div class="row">
+           
+           
+
             <div class="col-xl-5">
                 <!-- Card -->
                 <div class="card mb-30">
