@@ -1272,4 +1272,6 @@ class DashboardController extends Controller
             $Transportista,
         ];
     }
+
+    static public function 
 }

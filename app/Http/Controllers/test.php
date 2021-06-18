@@ -109,6 +109,22 @@ class test extends Controller
                          ->whereYear('created_at', '=', date('Y'));
         })->get();
 
-        return $people;
+
+        //ASI CALCULAREMOS LAS DET Y TRAT EN CONDICIONES INSEGURAS PARA LA TABLA DE COLTURA DE SEGURIDAD
+        //prioridad total DET
+        $ci_total = DB::table('unsafe_conditions_records')
+        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
+        ->where('companies_and_departments.name', 'COCIMIENTOS')->count();
+
+        //prioridad completadas TRAT
+        $ci_completa = DB::table('unsafe_conditions_records')
+        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('unsafe_conditions_records.updated_at', date('Y-m').'-'.date('d'))
+        ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', 'COCIMIENTOS')->count();
+
+        return [$ci_total, $ci_completa];
     }
 }
