@@ -111,7 +111,7 @@
                <!-- End Card -->
             </div>
         </div>
-@include('pages.dashboard.components.tablaCulturaDeSeguridadDia')
+         @include('pages.dashboard.components.tablaCulturaDeSeguridadDia')
         <div class="row">
            
            

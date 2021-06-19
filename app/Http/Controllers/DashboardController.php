@@ -109,11 +109,9 @@ class DashboardController extends Controller
             }
         }
         
-
-        
-        
+        $culturaDeSeguridad = $this->getCultiraDeSeguridad();
         //return $par_CompanionCare;
-        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja'));
+        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridad'));
     }
 
     function getRecordsByDepartment_CurrentDay(){
@@ -1273,5 +1271,155 @@ class DashboardController extends Controller
         ];
     }
 
-    static public function 
+    //Cultura de seguridad
+    public function getCultiraDeSeguridad(){
+
+        $compani_and_departments = DB::table('companies_and_departments')->get()->all();
+        //return  $compani_and_departments;
+        $departamentos = array();
+
+        foreach ($compani_and_departments as $key => $value) {
+            
+            $det = $this->getDET($value->name);
+            $trat = $this->getTRAT($value->name);
+            $atencion = $this->getPorcentaje($det, $trat);
+            $detArea = $this->getDetArea($value->name);
+            $participacionCI = $this->getParticipacionCI($value->name);
+            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO");
+            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO");
+            $totalCuidadosArea = $this->getTotalCuidadosArea($value->name);
+            $CCporArea = $this->getCCporArea($value->name);
+            $participacionCC = $this->getParticipacionCC($value->name);
+            //return $inseguro;
+            $departamentos[] = [
+                "Departamento" => $value->name, 
+                "DET" => $det, 
+                "TRAT" => $trat, 
+                "Atencion" => $atencion, 
+                "DetectadosArea" => $detArea, 
+                "ParticipacionCI" => $participacionCI, 
+                
+                "Inseguro" => $inseguro, 
+                "Seguro" => $seguro,
+                "TotalCuidadosArea" => $totalCuidadosArea,
+                "CuidadosPorElArea" => $CCporArea,
+                "ParticipacionCC" => $participacionCC,
+            ];
+            
+        }
+
+        return $departamentos;
+    }
+
+    public function getParticipacionCC($departamento)
+    {
+        $people = DB::table('people')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->where('companies_and_departments.name', $departamento )
+        ->where('people.status', 'ACTIVO')->count();
+        
+        $cc_departamento = DB::table('companion_care_records')
+        ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('companion_care_records.created_at', date('Y-m').'-'.date('d'))
+        ->where('companies_and_departments.name', $departamento )->count();
+
+        $porcentaje = $this->getPorcentaje($people, $cc_departamento);
+
+        return $porcentaje;
+    }
+
+    public function getCCporArea($departamento)
+    {
+        $total = DB::table('companion_care_records')
+        ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('companion_care_records.created_at', date('Y-m').'-'.date('d'))
+        ->where('companies_and_departments.name', $departamento )
+        ->count();
+
+        return $total;
+    }
+
+    public function getTotalCuidadosArea($departamento)
+    {
+        $total = DB::table('companion_care_records')
+        ->whereDate('created_at', date('Y-m').'-'.date('d'))
+        ->where('company_department_name', $departamento )
+        ->count();
+
+        return $total;
+    }
+
+    public function getSeguroInseguroCC($departamento, $seguro_inseguro)
+    {
+        $seguro = DB::table('companion_care_records')
+        ->whereDate('created_at', date('Y-m').'-'.date('d'))
+        ->where('company_department_name', $departamento )
+        ->where('corr_prev_pos', $seguro_inseguro)
+        ->count();
+
+        return $seguro;
+    }
+
+    public function getDET($departamento)
+    {
+        //prioridad total DET
+        $ci_det = DB::table('unsafe_conditions_records')
+        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
+        ->where('companies_and_departments.name', $departamento )->count();
+        return $ci_det;
+    }
+
+    public function getTRAT($departamento)
+    {
+        //prioridad completadas TRAT
+        $ci_completa = DB::table('unsafe_conditions_records')
+        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('unsafe_conditions_records.updated_at', date('Y-m').'-'.date('d'))
+        ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
+        return $ci_completa;
+    }
+
+    public function getPorcentaje($total, $secundario){
+        $result = 0;
+        if ($total) {
+            $result = number_format(($secundario/$total)*100 ,0);
+        }
+        
+        return $result;
+    }
+
+    public function getDetArea($departamento){
+        //prioridad total DET
+        $departamentoId = DB::table('companies_and_departments')->where('name', $departamento)->get()->all();
+        $ci_det = DB::table('unsafe_conditions_records')
+        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->where('unsafe_conditions_records.department_id', $departamentoId[0]->id)
+        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
+        ->where('companies_and_departments.name', $departamento )->count();
+        return $ci_det;
+    }
+
+    public function getParticipacionCI($departamento)
+    {
+        $people = DB::table('people')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->where('companies_and_departments.name', $departamento )
+        ->where('people.status', 'ACTIVO')->count();
+        
+        $ci_departamento = DB::table('unsafe_conditions_records')
+        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
+        ->where('companies_and_departments.name', $departamento )->count();
+
+        $porcentaje = $this->getPorcentaje($people, $ci_departamento);
+
+        return $porcentaje;
+    }
 }
