@@ -128,26 +128,37 @@ class test extends Controller
         ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', 'COCIMIENTOS')->count();
 
 
+        $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
+        $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
+        $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
+        $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
 
+        
+
+        return $culturaDeSeguridadM;
+    }
+
+    public function getCultiraDeSeguridad($dia, $mes, $año)
+    {
         $compani_and_departments = DB::table('companies_and_departments')->get()->all();
         //return  $compani_and_departments;
         $departamentos = array();
 
         foreach ($compani_and_departments as $key => $value) {
             
-            $det = $this->getDET($value->name);
-            $trat = $this->getTRAT($value->name);
-            $atencion = $this->getPorcentaje($det, $trat);
-            $detArea = $this->getDetArea($value->name);
-            $participacionCI = $this->getParticipacionCI($value->name);
-            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO");
-            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO");
-            $totalCuidadosArea = $this->getTotalCuidadosArea($value->name);
-            $CCporArea = $this->getCCporArea($value->name);
-            $participacionCC = $this->getParticipacionCC($value->name);
+            $det = $this->getDET($value->name, $dia, $mes, $año);
+            $trat = $this->getTRAT($value->name, $dia, $mes, $año);
+            $atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
+            $detArea = $this->getDetArea($value->name, $dia, $mes, $año);
+            $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $año);
+            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $año);
+            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $año);
+            $totalCuidadosArea = $this->getTotalCuidadosArea($value->name, $dia, $mes, $año);
+            $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $año);
+            $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);
             //return $inseguro;
             $departamentos[] = [
-                "departamento" => $value->name, 
+                "Departamento" => $value->name,
                 "DET" => $det, 
                 "TRAT" => $trat, 
                 "Atencion" => $atencion, 
