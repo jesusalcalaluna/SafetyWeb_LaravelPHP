@@ -1326,7 +1326,9 @@ class DashboardController extends Controller
             ->join('people', 'people.id', '=', 'companion_care_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->whereYear('companion_care_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )->count();
+            ->where('companies_and_departments.name', $departamento )
+            ->select('unsafe_conditions_records.people_id')
+            ->groupBy('people_id')->count();
         }
         if ($dia ==null && $mes && $año) {
             $cc_departamento = DB::table('companion_care_records')
@@ -1334,7 +1336,9 @@ class DashboardController extends Controller
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->whereMonth('companion_care_records.created_at', $mes)
             ->whereYear('companion_care_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )->count();
+            ->where('companies_and_departments.name', $departamento )
+            ->select('unsafe_conditions_records.people_id')
+            ->groupBy('people_id')->count();
         }
         if ($dia && $mes && $año) {
             $cc_departamento = DB::table('companion_care_records')
@@ -1343,7 +1347,9 @@ class DashboardController extends Controller
             ->whereDay('companion_care_records.created_at', $dia)
             ->whereMonth('companion_care_records.created_at', $mes)
             ->whereYear('companion_care_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )->count();
+            ->where('companies_and_departments.name', $departamento )
+            ->select('unsafe_conditions_records.people_id')
+            ->groupBy('people_id')->count();
         }
         
 
@@ -1565,7 +1571,10 @@ class DashboardController extends Controller
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->whereYear('unsafe_conditions_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )->count();
+            ->where('companies_and_departments.name', $departamento )
+            ->select('unsafe_conditions_records.people_id')
+            ->groupBy('people_id')->count();
+            
         }
         if ($dia == null && $mes && $año) {
             $ci_departamento = DB::table('unsafe_conditions_records')
@@ -1573,7 +1582,9 @@ class DashboardController extends Controller
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->whereMonth('unsafe_conditions_records.created_at', $mes)
             ->whereYear('unsafe_conditions_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )->count();
+            ->where('companies_and_departments.name', $departamento )
+            ->select('unsafe_conditions_records.people_id')
+            ->groupBy('people_id')->count();
         }
         if ($dia && $mes && $año) {
             $ci_departamento = DB::table('unsafe_conditions_records')
@@ -1582,7 +1593,9 @@ class DashboardController extends Controller
             ->whereDay('unsafe_conditions_records.created_at', $dia)
             ->whereMonth('unsafe_conditions_records.created_at', $mes)
             ->whereYear('unsafe_conditions_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )->count();
+            ->where('companies_and_departments.name', $departamento )
+            ->select('unsafe_conditions_records.people_id')
+            ->groupBy('people_id')->count();
         }
         
 
