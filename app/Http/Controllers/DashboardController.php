@@ -109,12 +109,12 @@ class DashboardController extends Controller
             }
         }
         
-        $culturaDeSeguridad = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
+        $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
         $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
         $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
         $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
         //return $par_CompanionCare;
-        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridad', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
+        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
     }
 
     function getRecordsByDepartment_CurrentDay(){
