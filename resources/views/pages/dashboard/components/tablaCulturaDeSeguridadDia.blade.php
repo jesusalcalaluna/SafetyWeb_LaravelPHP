@@ -142,8 +142,8 @@
                 </thead>
                 <tbody>
                     
-                    @isset($culturaDeSeguridad)
-                    @foreach ($culturaDeSeguridad as $item)
+                    @isset($culturaDeSeguridadM)
+                    @foreach ($culturaDeSeguridadM as $item)
                     <tr>
                     <td>{{ $item["Departamento"] }}</td>     
                     <td>{{ $item["DET"] }}</td> 
@@ -187,8 +187,8 @@
                 </thead>
                 <tbody>
                     
-                    @isset($culturaDeSeguridad)
-                    @foreach ($culturaDeSeguridad as $item)
+                    @isset($culturaDeSeguridadY)
+                    @foreach ($culturaDeSeguridadY as $item)
                     <tr>
                     <td>{{ $item["Departamento"] }}</td>     
                     <td>{{ $item["DET"] }}</td> 
