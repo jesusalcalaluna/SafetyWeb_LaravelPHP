@@ -109,9 +109,12 @@ class DashboardController extends Controller
             }
         }
         
-        $culturaDeSeguridad = $this->getCultiraDeSeguridad();
+        $culturaDeSeguridad = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
+        $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
+        $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
+        $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
         //return $par_CompanionCare;
-        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridad'));
+        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridad', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
     }
 
     function getRecordsByDepartment_CurrentDay(){
@@ -1272,7 +1275,7 @@ class DashboardController extends Controller
     }
 
     //Cultura de seguridad
-    public function getCultiraDeSeguridad(){
+    public function getCultiraDeSeguridad($dia, $mes, $año){
 
         $compani_and_departments = DB::table('companies_and_departments')->get()->all();
         //return  $compani_and_departments;
@@ -1280,19 +1283,19 @@ class DashboardController extends Controller
 
         foreach ($compani_and_departments as $key => $value) {
             
-            $det = $this->getDET($value->name);
-            $trat = $this->getTRAT($value->name);
-            $atencion = $this->getPorcentaje($det, $trat);
-            $detArea = $this->getDetArea($value->name);
-            $participacionCI = $this->getParticipacionCI($value->name);
-            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO");
-            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO");
-            $totalCuidadosArea = $this->getTotalCuidadosArea($value->name);
-            $CCporArea = $this->getCCporArea($value->name);
-            $participacionCC = $this->getParticipacionCC($value->name);
+            $det = $this->getDET($value->name, $dia, $mes, $año);
+            $trat = $this->getTRAT($value->name, $dia, $mes, $año);
+            $atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
+            $detArea = $this->getDetArea($value->name, $dia, $mes, $año);
+            $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $año);
+            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $año);
+            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $año);
+            $totalCuidadosArea = $this->getTotalCuidadosArea($value->name, $dia, $mes, $año);
+            $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $año);
+            $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);
             //return $inseguro;
             $departamentos[] = [
-                "Departamento" => $value->name, 
+                "Departamento" => $value->name,
                 "DET" => $det, 
                 "TRAT" => $trat, 
                 "Atencion" => $atencion, 
@@ -1311,77 +1314,199 @@ class DashboardController extends Controller
         return $departamentos;
     }
 
-    public function getParticipacionCC($departamento)
+    public function getParticipacionCC($departamento, $dia, $mes, $año)
     {
         $people = DB::table('people')
         ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
         ->where('companies_and_departments.name', $departamento )
         ->where('people.status', 'ACTIVO')->count();
+
+        if ($dia == null && $mes == null && $año) {
+            $cc_departamento = DB::table('companion_care_records')
+            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereYear('companion_care_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia ==null && $mes && $año) {
+            $cc_departamento = DB::table('companion_care_records')
+            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereMonth('companion_care_records.created_at', $mes)
+            ->whereYear('companion_care_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia && $mes && $año) {
+            $cc_departamento = DB::table('companion_care_records')
+            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereDay('companion_care_records.created_at', $dia)
+            ->whereMonth('companion_care_records.created_at', $mes)
+            ->whereYear('companion_care_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
         
-        $cc_departamento = DB::table('companion_care_records')
-        ->join('people', 'people.id', '=', 'companion_care_records.people_id')
-        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-        ->whereDate('companion_care_records.created_at', date('Y-m').'-'.date('d'))
-        ->where('companies_and_departments.name', $departamento )->count();
 
         $porcentaje = $this->getPorcentaje($people, $cc_departamento);
 
         return $porcentaje;
     }
 
-    public function getCCporArea($departamento)
+    public function getCCporArea($departamento, $dia, $mes, $año)
     {
-        $total = DB::table('companion_care_records')
-        ->join('people', 'people.id', '=', 'companion_care_records.people_id')
-        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-        ->whereDate('companion_care_records.created_at', date('Y-m').'-'.date('d'))
-        ->where('companies_and_departments.name', $departamento )
-        ->count();
+        if ($dia == null && $mes == null && $año) {
+            $total = DB::table('companion_care_records')
+            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereYear('companion_care_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )
+            ->count();
+
+        }
+        if ($dia ==null && $mes && $año) {
+            $total = DB::table('companion_care_records')
+            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereMonth('companion_care_records.created_at', $mes)
+            ->whereYear('companion_care_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )
+            ->count();
+        }
+        if ($dia && $mes && $año) {
+            $total = DB::table('companion_care_records')
+            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereDay('companion_care_records.created_at', $dia)
+            ->whereMonth('companion_care_records.created_at', $mes)
+            ->whereYear('companion_care_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )
+            ->count();
+        }
 
         return $total;
     }
 
-    public function getTotalCuidadosArea($departamento)
+    public function getTotalCuidadosArea($departamento, $dia, $mes, $año)
     {
-        $total = DB::table('companion_care_records')
-        ->whereDate('created_at', date('Y-m').'-'.date('d'))
-        ->where('company_department_name', $departamento )
-        ->count();
+        
+        if ($dia == null && $mes == null && $año) {                                                                 
+            $total = DB::table('companion_care_records')
+            ->whereYear('created_at', $año)
+            ->where('company_department_name', $departamento )
+            ->count();
+        }
+        if ($dia == null && $mes && $año) {
+            $total = DB::table('companion_care_records')
+            ->whereMonth('created_at', $mes)
+            ->whereYear('created_at', $año)
+            ->where('company_department_name', $departamento )
+            ->count();
+        }
+        if ($dia && $mes && $año){                                                                                                                
+            $total = DB::table('companion_care_records')
+            ->whereDay('created_at', $dia)
+            ->whereMonth('created_at', $mes)
+            ->whereYear('created_at', $año)
+            ->where('company_department_name', $departamento )
+            ->count();
+        }
+        
 
         return $total;
     }
 
-    public function getSeguroInseguroCC($departamento, $seguro_inseguro)
+    public function getSeguroInseguroCC($departamento, $seguro_inseguro, $dia, $mes, $año)
     {
-        $seguro = DB::table('companion_care_records')
-        ->whereDate('created_at', date('Y-m').'-'.date('d'))
-        ->where('company_department_name', $departamento )
-        ->where('corr_prev_pos', $seguro_inseguro)
-        ->count();
+        if ($dia == null && $mes == null && $año) {
+            $seguro = DB::table('companion_care_records')
+            ->whereYear('created_at', $año)
+            ->where('company_department_name', $departamento )
+            ->where('corr_prev_pos', $seguro_inseguro)
+            ->count();
+        }
+        if ($dia == null && $mes && $año) {
+            $seguro = DB::table('companion_care_records')
+            ->whereDay('created_at', $dia)
+            ->whereMonth('created_at', $mes)
+            ->whereYear('created_at', $año)
+            ->where('company_department_name', $departamento )
+            ->where('corr_prev_pos', $seguro_inseguro)
+            ->count();
+        }
+        if ($dia && $mes && $año) {
+            $seguro = DB::table('companion_care_records')
+            ->whereDay('created_at', $dia)
+            ->whereMonth('created_at', $mes)
+            ->whereYear('created_at', $año)
+            ->where('company_department_name', $departamento )
+            ->where('corr_prev_pos', $seguro_inseguro)
+            ->count();
+        }
+        
 
         return $seguro;
     }
 
-    public function getDET($departamento)
+    public function getDET($departamento, $dia, $mes, $año)
     {
+        if ($dia == null && $mes == null && $año) {
+            $ci_det = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereYear('created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia == null && $mes && $año) {
+            $ci_det = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereMonth('created_at', $mes)
+            ->whereYear('created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia && $mes && $año) {
+            $ci_det = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereDay('unsafe_conditions_records.created_at', $dia)
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
         //prioridad total DET
-        $ci_det = DB::table('unsafe_conditions_records')
-        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
-        ->where('companies_and_departments.name', $departamento )->count();
+        
         return $ci_det;
     }
 
-    public function getTRAT($departamento)
+    public function getTRAT($departamento, $dia, $mes, $año)
     {
-        //prioridad completadas TRAT
-        $ci_completa = DB::table('unsafe_conditions_records')
-        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-        ->whereDate('unsafe_conditions_records.updated_at', date('Y-m').'-'.date('d'))
-        ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
-        return $ci_completa;
+        if ($dia == null && $mes == null && $año) {
+            $ci_completa = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
+        }
+        if ($dia == null && $mes && $año) {
+            $ci_completa = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
+        }
+        if ($dia && $mes && $año) {
+            $ci_completa = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereDay('unsafe_conditions_records.created_at', $dia)
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
+            }
+            //prioridad completadas TRAT
+            
+            return $ci_completa;
     }
 
     public function getPorcentaje($total, $secundario){
@@ -1393,30 +1518,73 @@ class DashboardController extends Controller
         return $result;
     }
 
-    public function getDetArea($departamento){
-        //prioridad total DET
+    public function getDetArea($departamento, $dia, $mes, $año){
         $departamentoId = DB::table('companies_and_departments')->where('name', $departamento)->get()->all();
-        $ci_det = DB::table('unsafe_conditions_records')
-        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-        ->where('unsafe_conditions_records.department_id', $departamentoId[0]->id)
-        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
-        ->where('companies_and_departments.name', $departamento )->count();
+        if ($dia == null && $mes == null && $año) {
+            $ci_det = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->where('unsafe_conditions_records.department_id', $departamentoId[0]->id)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia == null && $mes && $año) {
+            $ci_det = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->where('unsafe_conditions_records.department_id', $departamentoId[0]->id)
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia && $mes && $año) {
+            
+            $ci_det = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->where('unsafe_conditions_records.department_id', $departamentoId[0]->id)
+            ->whereDay('unsafe_conditions_records.created_at', $dia)
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        //prioridad total DET
+        
         return $ci_det;
     }
 
-    public function getParticipacionCI($departamento)
+    public function getParticipacionCI($departamento, $dia, $mes, $año)
     {
         $people = DB::table('people')
         ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
         ->where('companies_and_departments.name', $departamento )
         ->where('people.status', 'ACTIVO')->count();
         
-        $ci_departamento = DB::table('unsafe_conditions_records')
-        ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-        ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-        ->whereDate('unsafe_conditions_records.created_at', date('Y-m').'-'.date('d'))
-        ->where('companies_and_departments.name', $departamento )->count();
+        if ($dia == null && $mes == null && $año) {
+            $ci_departamento = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia == null && $mes && $año) {
+            $ci_departamento = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        if ($dia && $mes && $año) {
+            $ci_departamento = DB::table('unsafe_conditions_records')
+            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->whereDay('unsafe_conditions_records.created_at', $dia)
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->where('companies_and_departments.name', $departamento )->count();
+        }
+        
 
         $porcentaje = $this->getPorcentaje($people, $ci_departamento);
 
