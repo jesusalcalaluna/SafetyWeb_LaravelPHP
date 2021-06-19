@@ -1453,15 +1453,15 @@ class DashboardController extends Controller
             $ci_det = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereYear('created_at', $año)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )->count();
         }
         if ($dia == null && $mes && $año) {
             $ci_det = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereMonth('created_at', $mes)
-            ->whereYear('created_at', $año)
+            ->whereMonth('unsafe_conditions_records.created_at', $mes)
+            ->whereYear('unsafe_conditions_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )->count();
         }
         if ($dia && $mes && $año) {

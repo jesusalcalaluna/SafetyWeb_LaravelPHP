@@ -5,7 +5,27 @@
             <div class="d-sm-flex justify-content-between align-items-center">
                 <h4 class="font-20">Cultura de Seguridad</h4>
 
-                
+                <div class="d-flex align-items-center">
+                    <div class="">
+                       <h4 class="mb-3">Hoy</h4>
+                   </div>
+                      <!-- Dropdown Button -->
+                      <div class="dropdown-button">
+                          <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
+                              <div class="menu-icon style--two mr-0">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              </div>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                              <a onclick="chartschange(this);">Hoy</a>
+                              <a onclick="chartschange1(this);">Mes</a>
+                              <a onclick="chartschange2(this);">Año</a>
+                          </div>
+                      </div>
+                      <!-- End Dropdown Button -->
+                  </div>
                 
             </div>
         </div>
