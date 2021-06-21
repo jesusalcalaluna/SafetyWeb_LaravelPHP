@@ -156,7 +156,14 @@ class test extends Controller
             $totalCuidadosArea = $this->getTotalCuidadosArea($value->name, $dia, $mes, $año);
             $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $año);
             $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);
-            return $participacionCC;
+
+            $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+                
+            })->with('unsafe_condition_records', function($query){
+                return $query->whereMonth('created_at', '=', date('m'))
+                             ->whereYear('created_at', '=', date('Y'));
+            })->get();
+            return $people;
             $departamentos[] = [
                 "Departamento" => $value->name,
                 "DET" => $det, 

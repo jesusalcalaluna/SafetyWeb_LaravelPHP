@@ -1293,7 +1293,7 @@ class DashboardController extends Controller
             $totalCuidadosArea = $this->getTotalCuidadosArea($value->name, $dia, $mes, $año);
             $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $año);
             $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);
-            //return $inseguro;
+            return $participacionCC;
             $departamentos[] = [
                 "Departamento" => $value->name,
                 "DET" => $det, 
@@ -1327,8 +1327,8 @@ class DashboardController extends Controller
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
             ->whereYear('companion_care_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )
-            ->select('unsafe_conditions_records.people_id')
-            ->groupBy('people_id')->count();
+            ->select('companion_care_records.people_id')
+            ->get()->all();//->groupBy('people_id')->count();
         }
         if ($dia ==null && $mes && $año) {
             $cc_departamento = DB::table('companion_care_records')
@@ -1337,8 +1337,8 @@ class DashboardController extends Controller
             ->whereMonth('companion_care_records.created_at', $mes)
             ->whereYear('companion_care_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )
-            ->select('unsafe_conditions_records.people_id')
-            ->groupBy('people_id')->count();
+            ->select('companion_care_records.people_id')
+            ->get()->all();//->groupBy('people_id')->count();
         }
         if ($dia && $mes && $año) {
             $cc_departamento = DB::table('companion_care_records')
@@ -1348,11 +1348,11 @@ class DashboardController extends Controller
             ->whereMonth('companion_care_records.created_at', $mes)
             ->whereYear('companion_care_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )
-            ->select('unsafe_conditions_records.people_id')
-            ->groupBy('people_id')->count();
+            ->select('companion_care_records.people_id')
+            ->get()->all();//->groupBy('people_id')->count();
         }
-        
 
+        return $cc_departamento;
         $porcentaje = $this->getPorcentaje($people, $cc_departamento);
 
         return $porcentaje;
