@@ -157,13 +157,6 @@ class test extends Controller
             $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $año);
             $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);
 
-            $people = People::where('status', 'ACTIVO')->orderBy('name', 'ASC')->with('company_and_department')->whereHas('company_and_department', function ($query) {
-                
-            })->with('unsafe_condition_records', function($query){
-                return $query->whereMonth('created_at', '=', date('m'))
-                             ->whereYear('created_at', '=', date('Y'));
-            })->get();
-            return $people;
             $departamentos[] = [
                 "Departamento" => $value->name,
                 "DET" => $det, 
@@ -191,35 +184,41 @@ class test extends Controller
         ->where('companies_and_departments.name', $departamento )
         ->where('people.status', 'ACTIVO')->count();
 
+            
+
         if ($dia == null && $mes == null && $año) {
-            $cc_departamento = DB::table('companion_care_records')
-            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            $cc_departamento = DB::table('people')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereYear('companion_care_records.created_at', $año)
+            ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
+            ->where('people.status', 'ACTIVO')
             ->where('companies_and_departments.name', $departamento )
-            ->select('companion_care_records.people_id')
-            ->get()->all();//->groupBy('people_id')->count();
+            ->whereYear('companion_care_records.created_at', $año)
+            ->get('people_id')//->all();
+            ->groupBy('people_id')->count();
         }
         if ($dia ==null && $mes && $año) {
-            $cc_departamento = DB::table('companion_care_records')
-            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+            $cc_departamento = DB::table('people')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
+            ->where('people.status', 'ACTIVO')
+            ->where('companies_and_departments.name', $departamento )
             ->whereMonth('companion_care_records.created_at', $mes)
             ->whereYear('companion_care_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )
-            ->select('companion_care_records.people_id')
-            ->get()->all();//->groupBy('people_id')->count();
+            ->get('people_id')//->all();
+            ->groupBy('people_id')->count();
         }
         if ($dia && $mes && $año) {
-            $cc_departamento = DB::table('companion_care_records')
-            ->join('people', 'people.id', '=', 'companion_care_records.people_id')
+
+            $cc_departamento = DB::table('people')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
+            ->where('people.status', 'ACTIVO')
+            ->where('companies_and_departments.name', $departamento )
             ->whereDay('companion_care_records.created_at', $dia)
             ->whereMonth('companion_care_records.created_at', $mes)
             ->whereYear('companion_care_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )
-            ->select('companion_care_records.people_id')
-            ->get()->all();//->groupBy('people_id')->count();
+            ->get('people_id')//->all();
+            ->groupBy('people_id')->count();
         }
 
         return $cc_departamento;
@@ -437,34 +436,37 @@ class test extends Controller
         ->where('people.status', 'ACTIVO')->count();
         
         if ($dia == null && $mes == null && $año) {
-            $ci_departamento = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            $ci_departamento = DB::table('people')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
+            ->where('people.status', 'ACTIVO')
             ->where('companies_and_departments.name', $departamento )
-            ->select('unsafe_conditions_records.people_id')
+            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->get('people_id')//->all();
             ->groupBy('people_id')->count();
             
         }
         if ($dia == null && $mes && $año) {
-            $ci_departamento = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            $ci_departamento = DB::table('people')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
+            ->where('people.status', 'ACTIVO')
+            ->where('companies_and_departments.name', $departamento )
             ->whereMonth('unsafe_conditions_records.created_at', $mes)
             ->whereYear('unsafe_conditions_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )
-            ->select('unsafe_conditions_records.people_id')
+            ->get('people_id')//->all();
             ->groupBy('people_id')->count();
         }
         if ($dia && $mes && $año) {
-            $ci_departamento = DB::table('unsafe_conditions_records')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
+            $ci_departamento = DB::table('people')
             ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
+            ->where('people.status', 'ACTIVO')
+            ->where('companies_and_departments.name', $departamento )
             ->whereDay('unsafe_conditions_records.created_at', $dia)
             ->whereMonth('unsafe_conditions_records.created_at', $mes)
             ->whereYear('unsafe_conditions_records.created_at', $año)
-            ->where('companies_and_departments.name', $departamento )
-            ->select('unsafe_conditions_records.people_id')
+            ->get('people_id')//->all();
             ->groupBy('people_id')->count();
         }
         
