@@ -113,7 +113,7 @@ class DashboardController extends Controller
         $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
         $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
         $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
-        //return $par_CompanionCare;
+        return $culturaDeSeguridadD;
         return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
     }
 

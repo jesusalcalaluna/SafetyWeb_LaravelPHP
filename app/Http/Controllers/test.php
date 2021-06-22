@@ -17,7 +17,7 @@ class test extends Controller
 {
     public function test(){
         date_default_timezone_set('America/Monterrey');
-        $par_UnsefeConditions_C = Unsafe_conditions_record::where('attention_priority','CRITICA')
+    /*    $par_UnsefeConditions_C = Unsafe_conditions_record::where('attention_priority','CRITICA')
             ->whereDate('created_at', '=', date('Y-m-d'))
             ->count();
         
@@ -126,20 +126,18 @@ class test extends Controller
         ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
         ->whereDate('unsafe_conditions_records.updated_at', date('Y-m').'-'.date('d'))
         ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', 'COCIMIENTOS')->count();
+*/
 
-
-        $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
+        //$culturaDeSeguridadA = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
         $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
-        $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
-        $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
+        //$culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
+        //$culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
 
-        
-
-        return $culturaDeSeguridadM;
+        return $culturaDeSeguridadD;
     }
 
     public function getCultiraDeSeguridad($dia, $mes, $año){
-
+        
         $compani_and_departments = DB::table('companies_and_departments')->get()->all();
         //return  $compani_and_departments;
         $departamentos = array();
@@ -147,7 +145,7 @@ class test extends Controller
         foreach ($compani_and_departments as $key => $value) {
             
             $det = $this->getDET($value->name, $dia, $mes, $año);
-            $trat = $this->getTRAT($value->name, $dia, $mes, $año);
+            /*$trat = $this->getTRAT($value->name, $dia, $mes, $año);
             $atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
             $detArea = $this->getDetArea($value->name, $dia, $mes, $año);
             $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $año);
@@ -155,12 +153,12 @@ class test extends Controller
             $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $año);
             $totalCuidadosArea = $this->getTotalCuidadosArea($value->name, $dia, $mes, $año);
             $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $año);
-            $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);
+            $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $año);*/
 
             $departamentos[] = [
                 "Departamento" => $value->name,
                 "DET" => $det, 
-                "TRAT" => $trat, 
+                /*"TRAT" => $trat, 
                 "Atencion" => $atencion, 
                 "DetectadosArea" => $detArea, 
                 "ParticipacionCI" => $participacionCI, 
@@ -169,7 +167,7 @@ class test extends Controller
                 "Seguro" => $seguro,
                 "TotalCuidadosArea" => $totalCuidadosArea,
                 "CuidadosPorElArea" => $CCporArea,
-                "ParticipacionCC" => $participacionCC,
+                "ParticipacionCC" => $participacionCC,*/
             ];
             
         }

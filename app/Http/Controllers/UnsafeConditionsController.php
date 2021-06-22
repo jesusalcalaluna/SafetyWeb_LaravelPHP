@@ -94,6 +94,8 @@ class UnsafeConditionsController extends Controller
                 'notice_number' => $request->notice_number,
                 'people_id' => $person->id,
             ]);
+
+            dd($unsafeCondition);
         } catch (\Throwable $th) {
             return back()->with('error', 'Algo salio mal, reportalo.')->withInput();
         }
