@@ -58,7 +58,7 @@
                     <td>{{ $item["Departamento"] }}</td>     
                     <td>{{ $item["DET"] }}</td> 
                     <td>{{ $item["TRAT"] }}</td> 
-                    <td>{{ $item["Atencion"] }}</td> 
+                    <td>%{{ $item["Atencion"] }}</td> 
                     <td>{{ $item["DetectadosArea"] }}</td> 
                     <td>%{{ $item["ParticipacionCI"] }}</td> 
                     <td>{{ $item["Inseguro"] }}</td> 
