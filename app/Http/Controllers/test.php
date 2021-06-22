@@ -127,7 +127,7 @@ class test extends Controller
         ->whereDate('unsafe_conditions_records.updated_at', date('Y-m').'-'.date('d'))
         ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', 'COCIMIENTOS')->count();
 */
-
+        return date("Y-m-d G:i:s");
         $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date("d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date('m'), date('Y'));
         //$culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
         //$culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
@@ -320,7 +320,7 @@ class test extends Controller
         return $seguro;
     }
 
-    public function getDET($departamento, $dia, $mes, $año)
+    public function getDET($departamento, $dia, $mes, $año)//lista
     {
         if ($dia == null && $mes == null && $año) {
             $ci_det = DB::table('unsafe_conditions_records')

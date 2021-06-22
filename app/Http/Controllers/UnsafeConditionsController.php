@@ -75,27 +75,51 @@ class UnsafeConditionsController extends Controller
             $attention_priority = "CRÍTICA";  
         }
         try {
-            $unsafeCondition = Unsafe_conditions_record::create([
-                'status' => $request->status,
-                'condition_detected' => $request->condition_detected,
-                'type_condition_id' => $request->type_condition_id,
-                'detection_origin' => $request->detection_origin,
-                'deadline' => $request->deadline,
-                'department_id' => $request->department_id,
-                'responsable_id' => $request->responsable_id,
-                'area' => $request->area,
-                'probability' => $request->probability,
-                'impact' => $request->impact,
-                'frequency' => $request->frequency,
-                'risk' => $risk,
-                'risk_type' => $risk_type,
-                'attention_priority' => $attention_priority,
-                'scope' => $request->scope,
-                'notice_number' => $request->notice_number,
-                'people_id' => $person->id,
-            ]);
+            if ($request->status == "COMPLETA") {
+                $unsafeCondition = Unsafe_conditions_record::create([
+                    'status' => $request->status,
+                    'condition_detected' => $request->condition_detected,
+                    'type_condition_id' => $request->type_condition_id,
+                    'detection_origin' => $request->detection_origin,
+                    'deadline' => $request->deadline,
+                    'department_id' => $request->department_id,
+                    'responsable_id' => $request->responsable_id,
+                    'area' => $request->area,
+                    'probability' => $request->probability,
+                    'impact' => $request->impact,
+                    'frequency' => $request->frequency,
+                    'risk' => $risk,
+                    'risk_type' => $risk_type,
+                    'attention_priority' => $attention_priority,
+                    'scope' => $request->scope,
+                    'notice_number' => $request->notice_number,
+                    'people_id' => $person->id,
+                    'completed_at' => date("Y-m-d G:i:s"),
+                ]);
+            }else {
+                $unsafeCondition = Unsafe_conditions_record::create([
+                    'status' => $request->status,
+                    'condition_detected' => $request->condition_detected,
+                    'type_condition_id' => $request->type_condition_id,
+                    'detection_origin' => $request->detection_origin,
+                    'deadline' => $request->deadline,
+                    'department_id' => $request->department_id,
+                    'responsable_id' => $request->responsable_id,
+                    'area' => $request->area,
+                    'probability' => $request->probability,
+                    'impact' => $request->impact,
+                    'frequency' => $request->frequency,
+                    'risk' => $risk,
+                    'risk_type' => $risk_type,
+                    'attention_priority' => $attention_priority,
+                    'scope' => $request->scope,
+                    'notice_number' => $request->notice_number,
+                    'people_id' => $person->id,
+                ]);
+            }
+            
 
-            dd($unsafeCondition);
+            
         } catch (\Throwable $th) {
             return back()->with('error', 'Algo salio mal, reportalo.')->withInput();
         }
@@ -175,15 +199,19 @@ class UnsafeConditionsController extends Controller
     }
 
     public function updateUnsafeConditions(Request $request){
-
+        date_default_timezone_set('America/Monterrey');
         $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)->get();
         
-        if( $request->status == $unsafeCondition[0]->status){
-            return $unsafeCondition;
+        if( $request->status != $unsafeCondition[0]->status){
+            if ($request->status == "COMPLETA") {
+                $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
+                                ->update(['status' => $request->status,
+                                'completed_at' => date("Y-m-d G:i:s")]);
+            }else {
+                $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
+                                ->update(['status' => $request->status]);
+            }
         }
-        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
-                            ->update(['status' => $request->status]);
-
         //Calcular porcentaje nuevo de estado
         if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
             $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
@@ -246,13 +274,13 @@ class UnsafeConditionsController extends Controller
             }
         }
 
-        
-
+        //regresamos nuevo porcentaje de estados
         $response = array('porcentCom' => $porcentCom,
         'porcentProc' => $porcentProc,
         'porcentInic' => $porcentInic,
         'porcentRetr' => $porcentRetr,
         'unsafeCondition' => $unsafeCondition,
+        //fin de porcentaje de estados
      );
 
         return $response;

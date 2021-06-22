@@ -17,11 +17,11 @@ class CreateCompanionCareRecordsTable extends Migration
             $table->id();
             $table->string('companion_to_care_name');
             $table->string('company_department_name');
-            $table->string('position_name');
+            $table->string('position_name')->default('N/A');
 
             $table->string('turn');
             $table->string('shift_supervisor');
-            $table->string('description');
+            $table->longText('description');
             $table->string('corr_prev_pos');
 
             $table->unsignedBigInteger('behavior_group_id');
