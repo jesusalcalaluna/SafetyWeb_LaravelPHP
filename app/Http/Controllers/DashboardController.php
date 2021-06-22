@@ -1464,29 +1464,29 @@ class DashboardController extends Controller
         if ($dia == null && $mes == null && $año) {
             $ci_det = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
             ->whereYear('unsafe_conditions_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )->count();
         }
         if ($dia == null && $mes && $año) {
             $ci_det = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
             ->whereMonth('unsafe_conditions_records.created_at', $mes)
             ->whereYear('unsafe_conditions_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )->count();
         }
         if ($dia && $mes && $año) {
+            
             $ci_det = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
             ->whereDay('unsafe_conditions_records.created_at', $dia)
             ->whereMonth('unsafe_conditions_records.created_at', $mes)
             ->whereYear('unsafe_conditions_records.created_at', $año)
             ->where('companies_and_departments.name', $departamento )->count();
         }
-        //prioridad total DET
-        
+
         return $ci_det;
     }
 
