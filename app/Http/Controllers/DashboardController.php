@@ -21,10 +21,10 @@ class DashboardController extends Controller
             ->count();
 
             $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
-                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->whereMonth('created_at', '=', date('m'))
                 ->count();
             $part_companion_care = Companion_care_record::groupBy('people_id')
-                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->whereMonth('created_at', '=', date('m'))
                 ->count();
             $participation = ($par_UnsefeConditions/$people)*100;
 
