@@ -29,8 +29,13 @@ class DashboardController extends Controller
             $participation = ($par_UnsefeConditions/$people)*100;
 
             $participation = number_format($participation,1) ;
-            $participationCC = ($part_companion_care/$people)*100; 
-            $participationCC = number_format($participationCC, 1);
+            $participacionCC = 0;
+            if ($people) {
+                $participationCC = ($part_companion_care/$people)*100; 
+                $participationCC = number_format($participationCC, 1);
+            }
+            
+
 
             //prioridad total
             $critica_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')->count();
