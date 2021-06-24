@@ -23,7 +23,7 @@
                         </div>
                         <div class="increase">
                            <div class="card-title d-flex align-items-end mb-2">
-                              <h2>{{ $participation }}<sup>%</sup></h2>
+                              <h2>{{ $participationCC }}<sup>%</sup></h2>
                               <p class="font-14">Participación</p>
                            </div>
                            <h3 class="card-subtitle mb-2">Cuidado del Compañero</h3>
