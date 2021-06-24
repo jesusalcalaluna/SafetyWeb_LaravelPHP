@@ -29,7 +29,7 @@ class DashboardController extends Controller
             $participation = ($par_UnsefeConditions/$people)*100;
 
             $participation = number_format($participation,1) ;
-            $participacionCC = 0;
+            $participationCC = 0;
             if ($people) {
                 $participationCC = ($part_companion_care/$people)*100; 
                 $participationCC = number_format($participationCC, 1);
