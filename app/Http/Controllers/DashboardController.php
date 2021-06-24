@@ -17,15 +17,19 @@ class DashboardController extends Controller
         if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
 
             $people = People::join('companies_and_departments', 'people.companie_and_department_id', '=', 'companies_and_departments.id')
-            ->where('companies_and_departments.origin','INTERNO')
+            ->where('status','ACTIVO')
             ->count();
 
             $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
                 ->whereDate('created_at', '=', date('Y-m-d'))
                 ->count();
+            $part_companion_care = Companion_care_record::groupBy('people_id')
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->count();
             $participation = ($par_UnsefeConditions/$people)*100;
 
             $participation = number_format($participation,1) ;
+            $participationCC = $this->getPorcentaje($people, $part_companion_care);
 
             //prioridad total
             $critica_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')->count();
@@ -114,7 +118,7 @@ class DashboardController extends Controller
         $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
         $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
         //return $culturaDeSeguridadD;
-        return view('pages.dashboard.index', compact('participation', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
+        return view('pages.dashboard.index', compact('participation', 'participationCC', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
     }
 
     function getRecordsByDepartment_CurrentDay(){
