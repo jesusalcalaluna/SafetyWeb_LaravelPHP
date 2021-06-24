@@ -1285,7 +1285,7 @@ class DashboardController extends Controller
             
             $det = $this->getDET($value->name, $dia, $mes, $año);
             $trat = $this->getTRAT($value->name, $dia, $mes, $año);
-            $atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
+            $atencion = $this->getPorcentaje($det, $trat);
             $detArea = $this->getDetArea($value->name, $dia, $mes, $año);
             $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $año);
             $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $año);

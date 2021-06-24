@@ -126,8 +126,8 @@ class test extends Controller
         ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
         ->whereDate('unsafe_conditions_records.updated_at', date('Y-m').'-'.date('d'))
         ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', 'COCIMIENTOS')->count();
-*/
-        return date("Y-m-d G:i:s");
+        */
+
         $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date("d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date('m'), date('Y'));
         //$culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
         //$culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
@@ -145,8 +145,8 @@ class test extends Controller
         foreach ($compani_and_departments as $key => $value) {
             
             $det = $this->getDET($value->name, $dia, $mes, $año);
-            /*$trat = $this->getTRAT($value->name, $dia, $mes, $año);
-            $atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
+            $trat = $this->getTRAT($value->name, $dia, $mes, $año);
+            /*$atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
             $detArea = $this->getDetArea($value->name, $dia, $mes, $año);
             $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $año);
             $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $año);
@@ -158,8 +158,8 @@ class test extends Controller
             $departamentos[] = [
                 "Departamento" => $value->name,
                 "DET" => $det, 
-                /*"TRAT" => $trat, 
-                "Atencion" => $atencion, 
+                "TRAT" => $trat, 
+                /*"Atencion" => $atencion, 
                 "DetectadosArea" => $detArea, 
                 "ParticipacionCI" => $participacionCI, 
                 
@@ -357,28 +357,27 @@ class test extends Controller
         if ($dia == null && $mes == null && $año) {
             $ci_completa = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
+            ->whereYear('unsafe_conditions_records.completed_at', $año)
             ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
         }
         if ($dia == null && $mes && $año) {
             $ci_completa = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereMonth('unsafe_conditions_records.created_at', $mes)
-            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
+            ->whereMonth('unsafe_conditions_records.completed_at', $mes)
+            ->whereYear('unsafe_conditions_records.completed_at', $año)
             ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
         }
         if ($dia && $mes && $año) {
             $ci_completa = DB::table('unsafe_conditions_records')
             ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereDay('unsafe_conditions_records.created_at', $dia)
-            ->whereMonth('unsafe_conditions_records.created_at', $mes)
-            ->whereYear('unsafe_conditions_records.created_at', $año)
+            ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
+            ->whereDay('unsafe_conditions_records.completed_at', $dia)
+            ->whereMonth('unsafe_conditions_records.completed_at', $mes)
+            ->whereYear('unsafe_conditions_records.completed_at', $año)
             ->where('unsafe_conditions_records.status', 'COMPLETA')->where('companies_and_departments.name', $departamento)->count();
             }
-            //prioridad completadas TRAT
             
             return $ci_completa;
     }
