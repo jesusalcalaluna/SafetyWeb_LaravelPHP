@@ -72,7 +72,8 @@ class CompanionCareController extends Controller
     }
 
     public function readCompanionCare(){
-        $companion_care_record = Companion_care_record::with('behavior_group')
+        $companion_care_record = Companion_care_record::orderBy('id', 'DESC')
+                                                        ->with('behavior_group')
                                                         ->with('acts_types')
                                                         ->with('gold_rules')
                                                         ->with('department_where_happens')
