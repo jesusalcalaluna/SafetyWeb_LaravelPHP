@@ -60,9 +60,10 @@
                             <tr>
                                 <th>Estado </th>
                                 <th>Fecha limite </th>
-                                <th>Prioridad de atención </th>
+                                <th>Condicion</th>
                                 <th>Tipo de condicion </th>
                                 <th>Departamento </th>
+                                <th>Prioridad de atención </th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
@@ -84,9 +85,10 @@
                                         </div>
                                     </td>
                                     <td>{{$item->deadline}}</td>
-                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
+                                    <td>{{ $item->condition_detected }}</td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
+                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
                                     <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
                             @else
@@ -104,9 +106,10 @@
                                         </div>
                                     </td>
                                     <td>{{$item->deadline}}</td>
-                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
+                                    <td>{{ $item->condition_detected }}</td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
+                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
                                     <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
                                 @endif
