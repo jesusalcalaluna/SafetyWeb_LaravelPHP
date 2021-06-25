@@ -83,6 +83,20 @@
                                                 <input type="text" id="position" class="theme-input-style" placeholder="Type Here" name="position" value="{{ $person->position }}">
                                             </div>
                                             <!-- End Form Group -->
+                                            <!-- Form Group -->
+                                            @isset($person->status)
+                                            <div class="form-group mb-20">
+                                                <label for="status" class="mb-2 bold d-block">Estado</label>
+                                                <div class="custom-select style--two">
+                                                    <select class="theme-input-style" id="status" name="status">
+                                                            <option value="ACTIVO" @if ($person->status == "ACTIVO") selected @endif>ACTIVO</option>
+                                                            <option value="VACACIONES" @if ($person->status == "VACACIONES") selected @endif>VACACIONES</option>
+                                                            <option value="DESCANSO MEDICO" @if ($person->status == "DESCANSO MEDICO") selected @endif>DESCANSO MEDICO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endisset
+                                            <!-- End Form Group -->
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="button-group mt-30">

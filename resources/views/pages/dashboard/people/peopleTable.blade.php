@@ -52,6 +52,7 @@
                                 <th>Puesto</th>
                                 <th>PCC</th>
                                 <th>PCI</th>
+                                <th>Estado</th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
@@ -75,6 +76,7 @@
                                     @else
                                     <td class="bg-danger">{{count($item->unsafe_condition_records)}}</td>
                                     @endif
+                                    <td>{{ $item->status }}</td>
                                     <td>
                                         <!-- Edit Invoice Button -->
                                         <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">

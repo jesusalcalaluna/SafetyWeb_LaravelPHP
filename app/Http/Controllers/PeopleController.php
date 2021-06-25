@@ -78,7 +78,7 @@ class PeopleController extends Controller
         return view('pages.dashboard.people.peopleForm', compact('departments'));
     }
 
-    public function getPeople(){
+    public function getPeople(){//Metodo para departamentos espesificos
 
         $countCC = 0;
         $countUC = 0;
@@ -118,7 +118,7 @@ class PeopleController extends Controller
         return view('pages.dashboard.people.peopleTable', compact('people', 'ppuc', 'ppcc'));
     }
 
-    public function getPeopleIntern(){
+    public function getPeopleIntern(){//metodo para ADMINISTRADORES
 
         $countCC = 0;
         $countUC = 0;
@@ -165,7 +165,7 @@ class PeopleController extends Controller
         return view('pages.dashboard.people.peopleInternTable', compact('people', 'ppuc', 'ppcc', 'departments'));
     }
 
-    public function getPeopleExtern(){
+    public function getPeopleExtern(){//metodo para ADMIONISTRADORES
 
         $countCC = 0;
         $countUC = 0;
@@ -232,6 +232,7 @@ class PeopleController extends Controller
                 'name' => $request->name,
                 'position' => $request->position,
                 'companie_and_department_id' => $request->companie_and_department_id,
+                'status' => $request->status,
             ]);
         } catch (\Throwable $th) {
             return back()->with('error', 'Algo salio mal');
@@ -243,7 +244,7 @@ class PeopleController extends Controller
     public function deactivatePerson(Request $request){
         try {
             $person = People::where('id',  $request->id)
-            ->update(['status' => 'INACTIVO']);
+            ->update(['status' => 'ELIMINADO']);
         } catch (\Throwable $th) {
             return "error";
         }
