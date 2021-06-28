@@ -17,10 +17,16 @@
                             <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{count($people)}}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppcc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppuc }}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC:</span>%{{ $ppuc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TCI:</span>{{ $countUC }}</div>
+                        </div>
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC:</span>%{{ $ppcc }}</div>
+                        </div>
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TCC:</span>{{ $countCC }}</div>
                         </div>
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">

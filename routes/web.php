@@ -94,7 +94,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
             //Incidentes
             Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
-                
+            
+            Route::get('/companiesAndDepartments', 'CopaniesDepartmentsController@getCompaniesDepartments')->name('companiesAndDepartments');
+            
+            Route::group(['middleware' => ['checkRole:SUPERUSUARIO']], function(){  
+
+            });
             
         });
     });

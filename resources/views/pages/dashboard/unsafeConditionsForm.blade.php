@@ -247,7 +247,7 @@
                         </div>
                         <!-- End Custom Radio -->
                         
-                        <label for="Rutina">DEPARTAMENTO</label>
+                        <label for="DEPARTAMENTO">DEPARTAMENTO</label>
                     </div>
 
                     <div class="d-flex align-items-center mb-3">
@@ -291,7 +291,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="notice_number" class="mb-2 bold"># de aviso SAP</label>
-                    <input type="text" class="theme-input-style" id="notice_number" placeholder="Alcance" name="notice_number" value="{{ old('notice_number') }}">
+                    <input type="text" class="theme-input-style" id="notice_number" placeholder="No." name="notice_number" value="{{ old('notice_number') }}">
                 </div>
                 <!-- End Form Group -->
 

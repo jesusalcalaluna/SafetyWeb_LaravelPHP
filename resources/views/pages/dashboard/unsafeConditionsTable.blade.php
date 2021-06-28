@@ -1,4 +1,15 @@
 @extends('layouts.app_dashboard')
+@section('css')
+<style>
+    table{
+    table-layout: fixed;
+    }
+    .celda{
+    height: auto;
+    width: 200px;
+    }
+</style>
+@endsection
 
 @section('navbar')
     @include('globals.dashboard.navbar')
@@ -60,7 +71,7 @@
                             <tr>
                                 <th>Estado </th>
                                 <th>Fecha limite </th>
-                                <th>Condicion</th>
+                                <th class="w-1\/2">Condicion</th>
                                 <th>Tipo de condicion </th>
                                 <th>Departamento </th>
                                 <th>Prioridad de atención </th>
@@ -85,7 +96,7 @@
                                         </div>
                                     </td>
                                     <td>{{$item->deadline}}</td>
-                                    <td>{{ $item->condition_detected }}</td>
+                                    <td class="celda"><p> {{ $item->condition_detected }}</p></td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
@@ -106,7 +117,7 @@
                                         </div>
                                     </td>
                                     <td>{{$item->deadline}}</td>
-                                    <td>{{ $item->condition_detected }}</td>
+                                    <td class="celda" ><p> {{ $item->condition_detected }}</p></td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>

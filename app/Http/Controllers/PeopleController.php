@@ -115,7 +115,7 @@ class PeopleController extends Controller
             $ppuc = number_format(($countUC/$countPeopleDepartment)*100 );
         }
 
-        return view('pages.dashboard.people.peopleTable', compact('people', 'ppuc', 'ppcc'));
+        return view('pages.dashboard.people.peopleTable', compact('people', 'ppuc', 'ppcc', 'countCC', 'countUC'));
     }
 
     public function getPeopleIntern(){//metodo para ADMINISTRADORES
@@ -162,7 +162,7 @@ class PeopleController extends Controller
         $departments = Companies_and_departments::where('origin', 'INTERNO')->get();
         
         
-        return view('pages.dashboard.people.peopleInternTable', compact('people', 'ppuc', 'ppcc', 'departments'));
+        return view('pages.dashboard.people.peopleInternTable', compact('people', 'ppuc', 'ppcc', 'departments', 'countCC', 'countUC'));
     }
 
     public function getPeopleExtern(){//metodo para ADMIONISTRADORES
@@ -206,7 +206,7 @@ class PeopleController extends Controller
         }
         $companies = Companies_and_departments::where('origin', 'EXTERNO')->get();
         
-        return view('pages.dashboard.people.peopleExternTable', compact('people', 'ppuc', 'ppcc', 'companies'));
+        return view('pages.dashboard.people.peopleExternTable', compact('people', 'ppuc', 'ppcc', 'companies', 'countCC', 'countUC'));
     }
 
     public function updatePersonForm($id){

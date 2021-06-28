@@ -27,6 +27,7 @@
             </a>
          </li>
 
+         <!-- Condiciones inseguras --> 
          <li class="has-sub-item @if(Route::current()->getName() == 'unsafeConditionsForm' || Route::current()->getName() == 'getUnsafeConditions') active sub-menu-opened @endif">
             <a href="#">
                 <i class="icofont-exclamation-tringle"></i>
@@ -39,7 +40,7 @@
             </ul>
             <!-- End Sub Menu -->
          </li> 
-
+         <!-- Cuidado Del Compañero -->
          <li class="has-sub-item @if(Route::current()->getName() == 'getCompanionCare' || Route::current()->getName() == 'companionCareForm') active sub-menu-opened @endif">
             <a href="#">
                   <i class="icofont-exclamation-circle "></i>
@@ -52,6 +53,7 @@
             </ul>
             <!-- End Sub Menu -->
          </li>
+
          <li class="has-sub-item @if(Route::current()->getName() == 'incidentForm') active sub-menu-opened @endif">
             <a href="#">
                   <i class="icofont-exclamation-circle "></i>
@@ -93,8 +95,19 @@
             </a>
          </li>
          @endif
-         
-         
+         <li class="nav-category">Configuración</li>
+
+         <!-- Departamentos-->
+         <li class="has-sub-item @if(Route::current()->getName() == 'companiesAndDepartments') active sub-menu-opened @endif">
+            <a href="#">
+                <span class="link-title">Departamentos</span>
+            </a>
+            <!-- Sub Menu -->
+            <ul class="nav sub-menu" style="display: none;">
+                <li class="@if(Route::current()->getName() == 'companiesAndDepartments') active @endif"><a href="{{route('unsafeConditionsForm')}}">Lista</a></li>
+            </ul>
+            <!-- End Sub Menu -->
+         </li> 
          
        </ul>
        <!-- End Nav -->

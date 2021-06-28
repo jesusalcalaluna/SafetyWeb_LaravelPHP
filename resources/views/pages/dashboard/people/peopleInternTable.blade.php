@@ -17,11 +17,18 @@
                             <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{count($people)}}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppcc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppuc }}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC:</span>%{{ $ppuc }}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TCI:</span>{{ $countUC }}</div>
                         </div>
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">PCC:</span>%{{ $ppcc }}</div>
+                        </div>
+                        <div class="assign-tag back-end bg-success pl-2">
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TCC:</span>{{ $countCC }}</div>
+                        </div>
+                        <!--
                         <div class="priority">
                             <a href="#" id="status" class="assign-menu bold font-14  " data-toggle="dropdown" aria-expanded="false">FILTRO</a>
                             <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
@@ -29,7 +36,7 @@
                                 <a onclick="submitForm(this, {{ $item->name }});" ><span class="tag_color bg-success"></span>{{ $item->name }}</a>
                                 @endforeach
                             </div>
-                        </div>
+                        </div>-->
                         <div class="d-flex flex-wrap">
                             <div class="add-new-contact mr-20">
                                 <a href="{{ route('newPersonForm') }}" class="btn-circle">
