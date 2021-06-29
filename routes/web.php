@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboardPartiChartsInternoY', 'DashboardController@dashboardPartiChartsInternoY')->name('PartiCharts');
 
 
-    Route::group(['middleware' => ['checkRole:SUPERVISOR']], function(){
+    Route::group(['middleware' => ['auth','checkRole:SUPERVISOR']], function(){
         //Permisos para los administradores y supervisores
         //-------------------------------------------------
         //USUARIOS
@@ -82,11 +82,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
         Route::get('/incidentDetails/{id}', 'IncidentController@getIncidentDetails')->name('incidentDetails');
         
-
-        Route::group(['middleware' => ['checkRole:ADMINISTRADOR']], function (){
-            //Permisos soloo para los administradores
+        Route::group(['middleware' => ['auth','checkRole:ADMINISTRADOR']], function (){
+            //Permisos soloo para los administradores y super usuarios 
             //----------------------------------------
-
+    
             //Actualizar usuarios
             Route::post('/updateUser', 'UserController@updateUser')->name('updateuser');
             Route::post('/updateUserPass', 'UserController@updatePass')->name('updateuserpass');
@@ -95,14 +94,23 @@ Route::group(['middleware' => ['auth']], function () {
             //Incidentes
             Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
             
-            Route::get('/companiesAndDepartments', 'CopaniesDepartmentsController@getCompaniesDepartments')->name('companiesAndDepartments');
             
-            Route::group(['middleware' => ['checkRole:SUPERUSUARIO']], function(){  
+            Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){  
 
+                Route::get('/comapaniesDepartments/index', 'CompaniesDepartmentsController@getCompaniesDepartments')->name('companiesAndDepartments');
+                Route::get('/comapaniesDepartments/create', 'CompaniesDepartmentsController@getCreate')->name('companiesDepartmentsCreate');
+                Route::post('/comapaniesDepartments/create', 'CompaniesDepartmentsController@postCreate');
+                Route::get('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
+                Route::post('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@postEdit');
+                
             });
             
+            
         });
+        
     });
+    
+    
 });
 
 require __DIR__.'/auth.php';

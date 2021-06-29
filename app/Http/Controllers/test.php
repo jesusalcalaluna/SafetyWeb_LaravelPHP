@@ -20,7 +20,7 @@ class test extends Controller
 {
     public function test(){
 
-        return Excel::download(new UnsafeConditionsExport, 'users.xlsx');
+        return Excel::download(new UnsafeConditionsExport, 'Condiciones Inseguras.xlsx');
 
         date_default_timezone_set('America/Monterrey');
     /*    $par_UnsefeConditions_C = Unsafe_conditions_record::where('attention_priority','CRITICA')
