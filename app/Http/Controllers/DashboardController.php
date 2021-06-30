@@ -21,15 +21,21 @@ class DashboardController extends Controller
             ->count();
 
             $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
-                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->whereMonth('created_at', '=', date('m'))
                 ->count();
             $part_companion_care = Companion_care_record::groupBy('people_id')
-                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->whereMonth('created_at', '=', date('m'))
                 ->count();
             $participation = ($par_UnsefeConditions/$people)*100;
 
             $participation = number_format($participation,1) ;
-            $participationCC = $this->getPorcentaje($people, $part_companion_care);
+            $participationCC = 0;
+            if ($people) {
+                $participationCC = ($part_companion_care/$people)*100; 
+                $participationCC = number_format($participationCC, 1);
+            }
+            
+
 
             //prioridad total
             $critica_total = DB::table('unsafe_conditions_records')->where('attention_priority', 'CRITICA')->count();
@@ -74,9 +80,17 @@ class DashboardController extends Controller
             $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
                 ->whereDate('created_at', '=', date('Y-m-d'))
                 ->count();
+            $part_companion_care = Companion_care_record::groupBy('people_id')
+                ->whereMonth('created_at', '=', date('m'))
+                ->count();
             $participation = ($par_UnsefeConditions/$people)*100;
 
             $participation = number_format($participation,1);
+            $participationCC = 0;
+            if ($people) {
+                $participationCC = ($part_companion_care/$people)*100; 
+                $participationCC = number_format($participationCC, 1);
+            }
 
             //prioridad total
             $critica_total = DB::table('unsafe_conditions_records')->where('department_id', Auth::user()->person->company_and_department->id)->where('attention_priority', 'CRITICA')->count();
@@ -1289,7 +1303,7 @@ class DashboardController extends Controller
             
             $det = $this->getDET($value->name, $dia, $mes, $año);
             $trat = $this->getTRAT($value->name, $dia, $mes, $año);
-            $atencion = $this->getPorcentaje($det, $trat, $dia, $mes, $año);
+            $atencion = $this->getPorcentaje($det, $trat);
             $detArea = $this->getDetArea($value->name, $dia, $mes, $año);
             $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $año);
             $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $año);
