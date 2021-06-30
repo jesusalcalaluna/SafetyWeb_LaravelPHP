@@ -113,15 +113,15 @@ class DashboardController extends Controller
             }
         }
         
-        $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
+        /*$culturaDeSeguridadA = $this->getCultiraDeSeguridad(date('d')-1, date('m'), date('Y'));
         $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date('d'), date('m'), date('Y'));
         $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date('m'), date('Y'));
-        $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));
+        $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date('Y'));*/
         //return $culturaDeSeguridadD;
-        return view('pages.dashboard.index', compact('participation', 'participationCC', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
+    return view('pages.dashboard.index', compact('participation', 'participationCC', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', /*'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'*/));
     }
 
-    function getRecordsByDepartment_CurrentDay(){
+    /*function getRecordsByDepartment_CurrentDay(){
         date_default_timezone_set('America/Monterrey');
         $par_UnsefeConditions = DB::table('unsafe_conditions_records')
             ->join('companies_and_departments', 'unsafe_conditions_records.department_id','=','companies_and_departments.id')
@@ -252,14 +252,14 @@ class DashboardController extends Controller
                 $baja2_total_dia_6,
             ],
             'Interno' => [
-                'PartiY' => DashboardController::dashboardPartiChartsInternoY(),
-                'PartiM' => DashboardController::dashboardPartiChartsInternoM(),
-                'PartiD' => DashboardController::dashboardPartiChartsInternoD(),
+                'PartiY' => $this->dashboardPartiChartsInternoY(),
+                'PartiM' => $this->dashboardPartiChartsInternoM(),
+                'PartiD' => $this->dashboardPartiChartsInternoD(),
             ],
             'Externo' => [
-                'PartiY' => DashboardController::dashboardPartiChartsExternoY(),
-                'PartiM' => DashboardController::dashboardPartiChartsExternoM(),
-                'PartiD' => DashboardController::dashboardPartiChartsExternoD(),
+                'PartiY' => $this->dashboardPartiChartsExternoY(),
+                'PartiM' => $this->dashboardPartiChartsExternoM(),
+                'PartiD' => $this->dashboardPartiChartsExternoD(),
             ]
         ];
         return $data;
@@ -1276,7 +1276,7 @@ class DashboardController extends Controller
             $Proyectos,
             $Transportista,
         ];
-    }
+    }*/
 
     //Cultura de seguridad
     public function getCultiraDeSeguridad($dia, $mes, $año){
