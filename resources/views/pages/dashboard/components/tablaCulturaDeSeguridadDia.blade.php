@@ -22,12 +22,12 @@
                               <a onclick="culturaChangueHoy(this);">Hoy</a>
                               <a onclick="culturaChangueAyer(this);">Ayer</a>
                               <a onclick="culturaChangueMes(this);">Mes</a>
-                              <a onclick="culturaChangueAño(this);">Año</a>
+                              <a onclick="culturaChangueAnio(this);">Año</a>
                           </div>
                       </div>
                       <!-- End Dropdown Button -->
                   </div>
-                
+
             </div>
         </div>
         <div class="table-responsive" style="display: none;" id="CulturaAyer">
@@ -51,25 +51,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @isset($culturaDeSeguridadA)
                     @foreach ($culturaDeSeguridadA as $item)
                     <tr>
-                    <td>{{ $item["Departamento"] }}</td>     
-                    <td>{{ $item["DET"] }}</td> 
-                    <td>{{ $item["TRAT"] }}</td> 
-                    <td>%{{ $item["Atencion"] }}</td> 
-                    <td>{{ $item["DetectadosArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCI"] }}</td> 
-                    <td>{{ $item["Inseguro"] }}</td> 
-                    <td>{{ $item["Seguro"] }}</td> 
-                    <td>{{ $item["TotalCuidadosArea"] }}</td> 
-                    <td>{{ $item["CuidadosPorElArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCC"] }}</td>  
-                </tr>              
+                    <td>{{ $item["Departamento"] }}</td>
+                    <td>{{ $item["DET"] }}</td>
+                    <td>{{ $item["TRAT"] }}</td>
+                    <td>%{{ $item["Atencion"] }}</td>
+                    <td>{{ $item["DetectadosArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCI"] }}</td>
+                    <td>{{ $item["Inseguro"] }}</td>
+                    <td>{{ $item["Seguro"] }}</td>
+                    <td>{{ $item["TotalCuidadosArea"] }}</td>
+                    <td>{{ $item["CuidadosPorElArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCC"] }}</td>
+                </tr>
                     @endforeach
                     @endisset
-                
+
                 </tbody>
             </table>
             <!-- End Invoice List Table -->
@@ -96,25 +96,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @isset($culturaDeSeguridadD)
                     @foreach ($culturaDeSeguridadD as $item)
                     <tr>
-                    <td>{{ $item["Departamento"] }}</td>     
-                    <td>{{ $item["DET"] }}</td> 
-                    <td>{{ $item["TRAT"] }}</td> 
-                    <td>%{{ $item["Atencion"] }}</td> 
-                    <td>{{ $item["DetectadosArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCI"] }}</td> 
-                    <td>{{ $item["Inseguro"] }}</td> 
-                    <td>{{ $item["Seguro"] }}</td> 
-                    <td>{{ $item["TotalCuidadosArea"] }}</td> 
-                    <td>{{ $item["CuidadosPorElArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCC"] }}</td>  
-                </tr>              
+                    <td>{{ $item["Departamento"] }}</td>
+                    <td>{{ $item["DET"] }}</td>
+                    <td>{{ $item["TRAT"] }}</td>
+                    <td>%{{ $item["Atencion"] }}</td>
+                    <td>{{ $item["DetectadosArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCI"] }}</td>
+                    <td>{{ $item["Inseguro"] }}</td>
+                    <td>{{ $item["Seguro"] }}</td>
+                    <td>{{ $item["TotalCuidadosArea"] }}</td>
+                    <td>{{ $item["CuidadosPorElArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCC"] }}</td>
+                </tr>
                     @endforeach
                     @endisset
-                
+
                 </tbody>
             </table>
             <!-- End Invoice List Table -->
@@ -141,25 +141,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @isset($culturaDeSeguridadM)
                     @foreach ($culturaDeSeguridadM as $item)
                     <tr>
-                    <td>{{ $item["Departamento"] }}</td>     
-                    <td>{{ $item["DET"] }}</td> 
-                    <td>{{ $item["TRAT"] }}</td> 
-                    <td>%{{ $item["Atencion"] }}</td> 
-                    <td>{{ $item["DetectadosArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCI"] }}</td> 
-                    <td>{{ $item["Inseguro"] }}</td> 
-                    <td>{{ $item["Seguro"] }}</td> 
-                    <td>{{ $item["TotalCuidadosArea"] }}</td> 
-                    <td>{{ $item["CuidadosPorElArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCC"] }}</td>  
-                </tr>              
+                    <td>{{ $item["Departamento"] }}</td>
+                    <td>{{ $item["DET"] }}</td>
+                    <td>{{ $item["TRAT"] }}</td>
+                    <td>%{{ $item["Atencion"] }}</td>
+                    <td>{{ $item["DetectadosArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCI"] }}</td>
+                    <td>{{ $item["Inseguro"] }}</td>
+                    <td>{{ $item["Seguro"] }}</td>
+                    <td>{{ $item["TotalCuidadosArea"] }}</td>
+                    <td>{{ $item["CuidadosPorElArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCC"] }}</td>
+                </tr>
                     @endforeach
                     @endisset
-                
+
                 </tbody>
             </table>
             <!-- End Invoice List Table -->
@@ -186,34 +186,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @isset($culturaDeSeguridadY)
                     @foreach ($culturaDeSeguridadY as $item)
                     <tr>
-                    <td>{{ $item["Departamento"] }}</td>     
-                    <td>{{ $item["DET"] }}</td> 
-                    <td>{{ $item["TRAT"] }}</td> 
-                    <td>%{{ $item["Atencion"] }}</td> 
-                    <td>{{ $item["DetectadosArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCI"] }}</td> 
-                    <td>{{ $item["Inseguro"] }}</td> 
-                    <td>{{ $item["Seguro"] }}</td> 
-                    <td>{{ $item["TotalCuidadosArea"] }}</td> 
-                    <td>{{ $item["CuidadosPorElArea"] }}</td> 
-                    <td>%{{ $item["ParticipacionCC"] }}</td>  
-                </tr>              
+                    <td>{{ $item["Departamento"] }}</td>
+                    <td>{{ $item["DET"] }}</td>
+                    <td>{{ $item["TRAT"] }}</td>
+                    <td>%{{ $item["Atencion"] }}</td>
+                    <td>{{ $item["DetectadosArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCI"] }}</td>
+                    <td>{{ $item["Inseguro"] }}</td>
+                    <td>{{ $item["Seguro"] }}</td>
+                    <td>{{ $item["TotalCuidadosArea"] }}</td>
+                    <td>{{ $item["CuidadosPorElArea"] }}</td>
+                    <td>%{{ $item["ParticipacionCC"] }}</td>
+                </tr>
                     @endforeach
                     @endisset
-                
+
                 </tbody>
             </table>
             <!-- End Invoice List Table -->
         </div>
-    </div>   
+    </div>
 </div>
 
 <script>
-    
+
     function culturaChangueHoy(params) {
         $("#selectCultura").text("Hoy");
         $("#CulturaHoy").show(0);
@@ -231,15 +231,15 @@
     }
     function culturaChangueMes(params) {
         $("#selectCultura").text("Mes");
-        
+
         $("#CulturaMes").show(0);
         $("#CulturaAño").hide(0);
         $("#CulturaHoy").hide(0);
         $("#CulturaAyer").hide(0);
     }
-    function culturaChangueAño(params) {
+    function culturaChangueAnio(params) {
         $("#selectCultura").text("Año");
-        
+
         $("#CulturaAño").show(0);
         $("#CulturaHoy").hide(0);
         $("#CulturaAyer").hide(0);
