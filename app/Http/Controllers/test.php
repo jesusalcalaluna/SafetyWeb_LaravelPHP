@@ -45,8 +45,8 @@ class test extends Controller
             $atencion = $this->getPorcentaje($det, $trat);
             $detArea = $this->getDetArea($value->name, $dia, $mes, $anio);
             $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $anio);
-            /*$inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $anio);
-            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $anio);
+            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $anio);
+            /*$seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $anio);
             $totalCuidadosArea = $this->getTotalCuidadosArea($value->name, $dia, $mes, $anio);
             $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $anio);
             $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $anio);*/
@@ -59,8 +59,8 @@ class test extends Controller
                 "DetectadosArea" => $detArea,
                 "ParticipacionCI" => $participacionCI,
 
-                /*"Inseguro" => $inseguro,
-                "Seguro" => $seguro,
+                "Inseguro" => $inseguro,
+                /*"Seguro" => $seguro,
                 "TotalCuidadosArea" => $totalCuidadosArea,
                 "CuidadosPorElArea" => $CCporArea,
                 "ParticipacionCC" => $participacionCC,*/
@@ -203,11 +203,11 @@ class test extends Controller
         }
         if ($dia && $mes && $anio) {
             $seguro = DB::table('companion_care_records')
+            ->where('company_department_name', $departamento )
+            ->where('corr_prev_pos', $seguro_inseguro)
             ->whereDay('created_at', $dia)
             ->whereMonth('created_at', $mes)
             ->whereYear('created_at', $anio)
-            ->where('company_department_name', $departamento )
-            ->where('corr_prev_pos', $seguro_inseguro)
             ->count();
         }
 
