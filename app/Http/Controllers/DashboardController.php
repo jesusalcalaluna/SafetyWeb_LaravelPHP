@@ -1425,7 +1425,7 @@ class DashboardController extends Controller
             $total = DB::table('companion_care_records')
                 ->join('companies_and_departments','companies_and_departments.id','=', 'companion_care_records.department_where_happens_id')
                 ->where('companies_and_departments.name', $departamento )
-                ->whereMonth('ccompanion_care_records.reated_at', $mes)
+                ->whereMonth('companion_care_records.created_at', $mes)
                 ->whereYear('companion_care_records.created_at', $anio)
                 ->count();
         }
