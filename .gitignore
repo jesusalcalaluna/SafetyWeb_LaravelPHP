@@ -27,3 +27,4 @@ Homestead.json
 .idea/phpunit.xml
 .idea/SafetyWeb_LaravelPHP.iml
 .idea/vcs.xml
+.idea/laravel-plugin.xml
