@@ -13,8 +13,8 @@ use App\Models\Role;
 use ArrayObject;
 use Illuminate\Support\Facades\DB;
 
-//use App\Exports\UnsafeConditionsExport;
-//use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UnsafeConditionsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class test extends Controller
 {
