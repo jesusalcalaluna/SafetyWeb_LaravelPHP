@@ -23,17 +23,11 @@ class DashboardController extends Controller
             $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
                 ->whereMonth('created_at', '=', date('m'))
                 ->count();
-            $part_companion_care = Companion_care_record::groupBy('people_id')
-                ->whereMonth('created_at', '=', date('m'))
-                ->count();
+            
             $participation = ($par_UnsefeConditions/$people)*100;
 
             $participation = number_format($participation,1) ;
-            $participationCC = 0;
-            if ($people) {
-                $participationCC = ($part_companion_care/$people)*100;
-                $participationCC = number_format($participationCC, 1);
-            }
+            $participationCC = $this->getPorcentaje($this->getTotalPeopleActive(), )
 
 
 

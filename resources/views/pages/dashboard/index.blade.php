@@ -19,7 +19,7 @@
                               <p class="font-14">Participación</p>
                            </div>
                            <h3 class="card-subtitle mb-2">Condiciones inseguras</h3>
-                           <p class="font-16">{{ date('d-m-Y') }}</p>
+                           <p class="font-16">{{ date('m-Y') }}</p>
                         </div>
                         <div class="increase">
                            <div class="card-title d-flex align-items-end mb-2">
@@ -27,7 +27,7 @@
                               <p class="font-14">Participación</p>
                            </div>
                            <h3 class="card-subtitle mb-2">Cuidado del Compañero</h3>
-                           <p class="font-16">{{ date('d-m-Y') }}</p>
+                           <p class="font-16">{{ date('m-Y') }}</p>
                         </div>
                      </div>
                   </div>
@@ -113,8 +113,8 @@
         </div>
          @include('pages.dashboard.components.tablaCulturaDeSeguridadDia')
         <div class="row">
-           
-           
+
+
 
             <div class="col-xl-5">
                 <!-- Card -->
@@ -124,7 +124,7 @@
                             <div class="">
                                 <h4 class="mb-2">Participacion Interna</h4>
                             </div>
-                            
+
                             <div class="d-flex align-items-center">
                               <div class="">
                                  <h4 class="mb-3">Hoy</h4>
@@ -146,15 +146,15 @@
                                 </div>
                                 <!-- End Dropdown Button -->
                             </div>
-                        
-                        
+
+
                         </div>
                         <div id="test1">Hoy<div id="apex_bar-chart2"  class="chart"></div></div>
                         <div id="test2" style="display: none;">Mes<div id="apex_bar-chart1"  class="chart"></div></div>
                         <div id="test3" style="display: none;">Año<div id="apex_bar-chart" class="chart"></div></div>
-                        
-                        
-                        
+
+
+
                     </div>
                 </div>
                 <!-- End Card -->
@@ -189,25 +189,25 @@
                                 </div>
                                 <!-- End Dropdown Button -->
                             </div>
-                        
-                        
+
+
                         </div>
                         <div id="testExterno1">Hoy<div id="apex_bar-chartExterno2"  class="chart"></div></div>
                         <div id="testExterno2" style="display: none;">Mes<div id="apex_bar-chartExterno1"  class="chart"></div></div>
                         <div id="testExterno3" style="display: none;">Año<div id="apex_bar-chartExterno" class="chart"></div></div>
-                        
-                        
-                        
+
+
+
                     </div>
                 </div>
                 <!-- End Card -->
             </div>
-        </div>    
+        </div>
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
@@ -249,7 +249,7 @@
    }
 
    $(function() {
-      
+
    });
 </script>
 <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
