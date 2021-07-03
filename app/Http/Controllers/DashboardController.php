@@ -12,23 +12,14 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index(){
+        //Variables
         date_default_timezone_set('America/Monterrey');
+        $userDepartment = Auth::user()->person->company_and_department->name;
 
         if (Auth::user()->role->hierarchy <= 1) {
 
-            $people = People::join('companies_and_departments', 'people.companie_and_department_id', '=', 'companies_and_departments.id')
-            ->where('status','ACTIVO')
-            ->count();
-
-            $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
-                ->whereMonth('created_at', '=', date('m'))
-                ->count();
-            
-            $participation = ($par_UnsefeConditions/$people)*100;
-
-            $participation = number_format($participation,1) ;
-            $participationCC = $this->getPorcentaje($this->getTotalPeopleActive(), )
-
+            $participation = $this->getParticipacionCI(null, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+            $participationCC = $this->getParticipacionCC(null, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
 
 
             //prioridad total
@@ -48,43 +39,18 @@ class DashboardController extends Controller
             ->where('status', 'COMPLETA')->count();
 
             //porcentaje completado por prioridad
-            $porcent_critica = 0;
-            if ($critica_total) {
-                $porcent_critica = number_format(($critica_completa/$critica_total)*100 ,0);
-            }
-            $porcent_alta = 0;
-            if ($alta_total) {
-                $porcent_alta = number_format(($alta_completa/$alta_total)*100 ,0);
-            }
-            $porcent_media = 0;
-            if ($media_total) {
-                $porcent_media = number_format(($media_completa/$media_total)*100 ,0);
-            }
-            $porcent_baja = 0;
-            if ($baja_total) {
-                $porcent_baja = number_format(($baja_completa/$baja_total)*100 ,0);
-            }
-        } else {
+            $porcent_critica = $this->getPorcentaje($critica_total, $critica_completa, 0);
+            $porcent_alta = $this->getPorcentaje($alta_total, $alta_completa, 0);
+            $porcent_media = $this->getPorcentaje($media_total, $media_completa, 0);
+            $porcent_baja = $this->getPorcentaje($baja_total, $baja_completa, 0);
 
-            $people = People::join('companies_and_departments', 'people.companie_and_department_id', '=', 'companies_and_departments.id')
-                ->where('companies_and_departments.origin','INTERNO')
-                //->where('companie_and_department_id', Auth::user()->person->company_and_department->id)
-                ->count();
+        }
+        else {
 
-            $par_UnsefeConditions = Unsafe_conditions_record::groupBy('people_id')
-                ->whereDate('created_at', '=', date('Y-m-d'))
-                ->count();
-            $part_companion_care = Companion_care_record::groupBy('people_id')
-                ->whereMonth('created_at', '=', date('m'))
-                ->count();
-            $participation = ($par_UnsefeConditions/$people)*100;
 
-            $participation = number_format($participation,1);
-            $participationCC = 0;
-            if ($people) {
-                $participationCC = ($part_companion_care/$people)*100;
-                $participationCC = number_format($participationCC, 1);
-            }
+            $participation = $this->getParticipacionCI($userDepartment, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+            $participationCC = $this->getParticipacionCC($userDepartment, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+
 
             //prioridad total
             $critica_total = DB::table('unsafe_conditions_records')->where('department_id', Auth::user()->person->company_and_department->id)->where('attention_priority', 'CRITICA')->count();
@@ -103,22 +69,10 @@ class DashboardController extends Controller
             ->where('status', 'COMPLETA')->count();
 
             //porcentaje completado por prioridad
-            $porcent_critica = 0;
-            if ($critica_total) {
-                $porcent_critica = number_format(($critica_completa/$critica_total)*100 ,0);
-            }
-            $porcent_alta = 0;
-            if ($alta_total) {
-                $porcent_alta = number_format(($alta_completa/$alta_total)*100 ,0);
-            }
-            $porcent_media = 0;
-            if ($media_total) {
-                $porcent_media = number_format(($media_completa/$media_total)*100 ,0);
-            }
-            $porcent_baja = 0;
-            if ($baja_total) {
-                $porcent_baja = number_format(($baja_completa/$baja_total)*100 ,0);
-            }
+            $porcent_critica = $this->getPorcentaje($critica_total, $critica_completa, 0);
+            $porcent_alta = $this->getPorcentaje($alta_total, $alta_completa, 0);
+            $porcent_media = $this->getPorcentaje($media_total, $media_completa, 0);
+            $porcent_baja = $this->getPorcentaje($baja_total, $baja_completa, 0);
         }
         //Cultura de seguridad
         $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date("d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))));
@@ -126,7 +80,7 @@ class DashboardController extends Controller
         $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date("m", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))));
         $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date("Y", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))));
 
-    return view('pages.dashboard.index', compact('participation', 'participationCC', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
+        return view('pages.dashboard.index', compact('participation', 'participationCC', 'porcent_critica', 'porcent_alta', 'porcent_media', 'porcent_baja', 'culturaDeSeguridadA', 'culturaDeSeguridadD', 'culturaDeSeguridadM', 'culturaDeSeguridadY'));
     }
 
     function getRecordsByDepartment_CurrentDay(){
@@ -1294,16 +1248,16 @@ class DashboardController extends Controller
 
         foreach ($compani_and_departments as $key => $value) {
 
-            $det = $this->getDET($value->name, $dia, $mes, $anio);
-            $trat = $this->getTRAT($value->name, $dia, $mes, $anio);
-            $atencion = $this->getPorcentaje($det, $trat);
-            $detArea = $this->getDetArea($value->name, $dia, $mes, $anio);
-            $participacionCI = $this->getParticipacionCI($value->name, $dia, $mes, $anio);
-            $inseguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $anio);
-            $seguro = $this->getSeguroInseguroCC($value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $anio);
-            $totalCuidadosArea = $this->getTotalCuidadosEnArea($value->name, $dia, $mes, $anio);
-            $CCporArea = $this->getCCporArea($value->name, $dia, $mes, $anio);
-            $participacionCC = $this->getParticipacionCC($value->name, $dia, $mes, $anio);
+            $det = $this->getDET( $value->name, $dia, $mes, $anio);
+            $trat = $this->getTRAT( $value->name, $dia, $mes, $anio);
+            $atencion = $this->getPorcentaje( $det, $trat);
+            $detArea = $this->getDetArea( $value->name, $dia, $mes, $anio);
+            $participacionCI = $this->getParticipacionCI( $value->name, $dia, $mes, $anio);
+            $inseguro = $this->getSeguroInseguroCC( $value->name, "COMPORTAMIENTO INSEGURO", $dia, $mes, $anio);
+            $seguro = $this->getSeguroInseguroCC( $value->name, "COMPORTAMIENTO SEGURO", $dia, $mes, $anio );
+            $totalCuidadosArea = $this->getTotalCuidadosEnArea( $value->name, $dia, $mes, $anio );
+            $CCporArea = $this->getCCporArea( $value->name, $dia, $mes, $anio );
+            $participacionCC = $this->getParticipacionCC( $value->name, $dia, $mes, $anio );
 
             $departamentos[] = [
                 "Departamento" => $value->name,
@@ -1334,7 +1288,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('companies_and_departments.name', $departamento )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereYear('companion_care_records.created_at', $anio)
                 ->get('people_id')
                 ->groupBy('people_id')->count();
@@ -1344,7 +1298,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('companies_and_departments.name', $departamento )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereMonth('companion_care_records.created_at', $mes)
                 ->whereYear('companion_care_records.created_at', $anio)
                 ->get('people_id')
@@ -1356,7 +1310,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('companies_and_departments.name', $departamento )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereDay('companion_care_records.created_at', $dia)
                 ->whereMonth('companion_care_records.created_at', $mes)
                 ->whereYear('companion_care_records.created_at', $anio)
@@ -1580,7 +1534,7 @@ class DashboardController extends Controller
         return $ci_det;
     }
 
-    public function getParticipacionCI($departamento, $dia, $mes, $anio)
+    public function getParticipacionCI($departamento, $dia, $mes, $anio): int
     {
         $peopleTotal = $this->getTotalPeopleActive($departamento);
 
@@ -1589,7 +1543,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('companies_and_departments.name', $departamento )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereYear('unsafe_conditions_records.created_at', $anio)
                 ->get('people_id')
                 ->groupBy('people_id')->count();
@@ -1600,7 +1554,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('companies_and_departments.name', $departamento )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereMonth('unsafe_conditions_records.created_at', $mes)
                 ->whereYear('unsafe_conditions_records.created_at', $anio)
                 ->get('people_id')
@@ -1611,7 +1565,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('companies_and_departments.name', $departamento )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereDay('unsafe_conditions_records.created_at', $dia)
                 ->whereMonth('unsafe_conditions_records.created_at', $mes)
                 ->whereYear('unsafe_conditions_records.created_at', $anio)

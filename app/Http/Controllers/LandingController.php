@@ -9,6 +9,7 @@ use App\Models\People;
 use App\Models\Unsafe_conditions_record;
 use ArrayObject;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\DashboardController;
 
 class LandingController extends Controller
 {
@@ -16,30 +17,30 @@ class LandingController extends Controller
     public function getIndex(){
         date_default_timezone_set('America/Monterrey');
 
-        $cantidad_personas_activas = People::where('status', "ACTIVO")->count();
+        $cantidad_personas_activas = $this->getTotalPeopleActive();
 
         //COMPAÑEROS CUIDADOS
         //seguros
         $seguros = DB::table('companion_care_records')
-        ->whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
-        ->where('corr_prev_pos', 'COMPORTAMIENTO SEGURO')->count();
+            ->whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('corr_prev_pos', 'COMPORTAMIENTO SEGURO')->count();
         //inseguros
         $inseguros = DB::table('companion_care_records')
-        ->whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
-        ->where('corr_prev_pos', 'COMPORTAMIENTO INSEGURO')->count();
+            ->whereYear('created_at',date('Y'))
+            ->whereMonth('created_at',date('m'))
+            ->where('corr_prev_pos', 'COMPORTAMIENTO INSEGURO')->count();
         //CONDICIONES INSEGURAS
         //Detectadas
         $detectadas = DB::table('unsafe_conditions_records')
-        ->whereYear('unsafe_conditions_records.created_at',date('Y'))
-        ->whereMonth('unsafe_conditions_records.created_at',date('m'))
-        ->count();
+            ->whereYear('unsafe_conditions_records.created_at',date('Y'))
+            ->whereMonth('unsafe_conditions_records.created_at',date('m'))
+            ->count();
         //Atendidas
         $atendidas = DB::table('unsafe_conditions_records')
-        ->whereYear('unsafe_conditions_records.created_at',date('Y'))
-        ->whereMonth('unsafe_conditions_records.created_at',date('m'))
-        ->where('status', 'COMPLETA')->count();
+            ->whereYear('unsafe_conditions_records.created_at',date('Y'))
+            ->whereMonth('unsafe_conditions_records.created_at',date('m'))
+            ->where('status', 'COMPLETA')->count();
         //Avance
         $avance = 0;
         if ($detectadas) {
@@ -49,22 +50,22 @@ class LandingController extends Controller
         //PARTICIPACION DE DETECCION
         //cuidado del compañero
         $cant_cc = Companion_care_record::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
-        ->select("people_id")
-        ->groupBy("people_id")
-        ->get()
-        ->count();
+            ->whereMonth('created_at',date('m'))
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get()
+            ->count();
         $participacion_cc = 0;
         if ($cantidad_personas_activas) {
             $participacion_cc = number_format(($cant_cc/$cantidad_personas_activas)*100 ,1);
         }
         //condiciones inseguras
         $cant_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
-        ->select("people_id")
-        ->groupBy("people_id")
-        ->get()
-        ->count();
+            ->whereMonth('created_at',date('m'))
+            ->select("people_id")
+            ->groupBy("people_id")
+            ->get()
+            ->count();
         $participacion_ci = 0;
         if ($cantidad_personas_activas) {
             $participacion_ci = number_format(($cant_ci/$cantidad_personas_activas)*100 ,1);
@@ -86,12 +87,12 @@ class LandingController extends Controller
             ->get();
 
         $agrupar_moniutoreo = new ArrayObject();
-        foreach ($canti_monitoreos_ci as $key1 => $value) {  
-            
+        foreach ($canti_monitoreos_ci as $key1 => $value) {
+
             if (!sizeof($agrupar_moniutoreo)) {
                 $agrupar_moniutoreo->append($value);
-            } 
-            
+            }
+
             foreach ($agrupar_moniutoreo as $key2 => $value1) {
                 if($value->people_id == $value1->people_id){
                     break ;
@@ -102,12 +103,12 @@ class LandingController extends Controller
 
             }
         }
-        
+
         foreach ($canti_monitoreos_cc as $key2 => $value) {
             if (!sizeof($agrupar_moniutoreo)) {
                 $agrupar_moniutoreo->append($value);
-            } 
-            
+            }
+
             foreach ($agrupar_moniutoreo as $key2 => $value1) {
                 if($value->people_id == $value1->people_id){
                     break ;
@@ -138,12 +139,12 @@ class LandingController extends Controller
             ->get();
 
         $agrupar_owd = new ArrayObject();
-        foreach ($canti_owd_ci as $key1 => $value) {  
-            
+        foreach ($canti_owd_ci as $key1 => $value) {
+
             if (!sizeof($agrupar_owd)) {
                 $agrupar_owd->append($value);
-            } 
-            
+            }
+
             foreach ($agrupar_owd as $key2 => $value1) {
                 if($value->people_id == $value1->people_id){
                     break ;
@@ -154,12 +155,12 @@ class LandingController extends Controller
 
             }
         }
-        
+
         foreach ($canti_owd_cc as $key2 => $value) {
             if (!sizeof($agrupar_owd)) {
                 $agrupar_owd->append($value);
-            } 
-            
+            }
+
             foreach ($agrupar_owd as $key2 => $value1) {
                 if($value->people_id == $value1->people_id){
                     break ;
@@ -170,9 +171,9 @@ class LandingController extends Controller
 
             }
         }
-        
+
         $canti_total_owd = $agrupar_owd->count();
-        
+
         $p_owd = 0;
         if ($cantidad_personas_activas) {
             $p_owd = number_format(($canti_total_owd/$cantidad_personas_activas)*100 ,1);
@@ -234,7 +235,17 @@ class LandingController extends Controller
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
-        
+
         return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros', 'participacion_cc', 'participacion_ci', 'p_monitoreos', 'p_owd', 'incidentes_lti', 'incidentes_mdi', 'incidentes_mti', 'incidentes_fai', 'incidentes_lti_sif', 'incidentes_mdi_sif', 'incidentes_mti_sif', 'incidentes_fai_sif', 'incidentes_sif', 'incidentes'));
+    }
+    public function getTotalPeopleActive($departamento = ''): int
+    {
+        $peopleTotal = DB::table('people')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
+            ->where('companies_and_departments.name', 'LIKE', '%'.$departamento.'%' )
+            ->where('people.status', 'ACTIVO')
+            ->count();
+
+        return $peopleTotal;
     }
 }
