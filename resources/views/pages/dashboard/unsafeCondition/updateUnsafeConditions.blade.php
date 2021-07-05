@@ -25,15 +25,16 @@
         <div class="container-fluid">
 
             <div class="form-element input-sizing">
-                <h4 class="font-20 mb-4">Condiciones Inseguras</h4>
+                <h4 class="font-20 mb-4">Actualizar Condicion Insegura</h4>
 
                 <!-- Form -->
-                <form action="{{ route('getUpdateUnsafeC')}}" method="POST">
+                <form action="{{ route('getUpdateUnsafeC', [$unsafeCondition->id])}}" method="POST">
                 @csrf
+                    <input hidden name="id" value="{{$unsafeCondition->id}}">
                 <!-- Form Group -->
                     <div class="form-group mb-4">
                         <label for="condition_detected" class="mb-2 bold">Condicion Detectada</label>
-                        <input type="text" class="theme-input-style" id="condition_detected" placeholder="" name="condition_detected" value="{{ old('condition_detected') }}">
+                        <input disabled type="text" class="theme-input-style" id="condition_detected" placeholder="{{ $unsafeCondition->condition_detected }}" name="condition_detected" value="{{ $unsafeCondition->condition_detected }}">
                     </div>
                     <!-- End Form Group -->
 
@@ -41,10 +42,10 @@
                     <div class="form-group mb-4">
                         <label for="condition_groups" class="mb-2 bold d-block">Tipo de Condicion</label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups" name="condition_groups">
+                            <select disabled class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups" name="condition_groups">
                                 @isset($condition_groups)
                                     @foreach ($condition_groups as $item)
-                                        <option  value="{{$item->id}}" {{ old('condition_groups') == $item->id ? 'selected' : '' }}>{{$item->group_name}}</option>
+                                        <option  value="{{$item->id}}" {{ $unsafeCondition->condition_groups == $item->id ? 'selected' : '' }}>{{$item->group_name}}</option>
                                     @endforeach
                                 @endisset
                             </select>
@@ -56,10 +57,10 @@
                     <div class="form-group mb-4">
                         <label for="type_condition_id" class="mb-2 bold d-block">Accion</label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="type_condition_id" name="type_condition_id">
+                            <select disabled class="theme-input-style" id="type_condition_id" name="type_condition_id">
                                 @isset($type_conditions)
                                     @foreach ($type_conditions as $item)
-                                        <option class="conditionGroupId_{{$item->condition_group_id}}" value="{{$item->id}}" {{ old('type_condition_id') == $item->condition_group_id ? 'selected' : '' }}>{{$item->action_name}}</option>
+                                        <option class="conditionGroupId_{{$item->condition_group_id}}" value="{{$item->id}}" {{ $unsafeCondition->type_condition_id == $item->condition_group_id ? 'selected' : '' }}>{{$item->action_name}}</option>
                                     @endforeach
                                 @endisset
                             </select>
@@ -74,7 +75,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="Rutina" name="detection_origin" value="Rutina" {{ old('detection_origin') == "Rutina" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="Rutina" name="detection_origin" value="Rutina" {{ $unsafeCondition->detection_origin == "Rutina" ? 'checked' : '' }}>
                                 <label for="Rutina"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -85,7 +86,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="LOTOTO" name="detection_origin" value="Aud. LOTOTO" {{ old('detection_origin') == "Aud. LOTOTO" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="LOTOTO" name="detection_origin" value="Aud. LOTOTO" {{ $unsafeCondition->detection_origin == "Aud. LOTOTO" ? 'checked' : '' }}>
                                 <label for="LOTOTO"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -96,7 +97,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="DTO" name="detection_origin" value="DTO (OWD)" {{ old('detection_origin') == "DTO (OWD)" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="DTO" name="detection_origin" value="DTO (OWD)" {{ $unsafeCondition->detection_origin == "DTO (OWD)" ? 'checked' : '' }}>
                                 <label for="DTO"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -106,7 +107,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="DPA" name="detection_origin" value="DPA" {{ old('detection_origin') == "DPA" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="DPA" name="detection_origin" value="DPA" {{ $unsafeCondition->detection_origin == "DPA" ? 'checked' : '' }}>
                                 <label for="DPA"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -116,7 +117,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="Monitoreo" name="detection_origin" value="Monitoreo de Seguridad" {{ old('detection_origin') == "Monitoreo de Seguridad" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="Monitoreo" name="detection_origin" value="Monitoreo de Seguridad" {{ $unsafeCondition->detection_origin == "Monitoreo de Seguridad" ? 'checked' : '' }}>
                                 <label for="Monitoreo"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -136,7 +137,7 @@
                           <img src="../../../assets/img/svg/calender.svg" alt="" class="svg">
                         </span>
 
-                            <input type="text" id="default-date" placeholder="Select Date" name="deadline" value="{{ old('deadline') }}"/>
+                            <input disabled type="text" id="default-date" placeholder="Select Date" name="deadline" value="{{ $unsafeCondition->deadline }}"/>
                         </div>
                         <!-- End Date Picker -->
                     </div>
@@ -146,12 +147,12 @@
                     <div class="form-group mb-4">
                         <label for="department_id" class="mb-2 bold d-block">Departamento</label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="department_id" onChange="changeDepartment(this);" name="department_id">
+                            <select disabled class="theme-input-style" id="department_id" onChange="changeDepartment(this);" name="department_id">
                                 @isset($departments)
                                     @foreach ($departments as $item)
                                         @if ($item->origin == "INTERNO")
                                             @if (!str_contains($item->name, 'LÍNEA'))
-                                                <option value="{{$item->id}}" {{ old('department_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                                <option value="{{$item->id}}" {{ $unsafeCondition->department_id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                             @endif
                                         @endif
                                     @endforeach
@@ -165,10 +166,10 @@
                     <div class="form-group mb-4">
                         <label for="responsable_id" class="mb-2 bold d-block">Responsable</label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="responsable_id" name="responsable_id">
+                            <select disabled class="theme-input-style" id="responsable_id" name="responsable_id">
                                 @isset($peopleSupervisores)
                                     @foreach ($peopleSupervisores as $item)
-                                        <option class="departmentId-{{$item->companie_and_department_id}}" value="{{$item->id}}" {{ old('responsable_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                        <option class="departmentId-{{$item->companie_and_department_id}}" value="{{$item->id}}" {{ $unsafeCondition->responsable_id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                     @endforeach
                                 @endisset
                             </select>
@@ -179,7 +180,7 @@
                     <!-- Form Group Area -->
                     <div class="form-group mb-4">
                         <label for="area" class="mb-2 bold">Area</label>
-                        <input type="text" class="theme-input-style" id="area" placeholder="Nombre del area..." name="area" value="{{ old('area') }}">
+                        <input disabled type="text" class="theme-input-style" id="area" placeholder="Nombre del area..." name="area" value="{{ $unsafeCondition->area }}">
                     </div>
                     <!-- End Form Group -->
 
@@ -187,13 +188,13 @@
                     <div class="form-group mb-4">
                         <label for="probability" class="mb-2 bold d-block">Probabilidad de Incidencia</label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="probability" onChange="getRisk()" name="probability">
-                                <option value="10" {{ old('probability') == "10" ? 'selected' : '' }}>Esperado</option>
-                                <option value="6"  {{ old('probability') == "6" ? 'selected' : '' }}>Posible</option>
-                                <option value="3"  {{ old('probability') == "3" ? 'selected' : '' }}>Raro</option>
-                                <option value="1"  {{ old('probability') == "1" ? 'selected' : '' }}>Improbable pero posible</option>
-                                <option value="0.5"  {{ old('probability') == "0.5" ? 'selected' : '' }}>Concebible pero improbable</option>
-                                <option value="0.1"  {{ old('probability') == "0.1" ? 'selected' : '' }}>Casi inconcebible</option>
+                            <select disabled class="theme-input-style" id="probability" onChange="getRisk()" name="probability">
+                                <option value="10" {{ $unsafeCondition->probability == "10" ? 'selected' : '' }}>Esperado</option>
+                                <option value="6"  {{ $unsafeCondition->probability == "6" ? 'selected' : '' }}>Posible</option>
+                                <option value="3"  {{ $unsafeCondition->probability == "3" ? 'selected' : '' }}>Raro</option>
+                                <option value="1"  {{ $unsafeCondition->probability == "1" ? 'selected' : '' }}>Improbable pero posible</option>
+                                <option value="0.5"  {{ $unsafeCondition->probability == "0.5" ? 'selected' : '' }}>Concebible pero improbable</option>
+                                <option value="0.1"  {{ $unsafeCondition->probability == "0.1" ? 'selected' : '' }}>Casi inconcebible</option>
                             </select>
                         </div>
                     </div>
@@ -203,12 +204,12 @@
                     <div class="form-group mb-4">
                         <label for="impact" class="mb-2 bold d-block">Impacto Potencial </label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="impact" onChange="getRisk()" name="impact">
-                                <option value="40" >Catastrofico - Muertes</option>
-                                <option value="15" >Muy serio - Una muerte</option>
-                                <option value="7" >Serio - Discapacidad</option>
-                                <option value="3" >Importante - Lesion con ausencia</option>
-                                <option value="1" >Menor - Lesion sin ausencia</option>
+                            <select disabled class="theme-input-style" id="impact" onChange="getRisk()" name="impact">
+                                <option value="40" {{ $unsafeCondition->impact == "40" ? 'selected' : '' }}>Catastrofico - Muertes</option>
+                                <option value="15" {{ $unsafeCondition->impact == "15" ? 'selected' : '' }}>Muy serio - Una muerte</option>
+                                <option value="7" {{ $unsafeCondition->impact == "7" ? 'selected' : '' }}>Serio - Discapacidad</option>
+                                <option value="3" {{ $unsafeCondition->impact == "3" ? 'selected' : '' }}>Importante - Lesion con ausencia</option>
+                                <option value="1" {{ $unsafeCondition->impact == "1" ? 'selected' : '' }}>Menor - Lesion sin ausencia</option>
                             </select>
                         </div>
                     </div>
@@ -218,13 +219,13 @@
                     <div class="form-group mb-4">
                         <label for="frequency" class="mb-2 bold d-block">Frecuancia </label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="frequency" onChange="getRisk()" name="frequency">
-                                <option value="10" >Continuamente</option>
-                                <option value="6" >Regularmente</option>
-                                <option value="3" >Ahora y despues</option>
-                                <option value="2" >Algunas veces</option>
-                                <option value="1" >Rara vez</option>
-                                <option value="0.5" >Muy rara vez</option>
+                            <select disabled class="theme-input-style" id="frequency" onChange="getRisk()" name="frequency">
+                                <option value="10" {{ $unsafeCondition->frequency == "10" ? 'selected' : '' }}>Continuamente</option>
+                                <option value="6" {{ $unsafeCondition->frequency == "6" ? 'selected' : '' }}>Regularmente</option>
+                                <option value="3" {{ $unsafeCondition->frequency == "3" ? 'selected' : '' }}>Ahora y despues</option>
+                                <option value="2" {{ $unsafeCondition->frequency == "2" ? 'selected' : '' }}>Algunas veces</option>
+                                <option value="1" {{ $unsafeCondition->frequency == "1" ? 'selected' : '' }}>Rara vez</option>
+                                <option value="0.5" {{ $unsafeCondition->frequency == "0.5" ? 'selected' : '' }}>Muy rara vez</option>
                             </select>
                         </div>
                     </div>
@@ -242,7 +243,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="DEPARTAMENTO" name="scope" value="DEPARTAMENTO" {{ old('scope') == "DEPARTAMENTO" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="DEPARTAMENTO" name="scope" value="DEPARTAMENTO" {{ $unsafeCondition->scope == "DEPARTAMENTO" ? 'checked' : '' }}>
                                 <label for="DEPARTAMENTO"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -253,7 +254,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="MANTENIMIENTO" name="scope" value="MANTENIMIENTO" {{ old('scope') == "MANTENIMIENTO" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="MANTENIMIENTO" name="scope" value="MANTENIMIENTO" {{ $unsafeCondition->scope == "MANTENIMIENTO" ? 'checked' : '' }}>
                                 <label for="MANTENIMIENTO"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -264,7 +265,7 @@
                         <div class="d-flex align-items-center mb-3">
                             <!-- Custom Radio -->
                             <div class="custom-radio mr-3">
-                                <input type="radio" id="CAPEX" name="scope" value="CAPEX" {{ old('scope') == "CAPEX" ? 'checked' : '' }}>
+                                <input disabled type="radio" id="CAPEX" name="scope" value="CAPEX" {{ $unsafeCondition->scope == "CAPEX" ? 'checked' : '' }}>
                                 <label for="CAPEX"></label>
                             </div>
                             <!-- End Custom Radio -->
@@ -278,11 +279,11 @@
                     <div class="form-group mb-4">
                         <label for="status" class="mb-2 bold d-block">Estado de la Condicion </label>
                         <div class="custom-select style--two">
-                            <select class="theme-input-style" id="status" name="status">
-                                <option value="NO INICIADA" >NO INICIADA</option>
-                                <option value="EN PROCESO" >EN PROCESO</option>
-                                <option value="COMPLETA" >COMPLETA</option>
-                                <option value="RETRASADA" >RETRASADA</option>
+                            <select disabled class="theme-input-style" id="status" name="status">
+                                <option value="NO INICIADA" {{ $unsafeCondition->status == "NO INICIADA" ? 'selected' : '' }}>NO INICIADA</option>
+                                <option value="EN PROCESO" {{ $unsafeCondition->status == "EN PROCESO" ? 'selected' : '' }}>EN PROCESO</option>
+                                <option value="COMPLETA" {{ $unsafeCondition->status == "COMPLETA" ? 'selected' : '' }}>COMPLETA</option>
+                                <option value="RETRASADA" {{ $unsafeCondition->status == "RETRASADA" ? 'selected' : '' }}>RETRASADA</option>
                             </select>
                         </div>
                     </div>
@@ -291,7 +292,7 @@
                     <!-- Form Group -->
                     <div class="form-group mb-4">
                         <label for="notice_number" class="mb-2 bold"># de aviso SAP</label>
-                        <input type="text" class="theme-input-style" id="notice_number" placeholder="No." name="notice_number" value="{{ old('notice_number') }}">
+                        <input type="text" class="theme-input-style" id="notice_number" placeholder="No." name="notice_number" value="{{ $unsafeCondition->notice_number }}">
                     </div>
                     <!-- End Form Group -->
 
@@ -301,7 +302,7 @@
                         <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta</label>
                         <div class="row align-items-center">
                             <div class="col-sm-6">
-                                <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap" value="{{ old('sap') }}">
+                                <input disabled type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap" value="{{ $unsafeCondition->reporter->sap }}">
                                 <div class="valid-feedback" id="personName"></div>
                             </div>
                         </div>
@@ -324,7 +325,7 @@
 
                     <!-- Button Group -->
                     <div class="button-group pt-2">
-                        <button type="submit" class="btn long">Registrar</button>
+                        <button type="submit" class="btn long">Actualizar</button>
                         <a href="{{ url()->previous() }}"  class="link-btn bg-transparent ml-3 soft-pink">Cancelar</a>
                     </div>
                     <!-- End Button Group -->
@@ -356,12 +357,12 @@
         $(document).ready(function(){
             console.log(document.referrer);
             console.log(window.location.host);
-            $("#responsable_id").val("0");
-            $("#probability").val("0");
-            $("#impact").val("0");
-            $("#frequency").val("0");
-            $("#type_condition_id").val("0");
-            $("#department_id").val("0");
+            //$("#responsable_id").val("0");
+            //$("#probability").val("0");
+            //$("#impact").val("0");
+            //$("#frequency").val("0");
+            //$("#type_condition_id").val("0");
+            //$("#department_id").val("0");
 
             $("#type_condition_id").children().each(function (i) {
                 count = 0;

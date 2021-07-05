@@ -285,7 +285,9 @@ class UnsafeConditionsController extends Controller
     }
 
     public function getUpdate($id){
-        $unsafeCondition = Unsafe_conditions_record::where('id', $id)->get();
+        $unsafeCondition = Unsafe_conditions_record::where('id', $id)
+            ->with('reporter')
+            ->first();
         $condition_groups = Condition_group::all();
         $type_conditions = Type_condition::all();
         $departments = Companies_and_departments::all();
@@ -294,19 +296,17 @@ class UnsafeConditionsController extends Controller
             ->orWhere("position", 'LIKE','%asesor%')
             ->orWhere("position", 'LIKE','%gerente%')
             ->orWhere("position", 'LIKE','%supervisor%')->get();
-        return view('pages.dashboard.unsafeConditionsForm', compact('unsafeCondition','condition_groups', 'type_conditions', 'departments', 'people', 'peopleSupervisores'));
+        return view('pages.dashboard.unsafeCondition.updateUnsafeConditions', compact('unsafeCondition','condition_groups', 'type_conditions', 'departments', 'people', 'peopleSupervisores'));
 
     }
 
     public function postUpdate(Request  $request){
         date_default_timezone_set('America/Monterrey');
-        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)->get();
 
-        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
-            ->update(['status' => $request->status,
-                'completed_at' => date("Y-m-d G:i:s")]);
+        Unsafe_conditions_record::where('id', $request->id)
+            ->update(['notice_number' => $request->notice_number,]);
 
-        return route('unsafeConditionDetails', [$request->id]);
+        return redirect(route('unsafeConditionDetails', [$request->id])) ;
 
     }
 

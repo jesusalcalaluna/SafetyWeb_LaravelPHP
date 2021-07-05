@@ -82,6 +82,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
         Route::get('/incidentDetails/{id}', 'IncidentController@getIncidentDetails')->name('incidentDetails');
 
+        //Condiciones inseguras actualizar
+        Route::get('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@getUpdate')->name('getUpdateUnsafeC');
+        Route::post('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@postUpdate');
+
         Route::group(['middleware' => ['auth','checkRole:ADMINISTRADOR']], function (){
             //Permisos soloo para los administradores y super usuarios
             //----------------------------------------
@@ -94,9 +98,7 @@ Route::group(['middleware' => ['auth']], function () {
             //Incidentes
             Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
 
-            //Condiciones inseguras actualizar
-            Route::get('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@getUpdate')->name('getUpdateUnsafeC');
-            Route::post('/getUpdateUnsafeConditions', 'UnsafeConditionsController@postUpdate');
+
 
             Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){
 
