@@ -76,15 +76,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/UnsafeConditions/{id}', 'UnsafeConditionsController@readUnsafeConditionDetails')->name('unsafeConditionDetails');
         Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
         Route::post('/deleteUnsafeCondition', 'UnsafeConditionsController@deleteUnsafeCondition')->name('deleteUC');
+        Route::get('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@getUpdate')->name('getUpdateUnsafeC');
+        Route::post('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@postUpdate');
         //Cuidado del compañero
         Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
         //Incidentes
         Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
         Route::get('/incidentDetails/{id}', 'IncidentController@getIncidentDetails')->name('incidentDetails');
 
-        //Condiciones inseguras actualizar
-        Route::get('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@getUpdate')->name('getUpdateUnsafeC');
-        Route::post('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@postUpdate');
+
 
         Route::group(['middleware' => ['auth','checkRole:ADMINISTRADOR']], function (){
             //Permisos soloo para los administradores y super usuarios
@@ -97,6 +97,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
             //Incidentes
             Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
+            //Cuidado Del Compañero
+            Route::post('/updateIncident', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
 
 
 
