@@ -36,7 +36,7 @@
 
                      <!-- Edit Invoice Button -->
                      <div class="edit-invoice-btn pr-1">
-                        <a href="invoice-add-new.html" class="btn-circle">
+                        <a href="{{ route('getUpdateUnsafeC', [$item->id]) }}" class="btn-circle">
                            <img src="{{ asset('assets/img/svg/writing.svg') }}" alt="" class="svg">
                         </a>
                      </div>
@@ -144,7 +144,7 @@
                                        </span>
                                  </td>
                               </tr>
-               
+
                               <tr class="order-total">
                                  <td>Riesgo</td>
                                  <td>
@@ -152,7 +152,7 @@
                                         <span class="Price-amount amount"><span class="Price-currencySymbol"></span>{{ $item->risk }} <p>
                                             {{ $item->risk_type }}
                                         </span>
-                                    </strong> 
+                                    </strong>
                                  </td>
                               </tr>
                            </tbody>
@@ -166,17 +166,17 @@
             @endforeach
             @endisset
         </div>
-        
+
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 <script>
    function deleteUCAlert(){
-        
+
         Swal.fire({
             title: "¿Estas seguro?",
             text: "¡No podras revertirlo!",
@@ -193,12 +193,12 @@
 
             if (t.value) {
                 $("#deleteForm").submit();
-                
+
             }else{
                 t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "El usuario esta a salvo :)", type: "error", confirmButtonClass: "btn btn-success" });
             }
         });
-        
+
     }
 </script>
 @endsection

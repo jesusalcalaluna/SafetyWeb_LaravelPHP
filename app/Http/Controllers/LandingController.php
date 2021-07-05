@@ -18,28 +18,30 @@ class LandingController extends Controller
         date_default_timezone_set('America/Monterrey');
 
         $cantidad_personas_activas = $this->getTotalPeopleActive();
+        $anio = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        $mes = date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 
         //COMPAÑEROS CUIDADOS
         //seguros
         $seguros = DB::table('companion_care_records')
-            ->whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+            ->whereYear('created_at',$anio)
+            ->whereMonth('created_at',$mes)
             ->where('corr_prev_pos', 'COMPORTAMIENTO SEGURO')->count();
         //inseguros
         $inseguros = DB::table('companion_care_records')
-            ->whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+            ->whereYear('created_at',$anio)
+            ->whereMonth('created_at',$mes)
             ->where('corr_prev_pos', 'COMPORTAMIENTO INSEGURO')->count();
         //CONDICIONES INSEGURAS
         //Detectadas
         $detectadas = DB::table('unsafe_conditions_records')
-            ->whereYear('unsafe_conditions_records.created_at',date('Y'))
-            ->whereMonth('unsafe_conditions_records.created_at',date('m'))
+            ->whereYear('unsafe_conditions_records.created_at',$anio)
+            ->whereMonth('unsafe_conditions_records.created_at',$mes)
             ->count();
         //Atendidas
         $atendidas = DB::table('unsafe_conditions_records')
-            ->whereYear('unsafe_conditions_records.created_at',date('Y'))
-            ->whereMonth('unsafe_conditions_records.created_at',date('m'))
+            ->whereYear('unsafe_conditions_records.created_at',$anio)
+            ->whereMonth('unsafe_conditions_records.created_at',$mes)
             ->where('status', 'COMPLETA')->count();
         //Avance
         $avance = 0;
@@ -124,15 +126,16 @@ class LandingController extends Controller
         if ($cantidad_personas_activas) {
             $p_monitoreos = number_format(($canti_total_moniutoreo/$cantidad_personas_activas)*100 ,1);
         }
+
         //OWD
         $canti_owd_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+            ->whereMonth('created_at', $mes)
             ->where('detection_origin', 'DTO (OWD)')
             ->select("people_id")
             ->groupBy("people_id")
             ->get();
         $canti_owd_cc = Companion_care_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+            ->whereMonth('created_at', $mes)
             ->where('detection_source', 'DTO (OWD)')
             ->select("people_id")
             ->groupBy("people_id")
@@ -179,58 +182,58 @@ class LandingController extends Controller
             $p_owd = number_format(($canti_total_owd/$cantidad_personas_activas)*100 ,1);
         }
 
-        $incidentes_lti = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_lti = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'LTI')
         ->where('status', 1)
         ->count();
-        $incidentes_mdi = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_mdi = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'MDI')
         ->where('status', 1)
         ->count();
-        $incidentes_mti = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_mti = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'MTI')
         ->where('status', 1)
         ->count();
-        $incidentes_fai = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_fai = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'FAI')
         ->where('status', 1)
         ->count();
-        $incidentes = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'INCIDENTE')
         ->where('status', 1)
         ->count();
 
-        $incidentes_lti_sif = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_lti_sif = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'LTI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
-        $incidentes_mdi_sif = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_mdi_sif = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'MDI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
-        $incidentes_mti_sif = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_mti_sif = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'MTI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
-        $incidentes_fai_sif = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_fai_sif = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'FAI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
-        $incidentes_sif = IncidentRecord::whereYear('created_at',date('Y'))
-        ->whereMonth('created_at',date('m'))
+        $incidentes_sif = IncidentRecord::whereYear('created_at',$anio)
+        ->whereMonth('created_at',$mes)
         ->where('classification', 'INCIDENTE')
         ->where('sif', 1)
         ->where('status', 1)

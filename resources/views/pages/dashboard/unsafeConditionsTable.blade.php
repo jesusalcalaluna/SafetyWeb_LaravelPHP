@@ -26,7 +26,7 @@
                         <h4 class="font-20">Condiciones Inseguras</h4>
 
                         <div class="assign-tag back-end bg-success pl-2">
-                            
+
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['COMPLETA'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['COMPLETA']) }} @endif">
                                 <div class="tag-text font-12 text-dark"><span class="pr-3" id="porcentCom">{{ $porcentCom }}%</span>COMPLETA</div>
                             </a>
@@ -35,7 +35,7 @@
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['EN PROCESO'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['EN PROCESO'])}} @endif">
                                 <div class="tag-text font-12 text-dark"><span class="pr-3" id="porcentProc">{{ $porcentProc }}%</span>EN PROCESO</div>
                             </a>
-                            
+
                          </div>
                         <div class="assign-tag back-end bg-danger pl-2">
                             <a href="@if(Request::url() === route('unsafeConditionByStatus',['RETRASADA'])) {{ route('getUnsafeConditions') }} @else {{ route('unsafeConditionByStatus',['RETRASADA']) }} @endif">
@@ -79,10 +79,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @isset($unsafeConditionRecord)
                             @foreach ($unsafeConditionRecord as $item)
-                            @if (Auth::user()->role->role_name == 'ADMINISTRADOR')
                                 <tr>
                                     <td>
                                         <div class="priority">
@@ -102,45 +101,19 @@
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
                                     <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
-                            @else
-                                @if (Auth::user()->person->company_and_department->name == $item->department->name)
-                                <tr>
-                                    <td>
-                                        <div class="priority">
-                                            <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == "RETRASADA") bg-danger @endif @if($item->status == "NO INICIADA") bg-dark @endif @if($item->status == "EN PROCESO") bg-warning @endif @if($item->status == "COMPLETA") bg-success @endif " data-toggle="dropdown" aria-expanded="false">{{$item->status}}</a>
-                                            <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="RETRASADA" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>RETRASADA</a></form>
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="NO INICIADA" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-dark"></span>NO INICIADA</a></form>
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="EN PROCESO" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-warning"></span>EN PROCESO</a></form>
-                                                <form method="POST" action="{{route('updateUnsafeCondition')}}"> <input hidden="true" value="COMPLETA" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-success"></span>COMPLETA</a></form>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{{$item->deadline}}</td>
-                                    <td class="celda" ><p> {{ $item->condition_detected }}</p></td>
-                                    <td>{{$item->type_condition->condition_group->group_name}}</td>
-                                    <td>{{$item->department->name}}</td>
-                                    <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
-                                    <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
-                                </tr>
-                                @endif
-                            @endif
-                            
-                            
-                            
                             @endforeach
                             @endisset
                         </tbody>
                     </table>
                     <!-- End Invoice List Table -->
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 
@@ -148,15 +121,15 @@
 <script type="text/JavaScript">
 
     $("#search").keyup(function(){
-        
+
         if (event.keyCode === 13) {
-            
-            
+
+
             $("#btnSearch").click();
         }
     });
     function search(){
-        
+
         _this = $("#search");
         // Show only matching TR, hide rest of them
         $.each($("#table tbody tr"), function() {
@@ -171,7 +144,7 @@
         //console.log($(item).parent().find('input[name="id"]').val());
         //console.log($(item).parent().find('input[name="status"]').val());
         //console.log(item.parentNode.children);
-        
+
         $.ajax({
             type: "POST",
             url: item.parentNode.action,
@@ -212,8 +185,8 @@
                 }
                 $(item).parent().parent().parent().find('#status').text($(item).parent().find('input[name="status"]').val());
 
-                
-                
+
+
             }
         }).done(function() {
             Swal.fire({ title: "Good job!", text: "You clicked the button!", type: "success", confirmButtonClass: "btn long", buttonsStyling: !1 });
@@ -221,7 +194,7 @@
             Swal.fire({ title: "Error!", text: " You clicked the button!", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
         });
     }
-    
+
 </script>
 
 @endsection

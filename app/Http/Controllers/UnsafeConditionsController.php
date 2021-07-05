@@ -46,10 +46,10 @@ class UnsafeConditionsController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', 'Falta un campo por llenar')->withInput();
         }
-        
-        
+
+
         $person = People::where('sap', $request->sap)->first();
-        
+
         $risk = $request->probability * $request->impact * $request->frequency;
         $risk_type = "";
         $attention_priority = "";
@@ -64,15 +64,15 @@ class UnsafeConditionsController extends Controller
         }
         if ($risk > 70 && $risk <= 200) {
             $risk_type = "RIESGO SUSTANCIAL";
-            $attention_priority = "MEDIA";   
+            $attention_priority = "MEDIA";
         }
         if ($risk > 200 && $risk <= 400) {
             $risk_type = "RIESGO ALTO";
-            $attention_priority = "ALTA";  
+            $attention_priority = "ALTA";
         }
         if ($risk > 400) {
             $risk_type = "RIESGO MUY ALTO";
-            $attention_priority = "CRÍTICA";  
+            $attention_priority = "CRÍTICA";
         }
         try {
             if ($request->status == "COMPLETA") {
@@ -117,27 +117,26 @@ class UnsafeConditionsController extends Controller
                     'people_id' => $person->id,
                 ]);
             }
-            
 
-            
+
+
         } catch (\Throwable $th) {
             return back()->with('error', 'Algo salio mal, reportalo.')->withInput();
         }
-        
+
         return back()->with('success', 'Registro exitoso');
     }
 
     public function readUnsafeConditions(){
+        $unsafeConditionRecord = "";
 
-        
-        if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
+        if (Auth::user()->role->hierarchy <= 1) {
             $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                                 ->with('type_condition')
                                 ->with('responsable')
                                 ->with('department')
                                 ->with('reporter')
                                 ->get();
-                                
 
             if($unsafeConditionRecord){
                 $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
@@ -146,21 +145,22 @@ class UnsafeConditionsController extends Controller
                 $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
 
                 $total = $countProc + $countInic + $countCom + $countRetr;
-                
+
                 if($total) {
                     $porcentCom  = number_format(($countCom / $total) * 100, 1);
                     $porcentProc  =  number_format(($countProc / $total) * 100, 1);
                     $porcentInic  =  number_format(($countInic / $total) * 100, 1);
-                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);
                 }else {
                     $porcentCom  =  0;
                     $porcentProc  =  0;
                     $porcentInic  =  0;
                     $porcentRetr  =  0;
                 }
-                
+
             }
-        } else {
+        }
+        else {
             $unsafeConditionRecord = Unsafe_conditions_record::where('department_id', Auth::user()->person->company_and_department->id)->orderBy('id', 'DESC')
                                 ->with('type_condition')
                                 ->with('responsable')
@@ -175,33 +175,29 @@ class UnsafeConditionsController extends Controller
                 $countRetr = Unsafe_conditions_record::where('department_id', Auth::user()->person->company_and_department->id)->where('status', 'RETRASADA')->get()->count();
 
                 $total = $countProc + $countInic + $countCom + $countRetr;
-                
+
                 if($total) {
                     $porcentCom  = number_format(($countCom / $total) * 100, 1);
                     $porcentProc  =  number_format(($countProc / $total) * 100, 1);
                     $porcentInic  =  number_format(($countInic / $total) * 100, 1);
-                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);
                 }else {
                     $porcentCom  =  0;
                     $porcentProc  =  0;
                     $porcentInic  =  0;
                     $porcentRetr  =  0;
                 }
-                
+
             }
         }
-        
-        
 
-        
-                                
         return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
     }
 
     public function updateUnsafeConditions(Request $request){
         date_default_timezone_set('America/Monterrey');
         $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)->get();
-        
+
         if( $request->status != $unsafeCondition[0]->status){
             if ($request->status == "COMPLETA") {
                 $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
@@ -213,14 +209,14 @@ class UnsafeConditionsController extends Controller
             }
         }
         //Calcular porcentaje nuevo de estado
-        if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
+        if (Auth::user()->role->hierarchy <= 1) {
             $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                                 ->with('type_condition')
                                 ->with('responsable')
                                 ->with('department')
                                 ->with('reporter')
                                 ->get();
-                                
+
 
             if($unsafeConditionRecord){
                 $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
@@ -229,21 +225,22 @@ class UnsafeConditionsController extends Controller
                 $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
 
                 $total = $countProc + $countInic + $countCom + $countRetr;
-                
+
                 if($total) {
                     $porcentCom  = number_format(($countCom / $total) * 100, 1);
                     $porcentProc  =  number_format(($countProc / $total) * 100, 1);
                     $porcentInic  =  number_format(($countInic / $total) * 100, 1);
-                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);
                 }else {
                     $porcentCom  =  0;
                     $porcentProc  =  0;
                     $porcentInic  =  0;
                     $porcentRetr  =  0;
                 }
-                
+
             }
-        } else {
+        }
+        else {
             $unsafeConditionRecord = Unsafe_conditions_record::where('department_id', Auth::user()->person->company_and_department->id)->orderBy('id', 'DESC')
                                 ->with('type_condition')
                                 ->with('responsable')
@@ -258,19 +255,19 @@ class UnsafeConditionsController extends Controller
                 $countRetr = Unsafe_conditions_record::where('department_id', Auth::user()->person->company_and_department->id)->where('status', 'RETRASADA')->get()->count();
 
                 $total = $countProc + $countInic + $countCom + $countRetr;
-                
+
                 if($total) {
                     $porcentCom  = number_format(($countCom / $total) * 100, 1);
                     $porcentProc  =  number_format(($countProc / $total) * 100, 1);
                     $porcentInic  =  number_format(($countInic / $total) * 100, 1);
-                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);
                 }else {
                     $porcentCom  =  0;
                     $porcentProc  =  0;
                     $porcentInic  =  0;
                     $porcentRetr  =  0;
                 }
-                
+
             }
         }
 
@@ -284,11 +281,37 @@ class UnsafeConditionsController extends Controller
      );
 
         return $response;
-        
-    }                        
+
+    }
+
+    public function getUpdate($id){
+        $unsafeCondition = Unsafe_conditions_record::where('id', $id)->get();
+        $condition_groups = Condition_group::all();
+        $type_conditions = Type_condition::all();
+        $departments = Companies_and_departments::all();
+        $people = People::where('status', 'ACTIVO')->get();
+        $peopleSupervisores = People::where('status', 'ACTIVO')
+            ->orWhere("position", 'LIKE','%asesor%')
+            ->orWhere("position", 'LIKE','%gerente%')
+            ->orWhere("position", 'LIKE','%supervisor%')->get();
+        return view('pages.dashboard.unsafeConditionsForm', compact('unsafeCondition','condition_groups', 'type_conditions', 'departments', 'people', 'peopleSupervisores'));
+
+    }
+
+    public function postUpdate(Request  $request){
+        date_default_timezone_set('America/Monterrey');
+        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)->get();
+
+        $unsafeCondition = Unsafe_conditions_record::where('id', $request->id)
+            ->update(['status' => $request->status,
+                'completed_at' => date("Y-m-d G:i:s")]);
+
+        return route('unsafeConditionDetails', [$request->id]);
+
+    }
 
     public function readUnsafeConditionDetails($id){
-        
+
         $unsafeConditionRecord = Unsafe_conditions_record::with('type_condition')
         ->with('type_condition.condition_group')
         ->with('responsable')
@@ -296,7 +319,7 @@ class UnsafeConditionsController extends Controller
         ->with('reporter')
         ->with('reporter.company_and_department')
         ->where('id', $id)->get();
-        
+
         return view('pages.dashboard.unsafeConditionDetails', compact('unsafeConditionRecord'));
     }
 
@@ -319,7 +342,7 @@ class UnsafeConditionsController extends Controller
                 ->with('reporter')
                 ->with('reporter.company_and_department')
                 ->get();
-                
+
 
                 return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord'));
     }
@@ -327,7 +350,7 @@ class UnsafeConditionsController extends Controller
     public function getUnsafeConditionByStatus($status){
 
 
-        if (Auth::user()->role->role_name == 'ADMINISTRADOR') {
+        if (Auth::user()->role->hierarchy <= 1) {
 
             $unsafeConditionRecord = Unsafe_conditions_record::orderBy('id', 'DESC')
                                 ->where('status', $status)
@@ -336,7 +359,7 @@ class UnsafeConditionsController extends Controller
                                 ->with('department')
                                 ->with('reporter')
                                 ->get();
-                                
+
 
             if($unsafeConditionRecord){
                 $countCom = Unsafe_conditions_record::where('status', 'COMPLETA')->get()->count();
@@ -345,23 +368,23 @@ class UnsafeConditionsController extends Controller
                 $countRetr = Unsafe_conditions_record::where('status', 'RETRASADA')->get()->count();
 
                 $total = $countProc + $countInic + $countCom + $countRetr;
-                
+
                 if($total) {
                     $porcentCom  = number_format(($countCom / $total) * 100, 1);
                     $porcentProc  =  number_format(($countProc / $total) * 100, 1);
                     $porcentInic  =  number_format(($countInic / $total) * 100, 1);
-                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);
                 }else {
                     $porcentCom  =  0;
                     $porcentProc  =  0;
                     $porcentInic  =  0;
                     $porcentRetr  =  0;
                 }
-                
+
             }
 
         } else {
-            
+
             $unsafeConditionRecord = Unsafe_conditions_record::where('department_id', Auth::user()->person->company_and_department->id)->orderBy('id', 'DESC')
                                 ->where('status', $status)
                                 ->with('type_condition')
@@ -377,19 +400,19 @@ class UnsafeConditionsController extends Controller
                 $countRetr = Unsafe_conditions_record::where('department_id', Auth::user()->person->company_and_department->id)->where('status', 'RETRASADA')->get()->count();
 
                 $total = $countProc + $countInic + $countCom + $countRetr;
-                
+
                 if($total) {
                     $porcentCom  = number_format(($countCom / $total) * 100, 1);
                     $porcentProc  =  number_format(($countProc / $total) * 100, 1);
                     $porcentInic  =  number_format(($countInic / $total) * 100, 1);
-                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);     
+                    $porcentRetr  =  number_format(($countRetr / $total) * 100, 1);
                 }else {
                     $porcentCom  =  0;
                     $porcentProc  =  0;
                     $porcentInic  =  0;
                     $porcentRetr  =  0;
                 }
-                
+
             }
         }
                 return view('pages.dashboard.unsafeConditionsTable', compact('unsafeConditionRecord', 'porcentCom', 'porcentProc', 'porcentInic', 'porcentRetr'));
@@ -403,7 +426,7 @@ class UnsafeConditionsController extends Controller
             return back()->with('error', 'Algo salio mal, reportalo.');
         }
         return redirect(route('getUnsafeConditions'))->with('success', 'Eliminación exitosa');
-        
+
     }
 
 }

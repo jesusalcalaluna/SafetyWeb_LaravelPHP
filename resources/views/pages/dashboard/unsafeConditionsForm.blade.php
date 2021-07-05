@@ -7,23 +7,23 @@
 @endsection
 
 @section('navbar')
-    
+
     @include('globals.dashboard.navbar')
     @auth
-    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+    @if (Auth::user()->role->hierarchy <= 2)
         @include('globals.dashboard.sidebar')
     @endif
     @endauth
-    
-    
-    
+
+
+
 @endsection
 @section('content')
- 
+
 <div class="main-content">
-   
+
     <div class="container-fluid">
-    
+
         <div class="form-element input-sizing">
             <h4 class="font-20 mb-4">Condiciones Inseguras</h4>
 
@@ -44,14 +44,14 @@
                         <select class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups" name="condition_groups">
                             @isset($condition_groups)
                             @foreach ($condition_groups as $item)
-                                <option  value="{{$item->id}}" {{ old('condition_groups') == $item->id ? 'selected' : '' }}>{{$item->group_name}}</option>   
+                                <option  value="{{$item->id}}" {{ old('condition_groups') == $item->id ? 'selected' : '' }}>{{$item->group_name}}</option>
                             @endforeach
                             @endisset
                         </select>
                     </div>
                 </div>
                 <!-- End Form Group -->
-                
+
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="type_condition_id" class="mb-2 bold d-block">Accion</label>
@@ -59,14 +59,14 @@
                         <select class="theme-input-style" id="type_condition_id" name="type_condition_id">
                             @isset($type_conditions)
                             @foreach ($type_conditions as $item)
-                                <option class="conditionGroupId_{{$item->condition_group_id}}" value="{{$item->id}}" {{ old('type_condition_id') == $item->condition_group_id ? 'selected' : '' }}>{{$item->action_name}}</option>   
+                                <option class="conditionGroupId_{{$item->condition_group_id}}" value="{{$item->id}}" {{ old('type_condition_id') == $item->condition_group_id ? 'selected' : '' }}>{{$item->action_name}}</option>
                             @endforeach
                             @endisset
                         </select>
                     </div>
                 </div>
                 <!-- End Form Group -->
-                
+
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label class="mb-3 d-block font-14 bold">Origen de Detección</label>
@@ -78,7 +78,7 @@
                             <label for="Rutina"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Rutina">Rutina</label>
                     </div>
 
@@ -89,7 +89,7 @@
                             <label for="LOTOTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="LOTOTO">Aud. LOTOTO</label>
                     </div>
 
@@ -100,7 +100,7 @@
                             <label for="DTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="DTO">DTO (OWD)</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -110,7 +110,7 @@
                             <label for="DPA"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="DPA">DPA</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -120,16 +120,16 @@
                             <label for="Monitoreo"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Monitoreo">Monitoreo de Seguridad</label>
                     </div>
                 </div>
                 <!-- End Form Group -->
 
                 <!-- Form Group -->
-                <div class="form-group mb-4"> 
+                <div class="form-group mb-4">
                     <label class="mb-2 font-14 bold">Fecha Limite</label>
-                    
+
                     <!-- Date Picker -->
                     <div class="dashboard-date style--four">
                        <span class="input-group-addon">
@@ -141,7 +141,7 @@
                     <!-- End Date Picker -->
                 </div>
                 <!-- End Form Group -->
-                
+
                 <!-- Form Group Department -->
                 <div class="form-group mb-4">
                     <label for="department_id" class="mb-2 bold d-block">Departamento</label>
@@ -231,7 +231,7 @@
                 <!-- End Form Group -->
 
                 <!-- Alert -->
-                <div class="mb-4" id="risk">    
+                <div class="mb-4" id="risk">
                 </div>
                 <!-- End Alert -->
 
@@ -246,7 +246,7 @@
                             <label for="DEPARTAMENTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="DEPARTAMENTO">DEPARTAMENTO</label>
                     </div>
 
@@ -257,7 +257,7 @@
                             <label for="MANTENIMIENTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="MANTENIMIENTO">MANTENIMIENTO</label>
                     </div>
 
@@ -268,7 +268,7 @@
                             <label for="CAPEX"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="CAPEX">CAPEX</label>
                     </div>
                 </div>
@@ -297,7 +297,7 @@
 
                 <!-- Form Group -->
                 <div class="form-group mb-20 ">
-                    
+
                     <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta</label>
                     <div class="row align-items-center">
                         <div class="col-sm-6">
@@ -305,7 +305,7 @@
                             <div class="valid-feedback" id="personName"></div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <datalist id="peopleList">
                     @isset($people)
@@ -318,7 +318,7 @@
 
 
                 <div class="mb-4">
-                    
+
                 </div>
                 <!-- End Form Group -->
 
@@ -332,23 +332,23 @@
             <!-- End Form -->
         </div>
 
-    
+
     </div>
 
 </div>
 
 @endsection
 @section('footer')
-    
+
 @endsection
 
 @section('js')
-    
+
 
     <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
     <script src="../../../assets/plugins/datepicker/datepicker.min.js"></script>
     <script src="../../../assets/plugins/datepicker/i18n/datepicker.es.js"></script>
-    
+
     <script src="../../../assets/plugins/datepicker/custom-form-datepicker.js"></script>
     <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
     <script type="text/JavaScript">
@@ -362,7 +362,7 @@
             $("#frequency").val("0");
             $("#type_condition_id").val("0");
             $("#department_id").val("0");
-            
+
             $("#type_condition_id").children().each(function (i) {
                 count = 0;
                 if ($(this).hasClass("conditionGroupId_"+$("#condition_groups").val())){
@@ -377,12 +377,12 @@
                 }
             });
 
-            
+
         });
-        
+
         function selectPerson() {
-            
-            
+
+
             var val=$('#sap').val();
             var name = $('#peopleList').find('option[value="'+val+'"]').data('name');
             if (name === undefined) {
@@ -394,7 +394,7 @@
                 $('#sap').addClass('is-valid')
                 $("#personName").text(name);
             }
-            
+
         }
 
         function changeConditionGroup(selected) {
@@ -408,7 +408,7 @@
                         count+1;
                         $("#type_condition_id").val($(this).val());
                     }
-                    
+
                 } else{
                     $(this).hide(1);
                 }
@@ -426,7 +426,7 @@
                         count+1;
                         $("#responsable_id").val($(this).val());
                     }
-                    
+
                 } else{
                     $(this).hide(1);
                 }
