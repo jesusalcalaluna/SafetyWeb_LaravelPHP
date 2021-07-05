@@ -100,6 +100,8 @@ Route::group(['middleware' => ['auth']], function () {
             //Cuidado Del Compañero
             Route::post('/updateIncident', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
 
+            //EXPORTAR Excel
+            Route::get('/exportUC', 'UnsafeConditionsController@export')->name('esportUC');
 
 
             Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){
@@ -109,6 +111,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::post('/comapaniesDepartments/create', 'CompaniesDepartmentsController@postCreate');
                 Route::get('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
                 Route::post('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@postEdit');
+
+
 
             });
 

@@ -8,19 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Unsafe_conditions_record;
 use Illuminate\Support\Carbon;
 use App\Models\People;
-use App\Http\Producer\Dashboard;
 use App\Models\Role;
 use ArrayObject;
 use Illuminate\Support\Facades\DB;
 
-use App\Exports\UnsafeConditionsExport;
+use App\Exports\CollectionExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class test extends Controller
 {
     public function test(){
 
-        return Excel::download(new UnsafeConditionsExport, 'Condiciones Inseguras.xlsx');
+
 
         date_default_timezone_set('America/Monterrey');
 
