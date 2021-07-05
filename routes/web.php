@@ -104,11 +104,13 @@ Route::group(['middleware' => ['auth']], function () {
 
             Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){
 
+                //CONFIGURACION
+                //Compañias y departamentos
                 Route::get('/comapaniesDepartments/index', 'CompaniesDepartmentsController@getCompaniesDepartments')->name('companiesAndDepartments');
                 Route::get('/comapaniesDepartments/create', 'CompaniesDepartmentsController@getCreate')->name('companiesDepartmentsCreate');
                 Route::post('/comapaniesDepartments/create', 'CompaniesDepartmentsController@postCreate');
-                Route::get('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
-                Route::post('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@postEdit');
+                Route::get('/comapaniesDepartments/edit/{id}', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
+                Route::post('/comapaniesDepartments/edit/{id}', 'CompaniesDepartmentsController@postEdit');
 
             });
 
