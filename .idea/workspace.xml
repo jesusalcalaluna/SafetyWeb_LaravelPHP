@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="364498cd-c84b-4f71-87c4-5978f03a8e1c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeCondition/updateUnsafeConditions.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Exports/CollectionExport.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LandingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LandingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UnsafeConditionsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UnsafeConditionsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionDetails.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionDetails.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsForm.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsTable.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CompaniesDepartmentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompaniesDepartmentsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Companies_and_departments.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Companies_and_departments.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/globals/dashboard/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/globals/dashboard/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/globals/dashboard/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/globals/dashboard/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/configuration/departmentsCompanies/createDepartmentsAndCompanies.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/configuration/departmentsCompanies/createDepartmentsAndCompanies.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/configuration/departmentsCompanies/departmentsCompaniesTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/configuration/departmentsCompanies/departmentsCompaniesTable.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/configuration/departmentsCompanies/editDepartmentsAndCompanies.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/configuration/departmentsCompanies/editDepartmentsAndCompanies.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -198,7 +200,8 @@
       <workItem from="1625231400331" duration="107000" />
       <workItem from="1625231523570" duration="2042000" />
       <workItem from="1625237158262" duration="146000" />
-      <workItem from="1625460894541" duration="1769000" />
+      <workItem from="1625460894541" duration="1603000" />
+      <workItem from="1625491028399" duration="18285000" />
     </task>
     <servers />
   </component>

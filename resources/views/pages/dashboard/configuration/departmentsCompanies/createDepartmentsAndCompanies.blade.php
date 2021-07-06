@@ -6,20 +6,19 @@
 @endsection
 @section('content')
 <div class="main-content">
-   
+
     <div class="container-fluid">
-    
+
         <div class="form-element input-sizing">
-            <h4 class="font-20 mb-4">Reporte de Incidentes</h4>
+            <h4 class="font-20 mb-4">Crear Compañia o Departamento</h4>
 
             <!-- Form -->
-            <form action="{{ route('')}}" method="POST">
+            <form action="{{ route('companiesDepartmentsCreate')}}" method="POST">
                 @csrf
-                <input type="text" hidden name="id" value="{{ $person->id }}">
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="name" class="mb-2 bold">Nombre</label>
-                    <textarea type="text" class="theme-input-style" id="name" placeholder="Nombre del Departamento o Compañia..." name="name"></textarea>
+                    <input type="text" class="theme-input-style" id="name" placeholder="Nombre del Departamento o Compañia..." name="name">
                 </div>
                 <!-- End Form Group -->
                 <!-- Form Group -->
@@ -33,7 +32,7 @@
                             <label for="INTERNO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="INTERNO">INTERNO</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -43,7 +42,7 @@
                             <label for="EXTERNO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="EXTERNO">EXTERNO</label>
                     </div>
                 </div>
@@ -58,13 +57,13 @@
             <!-- End Form -->
         </div>
 
-    
+
     </div>
 
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 <script type="text/JavaScript">

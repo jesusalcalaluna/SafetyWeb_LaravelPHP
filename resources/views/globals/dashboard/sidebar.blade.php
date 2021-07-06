@@ -17,7 +17,7 @@
     <!-- Sidebar Body -->
     <div class="sidebar-body">
        <!-- Nav -->
-       
+
        <ul class="nav">
          <li class="nav-category">Principal</li>
          <li class="@if(Route::current()->getName() == 'dashboard') active @endif">
@@ -27,7 +27,7 @@
             </a>
          </li>
 
-         <!-- Condiciones inseguras --> 
+         <!-- Condiciones inseguras -->
          <li class="has-sub-item @if(Route::current()->getName() == 'unsafeConditionsForm' || Route::current()->getName() == 'getUnsafeConditions') active sub-menu-opened @endif">
             <a href="#">
                 <i class="icofont-exclamation-tringle"></i>
@@ -39,7 +39,7 @@
                 <li class="@if(Route::current()->getName() == 'getUnsafeConditions') active @endif"><a href="{{route('getUnsafeConditions')}}">Registros</a></li>
             </ul>
             <!-- End Sub Menu -->
-         </li> 
+         </li>
          <!-- Cuidado Del Compañero -->
          <li class="has-sub-item @if(Route::current()->getName() == 'getCompanionCare' || Route::current()->getName() == 'companionCareForm') active sub-menu-opened @endif">
             <a href="#">
@@ -104,11 +104,11 @@
             </a>
             <!-- Sub Menu -->
             <ul class="nav sub-menu" style="display: none;">
-                <li class="@if(Route::current()->getName() == 'companiesAndDepartments') active @endif"><a href="{{route('unsafeConditionsForm')}}">Lista</a></li>
+                <li class="@if(Route::current()->getName() == 'companiesAndDepartments') active @endif"><a href="{{route('companiesAndDepartments')}}">Lista</a></li>
             </ul>
             <!-- End Sub Menu -->
-         </li> 
-         
+         </li>
+
        </ul>
        <!-- End Nav -->
     </div>

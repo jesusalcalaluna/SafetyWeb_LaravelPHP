@@ -76,11 +76,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/UnsafeConditions/{id}', 'UnsafeConditionsController@readUnsafeConditionDetails')->name('unsafeConditionDetails');
         Route::get('/UnsafeConditionsBy/{status}', 'UnsafeConditionsController@getUnsafeConditionByStatus')->name('unsafeConditionByStatus');
         Route::post('/deleteUnsafeCondition', 'UnsafeConditionsController@deleteUnsafeCondition')->name('deleteUC');
+        Route::get('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@getUpdate')->name('getUpdateUnsafeC');
+        Route::post('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@postUpdate');
         //Cuidado del compañero
         Route::get('/getCompanionCare', 'CompanionCareController@readCompanionCare')->name('getCompanionCare');
         //Incidentes
         Route::get('/getIncidentTable', 'IncidentController@getIncidenteTable')->name('incidentTable');
         Route::get('/incidentDetails/{id}', 'IncidentController@getIncidentDetails')->name('incidentDetails');
+
+
 
         Route::group(['middleware' => ['auth','checkRole:ADMINISTRADOR']], function (){
             //Permisos soloo para los administradores y super usuarios
@@ -93,18 +97,24 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
             //Incidentes
             Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
+            //Cuidado Del Compañero
+            Route::post('/updateIncident', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
 
-            //Condiciones inseguras actualizar
-            Route::get('/getUpdateUnsafeConditions/{id}', 'UnsafeConditionsController@getUpdate')->name('getUpdateUnsafeC');
-            Route::post('/getUpdateUnsafeConditions', 'UnsafeConditionsController@postUpdate');
+            //EXPORTAR Excel
+            Route::get('/exportUC', 'UnsafeConditionsController@export')->name('esportUC');
+
 
             Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){
 
+                //CONFIGURACION
+                //Compañias y departamentos
                 Route::get('/comapaniesDepartments/index', 'CompaniesDepartmentsController@getCompaniesDepartments')->name('companiesAndDepartments');
                 Route::get('/comapaniesDepartments/create', 'CompaniesDepartmentsController@getCreate')->name('companiesDepartmentsCreate');
                 Route::post('/comapaniesDepartments/create', 'CompaniesDepartmentsController@postCreate');
-                Route::get('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
-                Route::post('/comapaniesDepartments/edit', 'CompaniesDepartmentsController@postEdit');
+                Route::get('/comapaniesDepartments/edit/{id}', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
+                Route::post('/comapaniesDepartments/edit/{id}', 'CompaniesDepartmentsController@postEdit');
+
+
 
             });
 

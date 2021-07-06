@@ -16,26 +16,40 @@ class CompaniesDepartmentsController extends Controller
 
     public function getCreate()
     {
-
         return view('pages.dashboard.configuration.departmentsCompanies.createDepartmentsAndCompanies');
     }
     public function postCreate(Request $request)
     {
-
-        return view('pages.dashboard.configuration.departmentsCompanies.createDepartmentsAndCompanies');
+        try {
+            $request->validate([
+                'name' => 'required',
+                'origin' => 'required',
+            ]);
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Falta un campo por llenar')->withInput();
+        }
+        try {
+            Companies_and_departments::create([
+                'name' => $request->name,
+                'origin' => $request->origin,
+            ]);
+        }catch (\Throwable $th){
+            return back()->with('error', 'Algo salio mal, reportalo.')->withInput();
+        }
+        return redirect(route('companiesAndDepartments'))->with('success', 'Registro exitoso');
     }
 
-    public function getEdit()
+    public function getEdit($id)
     {
-        $departmentsCompanies = Companies_and_departments::get()->all();
+        $departmentsCompanies = Companies_and_departments::find($id);
 
-        return view();
+        return view('pages.dashboard.configuration.departmentsCompanies.editDepartmentsAndCompanies', compact('departmentsCompanies'));
     }
     public function postEdit(Request $request)
     {
-        $departmentsCompanies = Companies_and_departments::get()->all();
+        Companies_and_departments::find($request->id)->update(['name' => $request->name,]);
 
-        return view();
+        return redirect(route('companiesAndDepartments'));
     }
 
 }

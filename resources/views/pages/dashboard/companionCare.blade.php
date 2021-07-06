@@ -4,7 +4,7 @@
 
     @include('globals.dashboard.navbar')
     @auth
-    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+    @if (Auth::user()->role->hierarchy <= 2)
         @include('globals.dashboard.sidebar')
     @endif
     @endauth
@@ -25,7 +25,7 @@
                         <label for="companionCareSAP" class="mb-2 font-14 bold">Compañero cuidado</label>
                         <input type="search"  oninput="selectCompanionCare(this)" class="theme-input-style " id="companionCareSAP" autocomplete="off" placeholder="SAP/ID del Compañero cuidado" name="companion_to_care_id">
                         <div class="valid-feedback" id="companionCareName">
-                        </div> 
+                        </div>
                     </div>
                     <datalist id="peopleList1">
                         @isset($people)
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!-- End Form Group -->
-                
+
                 <!-- Form Group -->
                 <div class="form-group mb-4" id="EXTERNO">
                     <label for="company_department_name" class="mb-2 bold d-block">Compañia</label>
@@ -63,7 +63,7 @@
                             @isset($companies_departments)
                             @foreach ($companies_departments as $item)
                             @if (!str_contains($item->name, 'LÍNEA'))
-                            <option class="{{$item->origin}}" value="{{$item->name}}" {{ old('company_department_name') == $item->name ? 'selected' : '' }}>{{$item->name}}</option>  
+                            <option class="{{$item->origin}}" value="{{$item->name}}" {{ old('company_department_name') == $item->name ? 'selected' : '' }}>{{$item->name}}</option>
                             @endif
                             @endforeach
                             @endisset
@@ -82,7 +82,7 @@
                             <label for="Empleado"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Empleado">Empleado</label>
                     </div>
 
@@ -93,13 +93,13 @@
                             <label for="Trabajador"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Trabajador">Trabajador</label>
                     </div>
                 </div>
                 <!-- End Form Group -->
 
-                
+
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="turn" class="mb-2 bold d-block">Turno</label>
@@ -154,7 +154,7 @@
                 </div>
                 <!-- End Form Group -->
 
-                
+
                     <!-- Form Group -->
                     <div class="form-group mb-4 NoCorrectivo">
                         <label for="acts_types_id" class="mb-2 bold d-block">Comportamiento</label>
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <!-- End Form Group -->
-                
+
 
                 <div class="form-group mb-4">
                     <label class="mb-3 d-block font-14 bold">Origen de Detección</label>
@@ -208,7 +208,7 @@
                             <label for="Rutina"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Rutina">Rutina</label>
                     </div>
 
@@ -219,7 +219,7 @@
                             <label for="LOTOTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="LOTOTO">Aud. LOTOTO</label>
                     </div>
 
@@ -230,7 +230,7 @@
                             <label for="DTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="DTO">DTO (OWD)</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -240,7 +240,7 @@
                             <label for="DPA"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="DPA">DPA</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -250,7 +250,7 @@
                             <label for="Monitoreo"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Monitoreo">Monitoreo de Seguridad</label>
                     </div>
                 </div>
@@ -263,7 +263,7 @@
                             @isset($companies_departments)
                             @foreach ($companies_departments as $item)
                             @if ($item->origin == "INTERNO")
-                                <option value="{{$item->id}}" {{ old('department_where_happens_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option> 
+                                <option value="{{$item->id}}" {{ old('department_where_happens_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                             @endif
                             @endforeach
                             @endisset
@@ -284,9 +284,9 @@
                     <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta</label>
                     <input type="search"  oninput="selectPerson(this)" onkeyup="this.value = this.value.toUpperCase();" style="text-transform:uppercase" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa tu SAP ó ID" name="people_sap" value="{{ old('people_sap') }}">
                     <div class="valid-feedback" id="personName">
-                        
+
                     </div>
-                    
+
                 </div>
                 <datalist id="peopleList">
                     @isset($people)
@@ -312,7 +312,7 @@
  </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 
 @section('js')
@@ -333,13 +333,13 @@
                     if (cont == 0) {
                         cont+1;
                         $("#acts_types_id").val($(this).val());
-                        
+
                     }
-                    
+
                 } else {
                     $(this).hide(1);
                 }
-                
+
             });
         }
 
@@ -359,14 +359,14 @@
 
                     if (count == 0) {
                         count + 1;
-                        
+
                         $("#company_department_name").val($(this).val());
                     }
-                    
+
                 } else {
                     $(this).hide(1);
                 }
-                
+
             });
         }
 
@@ -396,17 +396,17 @@
                         console.log($(this).val())
                         $("#people_id").val($(this).val());
                     }
-                    
+
                 } else {
                     $(this).hide(1);
                 }
 
              });
-            
+
         }
 
         function selectChangeComportamiento(selected){
-            
+
             $(".NoCorrectivo").hide(1000);
             $("#acts_types_id").val("");
             $("#sif").val("");
@@ -414,15 +414,15 @@
 
             if ("COMPORTAMIENTO INSEGURO" == selected.options[selected.selectedIndex].text) {
                 console.log("yes");
-                
+
                 $(".NoCorrectivo").show(1000);
             }
-            
+
         }
 
         function selectPerson() {
-            
-            
+
+
             var val=$('#sap').val();
             var name = $('#peopleList').find('option[value="'+val+'"]').data('name');
             if (name === undefined) {
@@ -434,12 +434,12 @@
                 $('#sap').addClass('is-valid')
                 $("#personName").text(name);
             }
-            
+
         }
 
         function selectCompanionCare() {
-            
-            
+
+
             var val=$('#companionCareSAP').val();
             var name = $('#peopleList1').find('option[value="'+val+'"]').data('name');
             if (name === undefined) {
@@ -451,9 +451,9 @@
                 $('#companionCareSAP').addClass('is-valid')
                 $("#companionCareName").text(name);
             }
-            
+
         }
 
-        
+
     </script>
 @endsection
