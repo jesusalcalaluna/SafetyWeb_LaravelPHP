@@ -104,9 +104,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/export/UnsafeConditions/Yesterday', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCYesterday');
             Route::get('/export/UnsafeConditions/Month', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCMonth');
             Route::get('/export/UnsafeConditions/Year', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCYear');
+            Route::get('/export/UnsafeConditions/All', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCAll');
+
             Route::get('/export/CompanionCare/Yesterday', 'UnsafeConditionsController@exportUC_Yesterday')->name('CCYesterday');
             Route::get('/export/CompanionCare/Month', 'UnsafeConditionsController@exportUC_Yesterday')->name('CCMonth');
             Route::get('/export/CompanionCare/Year', 'UnsafeConditionsController@exportUC_Yesterday')->name('CCYear');
+
             Route::get('/export/Incident/Yesterday', 'UnsafeConditionsController@exportUC_Yesterday')->name('IYesterday');
             Route::get('/export/Incident/Month', 'UnsafeConditionsController@exportUC_Yesterday')->name('IMonth');
             Route::get('/export/Incident/Year', 'UnsafeConditionsController@exportUC_Yesterday')->name('IYear');
