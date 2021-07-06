@@ -23,7 +23,10 @@ class test extends Controller
 
         date_default_timezone_set('America/Monterrey');
 
-        $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date("d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))));
+        $culturaDeSeguridadA = $this->getCultiraDeSeguridad(date("d", mktime(0, 0, 0, date("m")  ,
+            date("d")-1, date("Y"))), date("m", mktime(0, 0, 0, date("m")  ,
+            date("d")-1, date("Y"))), date("Y", mktime(0, 0, 0, date("m")  ,
+            date("d")-1, date("Y"))));
         $culturaDeSeguridadD = $this->getCultiraDeSeguridad(date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
         $culturaDeSeguridadM = $this->getCultiraDeSeguridad(null, date("m", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))));
         $culturaDeSeguridadY = $this->getCultiraDeSeguridad(null, null, date("Y", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y"))));
