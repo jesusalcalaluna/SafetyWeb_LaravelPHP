@@ -432,7 +432,7 @@ class UnsafeConditionsController extends Controller
 
     }
 
-    public function exportUC_Yesterday(){
+    public function export_Yesterday(){
 
         $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")));
 
@@ -474,7 +474,7 @@ class UnsafeConditionsController extends Controller
 
     }
 
-    public function exportUC_Month(){
+    public function export_Month(){
 
         $month = date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
@@ -518,7 +518,7 @@ class UnsafeConditionsController extends Controller
 
     }
 
-    public function exportUC_Year(){
+    public function export_Year(){
 
         $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
@@ -560,7 +560,7 @@ class UnsafeConditionsController extends Controller
 
     }
 
-    public function exportUC_all(){
+    public function export_all(){
 
         $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 

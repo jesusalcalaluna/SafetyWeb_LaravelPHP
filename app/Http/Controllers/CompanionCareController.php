@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CollectionExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Companies_and_departments;
@@ -11,6 +12,7 @@ use App\Models\Gold_rule;
 use App\Models\People;
 use App\Models\Companion_care_record;
 use Database\Seeders\companiesAndDepartmentsSeeder;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CompanionCareController extends Controller
 {
@@ -88,11 +90,162 @@ class CompanionCareController extends Controller
     public function getUpdate(){
         return "";
     }
+
     public function postUpdate(Request $request){
         return "";
     }
+
     public function postDelete(Request $request){
         Companion_care_record::find($request->id)->forceDelete();
+    }
+
+    public function export_Yesterday(){
+
+        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")));
+
+        $uc = DB::table('companion_care_records')
+            ->leftJoin('behaviors_groups', 'behaviors_groups.id', '=', 'companion_care_records.behavior_group_id')
+            ->leftJoin('acts_types', 'acts_types.id', '=', 'companion_care_records.acts_types_id')
+            ->leftJoin('gold_rules', 'gold_rules.id', '=', 'companion_care_records.gold_rules_id')
+            ->leftJoin('companies_and_departments', 'companies_and_departments.id', '=', 'companion_care_records.department_where_happens_id')
+            ->leftJoin('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->leftJoin('companies_and_departments as people_department', 'people_department.id', '=', 'people.companie_and_department_id')
+            ->whereDate('companion_care_records.created_at',  $date)
+            ->select('companion_care_records.companion_to_care_name',
+                'companion_care_records.company_department_name',
+                'companion_care_records.position_name',
+                'companion_care_records.turn',
+                'companion_care_records.shift_supervisor',
+                'companion_care_records.description',
+                'companion_care_records.corr_prev_pos',
+                'behaviors_groups.group_name',
+                'acts_types.type_name',
+                'companion_care_records.sif',
+                'gold_rules.rule_name',
+                'companion_care_records.detection_source',
+                'companies_and_departments.name',
+                'companion_care_records.specific_area',
+                'people.name',
+                'people_department.name',
+                'companion_care_records.created_at')
+            ->get();
+
+        $exportUC = new CollectionExport($uc);
+
+        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+
+    }
+
+    public function export_Month(){
+
+        $month = date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        $uc = DB::table('companion_care_records')
+            ->leftJoin('behaviors_groups', 'behaviors_groups.id', '=', 'companion_care_records.behavior_group_id')
+            ->leftJoin('acts_types', 'acts_types.id', '=', 'companion_care_records.acts_types_id')
+            ->leftJoin('gold_rules', 'gold_rules.id', '=', 'companion_care_records.gold_rules_id')
+            ->leftJoin('companies_and_departments', 'companies_and_departments.id', '=', 'companion_care_records.department_where_happens_id')
+            ->leftJoin('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->leftJoin('companies_and_departments as people_department', 'people_department.id', '=', 'people.companie_and_department_id')
+            ->whereMonth('companion_care_records.created_at',  $month)
+            ->whereYear('companion_care_records.created_at',  $year)
+            ->select('companion_care_records.companion_to_care_name',
+                'companion_care_records.company_department_name',
+                'companion_care_records.position_name',
+                'companion_care_records.turn',
+                'companion_care_records.shift_supervisor',
+                'companion_care_records.description',
+                'companion_care_records.corr_prev_pos',
+                'behaviors_groups.group_name',
+                'acts_types.type_name',
+                'companion_care_records.sif',
+                'gold_rules.rule_name',
+                'companion_care_records.detection_source',
+                'companies_and_departments.name',
+                'companion_care_records.specific_area',
+                'people.name',
+                'people_department.name',
+                'companion_care_records.created_at')
+            ->get();
+
+        $exportUC = new CollectionExport($uc);
+
+        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+
+    }
+
+    public function export_Year(){
+
+        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        $uc = DB::table('companion_care_records')
+            ->leftJoin('behaviors_groups', 'behaviors_groups.id', '=', 'companion_care_records.behavior_group_id')
+            ->leftJoin('acts_types', 'acts_types.id', '=', 'companion_care_records.acts_types_id')
+            ->leftJoin('gold_rules', 'gold_rules.id', '=', 'companion_care_records.gold_rules_id')
+            ->leftJoin('companies_and_departments', 'companies_and_departments.id', '=', 'companion_care_records.department_where_happens_id')
+            ->leftJoin('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->leftJoin('companies_and_departments as people_department', 'people_department.id', '=', 'people.companie_and_department_id')
+            ->whereYear('unsafe_conditions_records.created_at',  $year)
+            ->select('companion_care_records.companion_to_care_name',
+                'companion_care_records.company_department_name',
+                'companion_care_records.position_name',
+                'companion_care_records.turn',
+                'companion_care_records.shift_supervisor',
+                'companion_care_records.description',
+                'companion_care_records.corr_prev_pos',
+                'behaviors_groups.group_name',
+                'acts_types.type_name',
+                'companion_care_records.sif',
+                'gold_rules.rule_name',
+                'companion_care_records.detection_source',
+                'companies_and_departments.name',
+                'companion_care_records.specific_area',
+                'people.name',
+                'people_department.name',
+                'companion_care_records.created_at')
+            ->get();
+
+        $exportUC = new CollectionExport($uc);
+
+        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+
+    }
+
+    public function export_all(){
+
+        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+
+        $uc = DB::table('companion_care_records')
+            ->leftJoin('behaviors_groups', 'behaviors_groups.id', '=', 'companion_care_records.behavior_group_id')
+            ->leftJoin('acts_types', 'acts_types.id', '=', 'companion_care_records.acts_types_id')
+            ->leftJoin('gold_rules', 'gold_rules.id', '=', 'companion_care_records.gold_rules_id')
+            ->leftJoin('companies_and_departments', 'companies_and_departments.id', '=', 'companion_care_records.department_where_happens_id')
+            ->leftJoin('people', 'people.id', '=', 'companion_care_records.people_id')
+            ->leftJoin('companies_and_departments as people_department', 'people_department.id', '=', 'people.companie_and_department_id')
+            ->select('companion_care_records.companion_to_care_name',
+                'companion_care_records.company_department_name',
+                'companion_care_records.position_name',
+                'companion_care_records.turn',
+                'companion_care_records.shift_supervisor',
+                'companion_care_records.description',
+                'companion_care_records.corr_prev_pos',
+                'behaviors_groups.group_name',
+                'acts_types.type_name',
+                'companion_care_records.sif',
+                'gold_rules.rule_name',
+                'companion_care_records.detection_source',
+                'companies_and_departments.name',
+                'companion_care_records.specific_area',
+                'people.name',
+                'people_department.name',
+                'companion_care_records.created_at')
+            ->get();
+
+        $exportUC = new CollectionExport($uc);
+
+        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+
     }
 
 }
