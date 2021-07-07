@@ -96,9 +96,9 @@ Route::group(['middleware' => ['auth']], function () {
             //Eliminar Usuario
             Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
             //Incidentes
-            Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
+            Route::post('/updateIncident' , 'IncidentController@updateIncident')->name('updateIncident');
             //Cuidado Del Compañero
-            Route::post('/updateIncident', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
+            Route::post('/deleteCompanionCare', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
 
             //EXPORTAR Excel
             Route::get('/export/UnsafeConditions/Yesterday', 'UnsafeConditionsController@export_Yesterday')->name('UCYesterday');
