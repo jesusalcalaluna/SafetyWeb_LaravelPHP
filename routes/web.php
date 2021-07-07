@@ -109,7 +109,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/export/CompanionCare/Yesterday', 'CompanionCareController@export_Yesterday')->name('CCYesterday');
             Route::get('/export/CompanionCare/Month', 'CompanionCareController@export_Yesterday')->name('CCMonth');
             Route::get('/export/CompanionCare/Year', 'CompanionCareController@export_Yesterday')->name('CCYear');
-            Route::get('/export/CompanionCare/All', 'CompanionCareController@export_Yesterday')->name('IAll');
+            Route::get('/export/CompanionCare/All', 'CompanionCareController@export_Yesterday')->name('CCAll');
 
             Route::get('/export/Incident/Yesterday', 'IncidentController@export_Yesterday')->name('IYesterday');
             Route::get('/export/Incident/Month', 'IncidentController@export_Yesterday')->name('IMonth');
