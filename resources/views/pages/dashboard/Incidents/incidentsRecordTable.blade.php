@@ -60,7 +60,7 @@
 
                             @isset($incidents)
                             @foreach ($incidents as $item)
-                            @if (Auth::user()->role->role_name == 'ADMINISTRADOR')
+                            @if (Auth::user()->role->hierarchy <= 1)
                                 <tr>
                                     <td>
                                         <div class="priority">
