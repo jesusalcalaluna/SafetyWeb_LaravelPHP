@@ -132,7 +132,7 @@ class CompanionCareController extends Controller
 
         $exportUC = new CollectionExport($uc);
 
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Condiciones Inseguras DIA '.$date.'.xlsx');
 
     }
 
@@ -171,13 +171,13 @@ class CompanionCareController extends Controller
         $exportUC = new CollectionExport($uc);
 
         $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Cuidado del Compañero MES '.$date.'.xlsx');
 
     }
 
     public function export_Year(){
 
-        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        //$date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         $uc = DB::table('companion_care_records')
             ->leftJoin('behaviors_groups', 'behaviors_groups.id', '=', 'companion_care_records.behavior_group_id')
@@ -208,7 +208,7 @@ class CompanionCareController extends Controller
 
         $exportUC = new CollectionExport($uc);
 
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Cuidado del Compañero '.$year.'.xlsx');
 
     }
 
@@ -244,7 +244,7 @@ class CompanionCareController extends Controller
 
         $exportUC = new CollectionExport($uc);
 
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Cuidado del compañero TODO '.$date.'.xlsx');
 
     }
 

@@ -111,10 +111,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/export/CompanionCare/Year', 'CompanionCareController@export_Yesterday')->name('CCYear');
             Route::get('/export/CompanionCare/All', 'CompanionCareController@export_Yesterday')->name('IAll');
 
-            Route::get('/export/Incident/Yesterday', 'UnsafeConditionsController@export_Yesterday')->name('IYesterday');
-            Route::get('/export/Incident/Month', 'UnsafeConditionsController@export_Yesterday')->name('IMonth');
-            Route::get('/export/Incident/Year', 'UnsafeConditionsController@export_Yesterday')->name('IYear');
-            Route::get('/export/Incident/All', 'UnsafeConditionsController@export_Yesterday')->name('IAll');
+            Route::get('/export/Incident/Yesterday', 'IncidentController@export_Yesterday')->name('IYesterday');
+            Route::get('/export/Incident/Month', 'IncidentController@export_Yesterday')->name('IMonth');
+            Route::get('/export/Incident/Year', 'IncidentController@export_Yesterday')->name('IYear');
+            Route::get('/export/Incident/All', 'IncidentController@export_Yesterday')->name('IAll');
 
 
             Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){

@@ -83,41 +83,36 @@ class IncidentController extends Controller
 
         $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")));
 
-        $uc = DB::table('unsafe_conditions_records')
-            ->join('type_conditions', 'type_conditions.id','=', 'unsafe_conditions_records.type_condition_id')
-            ->join('condition_groups', 'condition_groups.id', '=', 'type_conditions.condition_group_id')
-            ->join('people as people_responsable', 'people_responsable.id', '=', 'unsafe_conditions_records.responsable_id',)
-            ->join('companies_and_departments as  department','department.id','=', 'unsafe_conditions_records.department_id')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereDate('unsafe_conditions_records.created_at',  $date)
-            ->select('unsafe_conditions_records.id',
-                'unsafe_conditions_records.created_at',
-                'unsafe_conditions_records.condition_detected',
-                'condition_groups.group_name',
-                'type_conditions.action_name',
-                'unsafe_conditions_records.detection_origin',
-                'unsafe_conditions_records.deadline',
-                'people_responsable.name',
-                'department.name',
-                'unsafe_conditions_records.area',
-                'unsafe_conditions_records.status',
-                'unsafe_conditions_records.probability',
-                'unsafe_conditions_records.frequency',
-                'unsafe_conditions_records.impact',
-                'unsafe_conditions_records.risk',
-                'unsafe_conditions_records.risk_type',
-                'unsafe_conditions_records.attention_priority',
-                'unsafe_conditions_records.scope',
-                'unsafe_conditions_records.notice_number',
-                'people.name',
+        $uc = DB::table('incident_records')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'incident_records.department_id')
+            ->join('incidents', 'incidents.id', '=', 'incident_records.incident_id')
+            ->join('incident_types', 'incident_types.id', '=', 'incidents.incident_type_id')
+            ->join('people', 'people.id', '=', 'incident_records.people_id')
+            ->join('companies_and_departments as reporterCompani','reporterCompani.id','=', 'people.companie_and_department_id')
+            ->whereDate('incident_records.created_at',  $date)
+            ->select('incident_records.classification',
+                'incident_records.sif',
+                'incident_records.event_date',
+                'incident_records.description',
                 'companies_and_departments.name',
-                'people.position')
+                'incident_records.spesific_area',
+                'incident_records.spesific_area',
+                'incidents.incident_name',
+                'incident_types.type_name',
+                'incident_reason',
+                'reason_description',
+                'involbed_people_names',
+                'solution_description',
+                'solution_description',
+                'people.name',
+                'reporterCompani.name',
+                'incident_records.created_at'
+            )
             ->get();
 
         $exportUC = new CollectionExport($uc);
 
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Incidentes '.$date.'.xlsx');
 
     }
 
@@ -125,85 +120,74 @@ class IncidentController extends Controller
 
         $month = date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
-        $uc = DB::table('unsafe_conditions_records')
-            ->join('type_conditions', 'type_conditions.id','=', 'unsafe_conditions_records.type_condition_id')
-            ->join('condition_groups', 'condition_groups.id', '=', 'type_conditions.condition_group_id')
-            ->join('people as people_responsable', 'people_responsable.id', '=', 'unsafe_conditions_records.responsable_id',)
-            ->join('companies_and_departments as  department','department.id','=', 'unsafe_conditions_records.department_id')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereMonth('unsafe_conditions_records.created_at',  $month)
-            ->whereYear('unsafe_conditions_records.created_at',  $year)
-            ->select('unsafe_conditions_records.id',
-                'unsafe_conditions_records.created_at',
-                'unsafe_conditions_records.condition_detected',
-                'condition_groups.group_name',
-                'type_conditions.action_name',
-                'unsafe_conditions_records.detection_origin',
-                'unsafe_conditions_records.deadline',
-                'people_responsable.name',
-                'department.name',
-                'unsafe_conditions_records.area',
-                'unsafe_conditions_records.status',
-                'unsafe_conditions_records.probability',
-                'unsafe_conditions_records.frequency',
-                'unsafe_conditions_records.impact',
-                'unsafe_conditions_records.risk',
-                'unsafe_conditions_records.risk_type',
-                'unsafe_conditions_records.attention_priority',
-                'unsafe_conditions_records.scope',
-                'unsafe_conditions_records.notice_number',
-                'people.name',
+        $uc = DB::table('incident_records')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'incident_records.department_id')
+            ->join('incidents', 'incidents.id', '=', 'incident_records.incident_id')
+            ->join('incident_types', 'incident_types.id', '=', 'incidents.incident_type_id')
+            ->join('people', 'people.id', '=', 'incident_records.people_id')
+            ->join('companies_and_departments as reporterCompani','reporterCompani.id','=', 'people.companie_and_department_id')
+            ->whereMonth('incident_records.created_at',  $month)
+            ->whereYear('incident_records.created_at',  $year)
+            ->select('incident_records.classification',
+                'incident_records.sif',
+                'incident_records.event_date',
+                'incident_records.description',
                 'companies_and_departments.name',
-                'people.position')
+                'incident_records.spesific_area',
+                'incident_records.spesific_area',
+                'incidents.incident_name',
+                'incident_types.type_name',
+                'incident_reason',
+                'reason_description',
+                'involbed_people_names',
+                'solution_description',
+                'solution_description',
+                'people.name',
+                'reporterCompani.name',
+                'incident_records.created_at'
+            )
             ->get();
 
         $exportUC = new CollectionExport($uc);
 
-        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        $date = date("Y-m", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
+        return Excel::download($exportUC,'Incidentes MES '.$date.'.xlsx');
 
     }
 
     public function export_Year(){
 
-        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         $year = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
-        $uc = DB::table('unsafe_conditions_records')
-            ->join('type_conditions', 'type_conditions.id','=', 'unsafe_conditions_records.type_condition_id')
-            ->join('condition_groups', 'condition_groups.id', '=', 'type_conditions.condition_group_id')
-            ->join('people as people_responsable', 'people_responsable.id', '=', 'unsafe_conditions_records.responsable_id',)
-            ->join('companies_and_departments as  department','department.id','=', 'unsafe_conditions_records.department_id')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->whereYear('unsafe_conditions_records.created_at',  $year)
-            ->select('unsafe_conditions_records.id',
-                'unsafe_conditions_records.created_at',
-                'unsafe_conditions_records.condition_detected',
-                'condition_groups.group_name',
-                'type_conditions.action_name',
-                'unsafe_conditions_records.detection_origin',
-                'unsafe_conditions_records.deadline',
-                'people_responsable.name',
-                'department.name',
-                'unsafe_conditions_records.area',
-                'unsafe_conditions_records.status',
-                'unsafe_conditions_records.probability',
-                'unsafe_conditions_records.frequency',
-                'unsafe_conditions_records.impact',
-                'unsafe_conditions_records.risk',
-                'unsafe_conditions_records.risk_type',
-                'unsafe_conditions_records.attention_priority',
-                'unsafe_conditions_records.scope',
-                'unsafe_conditions_records.notice_number',
-                'people.name',
+        $uc = DB::table('incident_records')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'incident_records.department_id')
+            ->join('incidents', 'incidents.id', '=', 'incident_records.incident_id')
+            ->join('incident_types', 'incident_types.id', '=', 'incidents.incident_type_id')
+            ->join('people', 'people.id', '=', 'incident_records.people_id')
+            ->join('companies_and_departments as reporterCompani','reporterCompani.id','=', 'people.companie_and_department_id')
+            ->whereYear('incident_records.created_at',  $year)
+            ->select('incident_records.classification',
+                'incident_records.sif',
+                'incident_records.event_date',
+                'incident_records.description',
                 'companies_and_departments.name',
-                'people.position')
+                'incident_records.spesific_area',
+                'incident_records.spesific_area',
+                'incidents.incident_name',
+                'incident_types.type_name',
+                'incident_reason',
+                'reason_description',
+                'involbed_people_names',
+                'solution_description',
+                'solution_description',
+                'people.name',
+                'reporterCompani.name',
+                'incident_records.created_at'
+            )
             ->get();
 
         $exportUC = new CollectionExport($uc);
 
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Incidentes '.$year.'.xlsx');
 
     }
 
@@ -211,40 +195,35 @@ class IncidentController extends Controller
 
         $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
 
-        $uc = DB::table('unsafe_conditions_records')
-            ->join('type_conditions', 'type_conditions.id','=', 'unsafe_conditions_records.type_condition_id')
-            ->join('condition_groups', 'condition_groups.id', '=', 'type_conditions.condition_group_id')
-            ->join('people as people_responsable', 'people_responsable.id', '=', 'unsafe_conditions_records.responsable_id',)
-            ->join('companies_and_departments as  department','department.id','=', 'unsafe_conditions_records.department_id')
-            ->join('people', 'people.id', '=', 'unsafe_conditions_records.people_id')
-            ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
-            ->select('unsafe_conditions_records.id',
-                'unsafe_conditions_records.created_at',
-                'unsafe_conditions_records.condition_detected',
-                'condition_groups.group_name',
-                'type_conditions.action_name',
-                'unsafe_conditions_records.detection_origin',
-                'unsafe_conditions_records.deadline',
-                'people_responsable.name',
-                'department.name',
-                'unsafe_conditions_records.area',
-                'unsafe_conditions_records.status',
-                'unsafe_conditions_records.probability',
-                'unsafe_conditions_records.frequency',
-                'unsafe_conditions_records.impact',
-                'unsafe_conditions_records.risk',
-                'unsafe_conditions_records.risk_type',
-                'unsafe_conditions_records.attention_priority',
-                'unsafe_conditions_records.scope',
-                'unsafe_conditions_records.notice_number',
-                'people.name',
+        $uc = DB::table('incident_records')
+            ->join('companies_and_departments','companies_and_departments.id','=', 'incident_records.department_id')
+            ->join('incidents', 'incidents.id', '=', 'incident_records.incident_id')
+            ->join('incident_types', 'incident_types.id', '=', 'incidents.incident_type_id')
+            ->join('people', 'people.id', '=', 'incident_records.people_id')
+            ->join('companies_and_departments as reporterCompani','reporterCompani.id','=', 'people.companie_and_department_id')
+            ->select('incident_records.classification',
+                'incident_records.sif',
+                'incident_records.event_date',
+                'incident_records.description',
                 'companies_and_departments.name',
-                'people.position')
+                'incident_records.spesific_area',
+                'incident_records.spesific_area',
+                'incidents.incident_name',
+                'incident_types.type_name',
+                'incident_reason',
+                'reason_description',
+                'involbed_people_names',
+                'solution_description',
+                'solution_description',
+                'people.name',
+                'reporterCompani.name',
+                'incident_records.created_at'
+            )
             ->get();
 
         $exportUC = new CollectionExport($uc);
 
-        return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
+        return Excel::download($exportUC,'Incidentes TODO '.$date.'.xlsx');
 
     }
 }
