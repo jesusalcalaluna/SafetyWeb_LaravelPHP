@@ -74,19 +74,25 @@
                 <span class="link-title">Administrar Usuarios</span>
             </a>
          </li>
-         @if (Auth::user()->role->role_name == "ADMINISTRADOR")
-         <li class="@if(Route::current()->getName() == 'pepleTableIntern') active  @endif">
-            <a href="{{ route('pepleTableIntern') }}">
-                <i class="icofont-people"></i>
-                <span class="link-title">Personal Interno</span>
-            </a>
-         </li>
-         <li class="@if(Route::current()->getName() == 'pepleTableExtern') active  @endif">
-            <a href="{{ route('pepleTableExtern') }}">
-                <i class="icofont-people"></i>
-                <span class="link-title">Personal Externo</span>
-            </a>
-         </li>
+         @if (Auth::user()->role->hierarchy <= 1)
+             <li class="@if(Route::current()->getName() == 'pepleTableIntern') active  @endif">
+               <a href="{{ route('pepleTableIntern') }}">
+                   <i class="icofont-people"></i>
+                    <span class="link-title">Personal Interno</span>
+                </a>
+            </li>
+            <li class="@if(Route::current()->getName() == 'pepleTableExtern') active  @endif">
+                <a href="{{ route('pepleTableExtern') }}">
+                    <i class="icofont-people"></i>
+                    <span class="link-title">Personal Externo</span>
+                </a>
+            </li>
+            <li class="@if(Route::current()->getName() == 'eliminatedPeople') active  @endif">
+               <a href="{{ route('eliminatedPeople') }}">
+                   <i class="icofont-people"></i>
+                   <span class="link-title">Personal Eliminado</span>
+               </a>
+            </li>
          @else
          <li class="@if(Route::current()->getName() == 'pepleTable') active  @endif">
             <a href="{{ route('pepleTable') }}">

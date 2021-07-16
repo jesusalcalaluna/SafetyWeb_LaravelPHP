@@ -127,6 +127,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/comapaniesDepartments/edit/{id}', 'CompaniesDepartmentsController@getEdit')->name('companiesDepartmentsEdit');
                 Route::post('/comapaniesDepartments/edit/{id}', 'CompaniesDepartmentsController@postEdit');
 
+                //ADMINISTRACION
+                Route::get('/EliminatedPeople/', 'PeopleController@getEliminatedPeople')->name('eliminatedPeople');
+
 
 
             });

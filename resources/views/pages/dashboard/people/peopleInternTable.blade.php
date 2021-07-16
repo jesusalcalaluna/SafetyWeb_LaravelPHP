@@ -68,36 +68,37 @@
                                 <th>Puesto</th>
                                 <th>PCC</th>
                                 <th>PCI</th>
+                                <th>Estado</th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
                         <tbody>
                             @isset($people)
                             @foreach ($people as $item)
-                            
+
                             <tr>
                                 <td>{{$item->sap}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->company_and_department->name}}</td>
                                 <td>{{$item->position}}</td>
-                                
+
 
                                 @if (count($item->companion_care_records) )
                                 <td class="bg-success">{{count($item->companion_care_records)}}</td>
                                 @else
                                 <td class="bg-danger">{{count($item->companion_care_records)}}</td>
-                                @endif 
+                                @endif
 
                                 @if (count($item->unsafe_condition_records) )
                                 <td class="bg-success">{{count($item->unsafe_condition_records)}}</td>
                                 @else
                                 <td class="bg-danger">{{count($item->unsafe_condition_records)}}</td>
                                 @endif
-
+                                <td>{{ $item->status }}</td>
                                 <td>
                                     <!-- Edit Invoice Button -->
                                     <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
-                
+
                                         <!-- Edit Invoice Button -->
                                         <div class="edit-invoice-btn pr-1">
                                         <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
@@ -116,27 +117,27 @@
                                     </div>
                                 </td>
                             </tr>
-                                                 
+
                             @endforeach
                             @endisset
                         </tbody>
                     </table>
                     <!-- End Invoice List Table -->
                 </div>
-            </div>   
+            </div>
         </div>
 
-        
+
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 <script type="text/JavaScript">
     function deactivatePersonAlert(selected){
-        
+
         Swal.fire({
             title: "¿Estas seguro?",
             text: "¡No podras revertirlo!",
@@ -160,25 +161,25 @@
                 success:  function(data){
 
                     $(selected).parent().parent().parent().parent().parent().remove()
-                    
+
                 }
             }).done(function() {
                 Swal.fire({ type: "success", title: "¡Eliminado!", text: "Persona eliminada. :(", confirmButtonClass: "btn btn-success" })
             }).fail(function(err) {
                 Swal.fire({ title: "Error!", text: " ¡Algo salio mal! intentalo nuevamente", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
             });
-                
+
             }else{
                 t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "¡Eso estuvo cerca! ;)", type: "error", confirmButtonClass: "btn btn-success" });
             }
         });
-        
+
     }
     $("#search").keyup(function(){
-        
+
         if (event.keyCode === 13) {
-            
-            
+
+
             $("#btnSearch").click();
         }
     });
@@ -190,8 +191,8 @@
         console.log(_this);
         // Show only matching TR, hide rest of them
             $.each($("#table tbody tr"), function() {
-                
-                
+
+
             if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
             $(this).hide();
             else
@@ -199,14 +200,14 @@
         });
     }
     function search(){
-        
+
         _this = $("#search");
         console.log($("#search"));
         console.log(_this);
         // Show only matching TR, hide rest of them
             $.each($("#table tbody tr"), function() {
-                
-                
+
+
             if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
             $(this).hide();
             else
