@@ -96,20 +96,25 @@ Route::group(['middleware' => ['auth']], function () {
             //Eliminar Usuario
             Route::post('/deleteUser', 'UserController@deleteUser')->name('deleteUser');
             //Incidentes
-            Route::post('/updateIncident', 'IncidentController@updateIncident')->name('updateIncident');
+            Route::post('/updateIncident' , 'IncidentController@updateIncident')->name('updateIncident');
             //Cuidado Del Compañero
-            Route::post('/updateIncident', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
+            Route::post('/deleteCompanionCare', 'CompanionCareController@postDelete')->name('deleteCompanionCare');
 
             //EXPORTAR Excel
-            Route::get('/export/UnsafeConditions/Yesterday', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCYesterday');
-            Route::get('/export/UnsafeConditions/Month', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCMonth');
-            Route::get('/export/UnsafeConditions/Year', 'UnsafeConditionsController@exportUC_Yesterday')->name('UCYear');
-            Route::get('/export/CompanionCare/Yesterday', 'UnsafeConditionsController@exportUC_Yesterday')->name('CCYesterday');
-            Route::get('/export/CompanionCare/Month', 'UnsafeConditionsController@exportUC_Yesterday')->name('CCMonth');
-            Route::get('/export/CompanionCare/Year', 'UnsafeConditionsController@exportUC_Yesterday')->name('CCYear');
-            Route::get('/export/Incident/Yesterday', 'UnsafeConditionsController@exportUC_Yesterday')->name('IYesterday');
-            Route::get('/export/Incident/Month', 'UnsafeConditionsController@exportUC_Yesterday')->name('IMonth');
-            Route::get('/export/Incident/Year', 'UnsafeConditionsController@exportUC_Yesterday')->name('IYear');
+            Route::get('/export/UnsafeConditions/Yesterday', 'UnsafeConditionsController@export_Yesterday')->name('UCYesterday');
+            Route::get('/export/UnsafeConditions/Month', 'UnsafeConditionsController@export_Month')->name('UCMonth');
+            Route::get('/export/UnsafeConditions/Year', 'UnsafeConditionsController@export_Year')->name('UCYear');
+            Route::get('/export/UnsafeConditions/All', 'UnsafeConditionsController@export_all')->name('UCAll');
+
+            Route::get('/export/CompanionCare/Yesterday', 'CompanionCareController@export_Yesterday')->name('CCYesterday');
+            Route::get('/export/CompanionCare/Month', 'CompanionCareController@export_Yesterday')->name('CCMonth');
+            Route::get('/export/CompanionCare/Year', 'CompanionCareController@export_Yesterday')->name('CCYear');
+            Route::get('/export/CompanionCare/All', 'CompanionCareController@export_Yesterday')->name('CCAll');
+
+            Route::get('/export/Incident/Yesterday', 'IncidentController@export_Yesterday')->name('IYesterday');
+            Route::get('/export/Incident/Month', 'IncidentController@export_Yesterday')->name('IMonth');
+            Route::get('/export/Incident/Year', 'IncidentController@export_Yesterday')->name('IYear');
+            Route::get('/export/Incident/All', 'IncidentController@export_Yesterday')->name('IAll');
 
 
             Route::group(['middleware' => ['auth','checkRole:SUPERUSUARIO']], function(){

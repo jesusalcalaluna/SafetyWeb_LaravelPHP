@@ -33,9 +33,9 @@
                         <div class="priority">
                             <a href="#" id="status" class="assign-menu bold font-14  " data-toggle="dropdown" aria-expanded="false">FILTRO</a>
                             <div id="exept" class="dropdown-menu style--five optionsForm" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(115px, 35px, 0px);">
-                                @ foreach ($departments as $item)
-                                <a onclick="submitForm(this, {{ //$item->name }});" ><span class="tag_color bg-success"></span>{{ //$item->name }}</a>
-                                @ endforeach
+                                @ -foreach ($departments as $item)
+                                <a onclick="submitForm(this, {-{ //$item->name }-});" ><span class="tag_color bg-success"></span>{-{ //$item->name }-}</a>
+                                @ -endforeach
                             </div>
                         </div>-->
 

@@ -13,6 +13,21 @@
                 <div class="card-body pt-30">
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20 ">Registros Cuidado del compañero</h4>
+                        @if (Auth::user()->role->hierarchy <= 1)
+                            <!-- Dropdown Button -->
+                            <div class="dropdown-button">
+                                <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
+                                    <img src="../../../assets/img/svg/download.svg" alt="" class="svg">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="{{route('CCAll')}}" >Todo</a>
+                                    <a href="{{route('CCYesterday')}}" >Ayer</a>
+                                    <a href="{{route('CCMonth')}}" >Mes</a>
+                                    <a href="{{route('CCYear')}}" >Año</a>
+                                </div>
+                            </div>
+                            <!-- End Dropdown Button -->
+                        @endif
                         <div class="d-flex flex-wrap">
                             <!-- search -->
                             <div class="mr-20 mt-3 mt-sm-0">
