@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="364498cd-c84b-4f71-87c4-5978f03a8e1c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CompanionCareController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompanionCareController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/IncidentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/IncidentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UnsafeConditionsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UnsafeConditionsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/Incidents/incidentsRecordTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/Incidents/incidentsRecordTable.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/companionCareTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/companionCareTable.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/people/peopleExternTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/people/peopleExternTable.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsTable.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +196,8 @@
       <workItem from="1625576769332" duration="13481000" />
       <workItem from="1625662854271" duration="17155000" />
       <workItem from="1625749645194" duration="1459000" />
-      <workItem from="1626443465890" duration="975000" />
+      <workItem from="1626443465890" duration="1154000" />
+      <workItem from="1626445746368" duration="889000" />
     </task>
     <servers />
   </component>
