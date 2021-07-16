@@ -7,23 +7,23 @@
 @endsection
 
 @section('navbar')
-    
+
     @include('globals.dashboard.navbar')
     @auth
-    @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-        @include('globals.dashboard.sidebar')
-    @endif
+        @if (Auth::user()->role->hierarchy <= 2)
+            @include('globals.dashboard.sidebar')
+        @endif
     @endauth
-    
-    
-    
+
+
+
 @endsection
 @section('content')
 
 <div class="main-content">
-   
+
     <div class="container-fluid">
-    
+
         <div class="form-element input-sizing">
             <h4 class="font-20 mb-4">Reporte de Incidentes</h4>
 
@@ -32,9 +32,9 @@
                 @csrf
 
                 <!-- Form Group -->
-                <div class="form-group mb-4"> 
+                <div class="form-group mb-4">
                     <label class="mb-2 font-14 bold">Fecha del Incidente</label>
-                    
+
                     <!-- Date Picker -->
                     <div class="dashboard-date style--four">
                        <span class="input-group-addon">
@@ -57,7 +57,7 @@
                             <label for="LTI"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="LTI">LTI (Accidente con dias perdidos)</label>
                     </div>
 
@@ -68,7 +68,7 @@
                             <label for="MDI"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="MDI">MDI (Accidente con modificacion de tarea)</label>
                     </div>
 
@@ -79,7 +79,7 @@
                             <label for="MTI"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="MTI">MTI (Accidente con tratamiento medico interno)</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -89,7 +89,7 @@
                             <label for="FAI"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="FAI">FAI (Accidente con primeros auxiolios)</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -99,7 +99,7 @@
                             <label for="INCIDENTES"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="INCIDENTES">INCIDENTES</label>
                     </div>
                 </div>
@@ -142,14 +142,14 @@
                         <select class="theme-input-style" onChange="changeConditionGroup(this);" id="condition_groups">
                             @isset($incidentType)
                             @foreach ($incidentType as $item)
-                                <option value="{{$item->id}}" >{{$item->type_name}}</option>   
+                                <option value="{{$item->id}}" >{{$item->type_name}}</option>
                             @endforeach
                             @endisset
                         </select>
                     </div>
                 </div>
                 <!-- End Form Group -->
-                
+
                 <!-- Form Group -->
                 <div class="form-group mb-4">
                     <label for="type_condition_id" class="mb-2 bold d-block">Incidente</label>
@@ -157,7 +157,7 @@
                         <select class="theme-input-style" id="type_condition_id" name="incident_id">
                             @isset($incident)
                             @foreach ($incident as $item)
-                                <option class="conditionGroupId_{{$item->incident_type_id}}" value="{{$item->id}}" >{{$item->incident_name}}</option>   
+                                <option class="conditionGroupId_{{$item->incident_type_id}}" value="{{$item->id}}" >{{$item->incident_name}}</option>
                             @endforeach
                             @endisset
                         </select>
@@ -175,7 +175,7 @@
                             <label for="Rutina"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="Rutina">Condicion Insegura</label>
                     </div>
 
@@ -186,7 +186,7 @@
                             <label for="LOTOTO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="LOTOTO">Comportamiento Inseguro</label>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                             <label for="SI"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="SI">SI</label>
                     </div>
                     <div class="d-flex align-items-center mb-3">
@@ -230,14 +230,14 @@
                             <label for="NO"></label>
                         </div>
                         <!-- End Custom Radio -->
-                        
+
                         <label for="NO">NO</label>
                     </div>
                 </div>
                 <!-- End Form Group -->
                 <!-- Form Group -->
                 <div class="form-group mb-20 ">
-                    
+
                     <label for="sap" class="mb-2 font-14 bold">SAP (320XXXXX, 32XXXXXX) ó ID de quien reporta </label>
                     <div class="row align-items-center">
                         <div class="col-sm-6">
@@ -245,7 +245,7 @@
                             <div class="valid-feedback" id="personName"></div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <datalist id="peopleList">
                     @isset($people)
@@ -255,7 +255,7 @@
                     @endisset
                 </datalist>
                 <div class="mb-4">
-                    
+
                 </div>
                 <!-- End Form Group -->
                 <!-- Button Group -->
@@ -268,28 +268,28 @@
             <!-- End Form -->
         </div>
 
-    
+
     </div>
 
 </div>
 
 @endsection
 @section('footer')
-    
+
 @endsection
 
 @section('js')
     <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
     <script src="../../../assets/plugins/datepicker/datepicker.min.js"></script>
     <script src="../../../assets/plugins/datepicker/i18n/datepicker.es.js"></script>
-    
+
     <script src="../../../assets/plugins/datepicker/custom-form-datepicker.js"></script>
     <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
 
     <script type="text/JavaScript">
     function selectPerson() {
-            
-            
+
+
             var val=$('#sap').val();
             var name = $('#peopleList').find('option[value="'+val+'"]').data('name');
             if (name === undefined) {
@@ -301,7 +301,7 @@
                 $('#sap').addClass('is-valid')
                 $("#personName").text(name);
             }
-            
+
         }
     </script>
 
