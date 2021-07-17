@@ -48,6 +48,21 @@
                                 <div class="tag-text font-12 text-light"><span class="pr-3" id="porcentInic">{{ $porcentInic }}%</span>NO INICIADA</div>
                             </a>
                          </div>
+                            @if (Auth::user()->role->hierarchy <= 1)
+                            <!-- Dropdown Button -->
+                            <div class="dropdown-button">
+                                <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
+                                    <img src="../../../assets/img/svg/download.svg" alt="" class="svg">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="{{route('UCAll')}}" >Todo</a>
+                                    <a href="{{route('UCYesterday')}}" >Ayer</a>
+                                    <a href="{{route('UCMonth')}}" >Mes</a>
+                                    <a href="{{route('UCYear')}}" >Año</a>
+                                </div>
+                            </div>
+                            <!-- End Dropdown Button -->
+                            @endif
 
                         <div class="d-flex flex-wrap">
                             <!-- search -->
