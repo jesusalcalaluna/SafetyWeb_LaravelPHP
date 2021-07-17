@@ -13,7 +13,21 @@
                 <div class="card-body">
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Registros de Incidentes</h4>
-
+                        @if (Auth::user()->role->hierarchy <= 1)
+                            <!-- Dropdown Button -->
+                            <div class="dropdown-button">
+                                <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
+                                    <img src="../../../assets/img/svg/download.svg" alt="" class="svg">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="{{route('IAll')}}" >Todo</a>
+                                    <a href="{{route('IYesterday')}}" >Ayer</a>
+                                    <a href="{{route('IMonth')}}" >Mes</a>
+                                    <a href="{{route('IYear')}}" >Año</a>
+                                </div>
+                            </div>
+                            <!-- End Dropdown Button -->
+                        @endif
                         <div class="d-flex flex-wrap">
                             <!-- search -->
                             <div class="mr-20 mt-3 mt-sm-0">
@@ -43,10 +57,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @isset($incidents)
                             @foreach ($incidents as $item)
-                            @if (Auth::user()->role->role_name == 'ADMINISTRADOR')
+                            @if (Auth::user()->role->hierarchy <= 1)
                                 <tr>
                                     <td>
                                         <div class="priority">
@@ -73,7 +87,7 @@
                                                 @if ($item->status == 0)
                                                 <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="1" name="status"><input hidden="true" value="{{$item->id}}" name="id"> <a onclick="submitForm(this);" ><span class="tag_color bg-success"></span>APROBADO</a></form>
                                                 @else
-                                                <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="0" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>DESAPROBADO</a></form>    
+                                                <form method="POST" action="{{route('updateIncident')}}"> <input hidden="true" value="0" name="status"><input hidden="true" value="{{$item->id}}" name="id"><a onclick="submitForm(this);" ><span class="tag_color bg-danger"></span>DESAPROBADO</a></form>
                                                 @endif
                                             </div>
                                         </div>
@@ -86,22 +100,22 @@
                                 </tr>
                                 @endif
                             @endif
-                            
-                            
-                            
+
+
+
                             @endforeach
                             @endisset
                         </tbody>
                     </table>
                     <!-- End Invoice List Table -->
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 
@@ -109,15 +123,15 @@
 <script type="text/JavaScript">
 
     $("#search").keyup(function(){
-        
+
         if (event.keyCode === 13) {
-            
-            
+
+
             $("#btnSearch").click();
         }
     });
     function search(){
-        
+
         _this = $("#search");
         // Show only matching TR, hide rest of them
         $.each($("#table tbody tr"), function() {
@@ -128,7 +142,7 @@
         });
     }
     function submitForm(item){
-        
+
         $.ajax({
             type: "POST",
             url: item.parentNode.action,
@@ -136,7 +150,7 @@
                     "status" : $(item).parent().find('input[name="status"]').val(),
                     "id" : $(item).parent().find('input[name="id"]').val()},
             success:  function(data){
-                
+
                 if ($(item).parent().find('input[name="status"]').val() == 1) {
                     $(item).parent().parent().parent().find('#status').removeClass("bg-danger");
                     $(item).parent().parent().parent().find('#status').addClass("bg-success");
@@ -151,10 +165,10 @@
                     $('#option1').removeAttr('hidden');
                     $('#option0').prop("hidden", !this.checked);
                 }
-                
 
-                
-                
+
+
+
             }
         }).done(function() {
             Swal.fire({ title: "Good job!", text: "Incidente actualizado correctamente!", type: "success", confirmButtonClass: "btn long", buttonsStyling: !1 });
@@ -162,7 +176,7 @@
             Swal.fire({ title: "Error!", text: "Algo salio mal, intente de nuevo mas tarde!", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
         });
     }
-    
+
 </script>
 
 @endsection
