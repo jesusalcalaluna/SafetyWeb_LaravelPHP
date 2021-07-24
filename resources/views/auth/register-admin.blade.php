@@ -10,13 +10,13 @@
 <div class="main-content">
     <div class="container-fluid">
 
-                
+
         <div class="col-12">
             <!-- Card -->
             <div class="card mb-30 justify-content-center form-element">
                 <div class="row justify-content-center">
                     <div class="col-xl-10">
-                        
+
                         <h4 class="mb-2 font-20">Registrar Usuario</h4>
                         <ul class="list-inline list-button m-0 mb-3">
                             <li id="user" class="active" onclick="changue(this);">Usuario</li>
@@ -34,9 +34,9 @@
                                             <label for="sap" class="mb-2 font-14 bold">SAP</label>
                                             <input type="search"  oninput="selectPerson(this)" class="theme-input-style " id="sap" autocomplete="off" placeholder="ingresa el SAP" name="sap">
                                             <div class="valid-feedback" id="personName">
-                                                
+
                                             </div>
-                                            
+
                                         </div>
                                         <datalist id="peopleList">
                                             @isset($people)
@@ -46,7 +46,7 @@
                                             @endisset
                                         </datalist>
                                         <!-- End Form Group -->
-                                        
+
                                     </div>
 
                                     <div class="col-lg-6">
@@ -71,7 +71,7 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
@@ -80,7 +80,7 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
@@ -89,7 +89,7 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
@@ -102,10 +102,10 @@
                                 @error('email', 'sap')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
-    
+
                                 <div class="d-flex align-items-center pt-4">
                                     <button type="submit" class="btn long mr-20">Registrar</button>
-                                    
+
                                 </div>
                             </form>
                          </div>
@@ -122,14 +122,14 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
                                             <label for="sap2" class="mb-2 font-14 bold">SAP</label>
                                             <input type="search"  oninput="selectPerson2(this)" class="theme-input-style " id="sap2" autocomplete="off" placeholder="ingresa el SAP" name="sap">
                                             <div class="invalid-feedback" id="personName2"></div>
-                                            
+
                                         </div>
                                         <datalist id="peopleList2">
                                             @isset($people)
@@ -182,9 +182,9 @@
                                                             @if ($item->id != 1)
                                                                 <option value="{{$item->id}}" >{{$item->role_name}}</option>
                                                             @endif
-                                                            
+
                                                         @endif
-                                                            
+
                                                     @endforeach
                                                     @endisset
                                                 </select>
@@ -192,7 +192,7 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
@@ -201,7 +201,7 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
@@ -210,7 +210,7 @@
                                         </div>
                                         <!-- End Form Group -->
                                     </div>
-    
+
                                     <div class="col-lg-6">
                                         <!-- Form Group -->
                                         <div class="form-group mb-20">
@@ -223,15 +223,15 @@
                                 @error('email', 'sap')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
-    
+
                                 <div class="d-flex align-items-center pt-4">
                                     <button type="submit" class="btn long mr-20">Registrar</button>
-                                    
+
                                 </div>
                             </form>
                          </div>
-                        
-                    </div>                                    
+
+                    </div>
                 </div>
             </div>
             <!-- End Card -->
@@ -239,7 +239,7 @@
                 <div class="card-body">
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Lista del Personal</h4>
-                        
+
                         <div class="d-flex flex-wrap">
                             <!-- search -->
                             <div class="mr-20 mt-3 mt-sm-0">
@@ -270,7 +270,7 @@
                         <tbody>
                             @isset($users)
                                 @foreach ($users as $item)
-                                    @if (Auth::user()->role->id == 1)
+                                    @if (Auth::user()->role->hierarchy <= 1)
                                         @if (Auth::user()->person->sap != $item->person->sap)
                                         <tr>
                                             <td>{{$item->person->sap}}</td>
@@ -280,7 +280,7 @@
                                             <td>
                                                 <!-- Edit Invoice Button -->
                                                 <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
-                            
+
                                                     <!-- Edit Invoice Button -->
                                                     <div class="edit-invoice-btn pr-1 ">
                                                         <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
@@ -311,7 +311,7 @@
                                                 <td>
                                                     <!-- Edit Invoice Button -->
                                                     <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
-                                
+
                                                         <!-- Edit Invoice Button -->
                                                         <div class="edit-invoice-btn pr-1 ">
                                                             <a href="{{ route('updateperson', [$item->person->id]) }}" class="btn-circle">
@@ -339,19 +339,19 @@
                     </table>
                     <!-- End Invoice List Table -->
                 </div>
-            </div>   
+            </div>
         </div>
-        
+
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 <script>
     function deleteUserAlert(selected){
-        
+
         Swal.fire({
             title: "¿Estas seguro?",
             text: "¡No podras revertirlo!",
@@ -375,23 +375,23 @@
                 success:  function(data){
 
                     $(selected).parent().parent().parent().parent().parent().remove()
-                    
+
                 }
             }).done(function() {
                 Swal.fire({ type: "success", title: "¡Eliminado!", text: "Usuario eliminado.", confirmButtonClass: "btn btn-success" })
             }).fail(function(err) {
                 Swal.fire({ title: "Error!", text: " ¡Algo salio mal! intentalo nuevamente", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
             });
-                
+
             }else{
                 t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "El usuario esta a salvo :)", type: "error", confirmButtonClass: "btn btn-success" });
             }
         });
-        
+
     }
     function selectPerson() {
-            
-            
+
+
         var val=$('#sap').val();
         var name = $('#peopleList').find('option[value="'+val+'"]').data('name');
         if (name === undefined) {
@@ -403,11 +403,11 @@
             $('#sap').addClass('is-valid')
             $("#personName").text(name);
         }
-        
+
     }
     function selectPerson2() {
-            
-            
+
+
             var val=$('#sap2').val();
             var name = $('#peopleList2').find('option[value="'+val+'"]').data('name');
             if (name === undefined) {
@@ -419,10 +419,10 @@
                 $('#sap2').addClass('is-invalid')
                 $("#personName2").text("El sap pertenece a "+name);
             }
-            
+
         }
     function changue(selected) {
-        
+
         if (selected.id == 'user') {
             $('#userPerson').removeClass('active')
             $('#usuarioYPersona').hide(0);
