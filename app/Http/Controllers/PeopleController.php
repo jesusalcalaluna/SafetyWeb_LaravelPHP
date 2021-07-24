@@ -82,7 +82,7 @@ class PeopleController extends Controller
 
         $countCC = 0;
         $countUC = 0;
-        $people = People::where('status','!=', 'INACTIVO')->orderBy('name', 'ASC')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)
+        $people = People::where('status','!=', 'ELIMINADO')->orderBy('name', 'ASC')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)
         ->with('unsafe_condition_records', function($query){
             return $query->whereMonth('created_at', '=', date('m'))
                          ->whereYear('created_at', '=', date('Y'));
@@ -103,7 +103,7 @@ class PeopleController extends Controller
 
         }
 
-        $countPeopleDepartment = People::where('status','!=', 'INACTIVO')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)->count();
+        $countPeopleDepartment = People::where('status','=', 'ACTIVO')->where('companie_and_department_id', Auth::user()->person->company_and_department->id)->count();
 
         $ppcc = 0;
         if ($countPeopleDepartment) {
@@ -145,7 +145,7 @@ class PeopleController extends Controller
 
         }
 
-        $countPeopleDepartment = People::where('status','!=', 'ELIMINADO')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+        $countPeopleDepartment = People::where('status','=', 'ACTIVO')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'INTERNO');
         })->count();
 
@@ -191,7 +191,7 @@ class PeopleController extends Controller
 
         }
 
-        $countPeopleDepartment = People::where('status','!=', 'ELIMINADO')->with('company_and_department')->whereHas('company_and_department', function ($query) {
+        $countPeopleDepartment = People::where('status','=', 'ACTIVO')->with('company_and_department')->whereHas('company_and_department', function ($query) {
             return $query->where('origin', 'EXTERNO');
         })->count();
 
