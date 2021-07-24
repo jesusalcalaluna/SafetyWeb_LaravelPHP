@@ -87,18 +87,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><p>dñkgndsl{fknñds adgsdfgfd fgdfgdsfgdfdfsg dfgdfgdsfgdfg dfg   dfgdsfgsdfgdfg df fgdsgdfgdsfg fgsdfgdsg kfgñkjdsbg kjfsd{kj bfdskjgñkdjb fgkbjdfskjbgdk fbgkbjdsfgkjbdfkj gbñdfkb fvdfkh uasdkjb sdkjsakj bdkjabs dfkjba sdkfjbasd </p>     </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-
-                           </tr>
                             @isset($unsafeConditionRecord)
                             @foreach ($unsafeConditionRecord as $item)
                                 <tr>
@@ -116,7 +104,7 @@
                                     </td>
 
                                     <td>{{$item->deadline}}</td>
-                                    <td class="celda"><p> {{ $item->condition_detected }}</p></td>
+                                    <td><p style="text-align:justify;"> {{ $item->condition_detected }}</p></td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
