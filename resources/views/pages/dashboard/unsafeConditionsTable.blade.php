@@ -1,14 +1,5 @@
 @extends('layouts.app_dashboard')
 @section('css')
-<style>
-    table{
-    table-layout: fixed;
-    }
-    .celda{
-    height: auto;
-    width: 200px;
-    }
-</style>
 @endsection
 
 @section('navbar')
