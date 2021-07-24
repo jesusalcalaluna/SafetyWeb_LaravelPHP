@@ -14,7 +14,7 @@
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Lista del Personal</h4>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{count($people)}}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{$countPeopleDepartment}}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
                             <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppuc }}</div>
@@ -65,7 +65,7 @@
                         <tbody>
                             @isset($people)
                             @foreach ($people as $item)
-                            
+
                                 @if(Auth::user()->person->company_and_department->id ==  $item->company_and_department->id)
                                 <tr>
                                     <td>{{$item->sap}}</td>
@@ -75,7 +75,7 @@
                                     <td class="bg-success">{{count($item->companion_care_records)}}</td>
                                     @else
                                     <td class="bg-danger">{{count($item->companion_care_records)}}</td>
-                                    @endif 
+                                    @endif
 
                                     @if (count($item->unsafe_condition_records) )
                                     <td class="bg-success">{{count($item->unsafe_condition_records)}}</td>
@@ -86,7 +86,7 @@
                                     <td>
                                         <!-- Edit Invoice Button -->
                                         <div class="invoice-header-right d-flex align-items-start justify-content-around justify-content-sm-start mt-3 mt-sm-0">
-                    
+
                                             <!-- Edit Invoice Button -->
                                             <div class="edit-invoice-btn pr-1">
                                             <a href="{{ route('updateperson', [$item->id]) }}" class="btn-circle">
@@ -106,27 +106,27 @@
                                     </td>
                                 </tr>
                                 @endif
-                                                 
+
                             @endforeach
                             @endisset
                         </tbody>
                     </table>
                     <!-- End Invoice List Table -->
                 </div>
-            </div>   
+            </div>
         </div>
 
-        
+
     </div>
 </div>
 @endsection
 @section('footer')
-    
+
 @endsection
 @section('js')
 <script type="text/JavaScript">
     function deactivatePersonAlert(selected){
-        
+
         Swal.fire({
             title: "¿Estas seguro?",
             text: "¡No podras revertirlo!",
@@ -150,37 +150,37 @@
                 success:  function(data){
 
                     $(selected).parent().parent().parent().parent().parent().remove()
-                    
+
                 }
             }).done(function() {
                 Swal.fire({ type: "success", title: "¡Eliminado!", text: "Persona eliminada. :(", confirmButtonClass: "btn btn-success" })
             }).fail(function(err) {
                 Swal.fire({ title: "Error!", text: " ¡Algo salio mal! intentalo nuevamente", type: "error", confirmButtonClass: "btn long", buttonsStyling: !1 });
             });
-                
+
             }else{
                 t.dismiss === Swal.DismissReason.cancel && Swal.fire({ title: "Cancelado", text: "¡Eso estuvo cerca! ;)", type: "error", confirmButtonClass: "btn btn-success" });
             }
         });
-        
+
     }
     $("#search").keyup(function(){
-        
+
         if (event.keyCode === 13) {
-            
-            
+
+
             $("#btnSearch").click();
         }
     });
     function search(){
-        
+
         _this = $("#search");
         console.log($("#search"));
         console.log(_this);
         // Show only matching TR, hide rest of them
             $.each($("#table tbody tr"), function() {
-                
-                
+
+
             if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
             $(this).hide();
             else

@@ -14,7 +14,7 @@
                     <div class="d-sm-flex justify-content-between align-items-center">
                         <h4 class="font-20">Lista del Personal Interno</h4>
                         <div class="assign-tag back-end bg-success pl-2">
-                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{count($people)}}</div>
+                            <div class="tag-text font-12 text-dark"><span class="pr-3">TOTAL:</span>{{$countPeopleDepartment}}</div>
                         </div>
                         <div class="assign-tag back-end bg-success pl-2">
                             <div class="tag-text font-12 text-dark"><span class="pr-3">PCI:</span>%{{ $ppuc }}</div>
