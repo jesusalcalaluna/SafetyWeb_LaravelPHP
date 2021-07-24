@@ -87,7 +87,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>dñkgndsl{fknñdskfgñkjdsbgkjfsd{kjgbfdskjgñkdjbfgkbjdfskjbgdkfbgkbjdsfgkjbdfkjgbñdfkbg <br> zfvdfkhuasdkjbasdkjsakjbdkjabsdfkjbasdkfjbasd    </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
 
+                           </tr>
                             @isset($unsafeConditionRecord)
                             @foreach ($unsafeConditionRecord as $item)
                                 <tr>
