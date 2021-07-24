@@ -117,7 +117,7 @@
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
-                                    <td>{{$item->people->name}}</td>
+                                    <td>{{$item->reporter->name}}</td>
                                     <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
                             @endforeach
