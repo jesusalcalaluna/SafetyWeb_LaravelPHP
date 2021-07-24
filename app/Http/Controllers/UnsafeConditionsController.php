@@ -556,6 +556,7 @@ class UnsafeConditionsController extends Controller
 
         $exportUC = new CollectionExport($uc);
 
+        $date = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
         return Excel::download($exportUC,'Condiciones Inseguras '.$date.'.xlsx');
 
     }
