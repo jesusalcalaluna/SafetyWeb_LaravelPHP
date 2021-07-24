@@ -84,12 +84,14 @@
                     <table class="text-nowrap dh-table" id="table">
                         <thead>
                             <tr>
+                                <th>Fecha de Deteccion </th>
                                 <th>Estado </th>
                                 <th>Fecha limite </th>
                                 <th class="w-1\/2">Condicion</th>
                                 <th>Tipo de condicion </th>
                                 <th>Departamento </th>
                                 <th>Prioridad de atención </th>
+                                <th>Quien detecta</th>
                                 <th>Accion </th>
                             </tr>
                         </thead>
@@ -109,11 +111,13 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td>{{$item->created_at}}</td>
                                     <td>{{$item->deadline}}</td>
                                     <td class="celda"><p> {{ $item->condition_detected }}</p></td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
                                     <td>{{$item->department->name}}</td>
                                     <td class="@if($item->attention_priority == "CRÍTICA" || $item->attention_priority == "ALTA") bg-danger @endif @if($item->attention_priority == "MEDIA") bg-warning @endif @if($item->attention_priority == "BAJA") bg-success @endif">{{$item->attention_priority}}</td>
+                                    <td>{{$item->people->name}}</td>
                                     <td><a href="{{ route('unsafeConditionDetails', [$item->id]) }}" class="details-btn">Ver Detalles <i class="icofont-arrow-right"></i></a></td>
                                 </tr>
                             @endforeach
