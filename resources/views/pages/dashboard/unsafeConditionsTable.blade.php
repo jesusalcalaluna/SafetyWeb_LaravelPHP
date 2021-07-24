@@ -84,7 +84,7 @@
                     <table class="text-nowrap dh-table" id="table">
                         <thead>
                             <tr>
-                                <th>Fecha de Deteccion </th>
+                                <th>Fecha de Detección </th>
                                 <th>Estado </th>
                                 <th>Fecha limite </th>
                                 <th class="w-1\/2">Condicion</th>
@@ -100,6 +100,7 @@
                             @isset($unsafeConditionRecord)
                             @foreach ($unsafeConditionRecord as $item)
                                 <tr>
+                                    <td>{{$item->created_at}}</td>
                                     <td>
                                         <div class="priority">
                                             <a href="#" id="status" class="assign-menu bold font-14 @if($item->status == "RETRASADA") bg-danger @endif @if($item->status == "NO INICIADA") bg-dark @endif @if($item->status == "EN PROCESO") bg-warning @endif @if($item->status == "COMPLETA") bg-success @endif " data-toggle="dropdown" aria-expanded="false">{{$item->status}}</a>
@@ -111,7 +112,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{$item->created_at}}</td>
+
                                     <td>{{$item->deadline}}</td>
                                     <td class="celda"><p> {{ $item->condition_detected }}</p></td>
                                     <td>{{$item->type_condition->condition_group->group_name}}</td>
