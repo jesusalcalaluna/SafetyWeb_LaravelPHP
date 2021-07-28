@@ -51,7 +51,7 @@ class IncidentController extends Controller
 
     public function getIncidenteTable()
     {
-        $incidents = IncidentRecord::with('incident')->with('incident.incident_type')->with('department')->with('reporter')->get();
+        $incidents = IncidentRecord::with('incident')->with('incident.incident_type')->with('department')->with('reporter')->orderBy('created_at','desc')->get();
 
         return view('pages.dashboard.Incidents.incidentsRecordTable', compact('incidents'));
     }

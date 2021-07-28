@@ -15,7 +15,7 @@ class LandingController extends Controller
 {
 
     public function getIndex(){
-        date_default_timezone_set('America/Monterrey');
+        //date_default_timezone_set('America/Monterrey');
 
         $cantidad_personas_activas = $this->getTotalPeopleActive();
         $anio = date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
@@ -25,23 +25,19 @@ class LandingController extends Controller
         //seguros
         $seguros = DB::table('companion_care_records')
             ->whereYear('created_at',$anio)
-            ->whereMonth('created_at',$mes)
             ->where('corr_prev_pos', 'COMPORTAMIENTO SEGURO')->count();
         //inseguros
         $inseguros = DB::table('companion_care_records')
             ->whereYear('created_at',$anio)
-            ->whereMonth('created_at',$mes)
             ->where('corr_prev_pos', 'COMPORTAMIENTO INSEGURO')->count();
         //CONDICIONES INSEGURAS
         //Detectadas
         $detectadas = DB::table('unsafe_conditions_records')
             ->whereYear('unsafe_conditions_records.created_at',$anio)
-            ->whereMonth('unsafe_conditions_records.created_at',$mes)
             ->count();
         //Atendidas
         $atendidas = DB::table('unsafe_conditions_records')
             ->whereYear('unsafe_conditions_records.created_at',$anio)
-            ->whereMonth('unsafe_conditions_records.created_at',$mes)
             ->where('status', 'COMPLETA')->count();
         //Avance
         $avance = 0;
@@ -51,8 +47,7 @@ class LandingController extends Controller
 
         //PARTICIPACION DE DETECCION
         //cuidado del compañero
-        $cant_cc = Companion_care_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+        $cant_cc = Companion_care_record::whereYear('created_at',$anio)
             ->select("people_id")
             ->groupBy("people_id")
             ->get()
@@ -62,8 +57,7 @@ class LandingController extends Controller
             $participacion_cc = number_format(($cant_cc/$cantidad_personas_activas)*100 ,1);
         }
         //condiciones inseguras
-        $cant_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+        $cant_ci = Unsafe_conditions_record::whereYear('created_at',$anio)
             ->select("people_id")
             ->groupBy("people_id")
             ->get()
@@ -75,14 +69,12 @@ class LandingController extends Controller
 
         //CUMPLIMIENTO A LA RUTINA
         //monitoreos
-        $canti_monitoreos_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+        $canti_monitoreos_ci = Unsafe_conditions_record::whereYear('created_at',$anio)
             ->where('detection_origin', 'Monitoreo de Seguridad')
             ->select("people_id")
             ->groupBy("people_id")
             ->get();
-        $canti_monitoreos_cc = Companion_care_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at',date('m'))
+        $canti_monitoreos_cc = Companion_care_record::whereYear('created_at',$anio)
             ->where('detection_source', 'Monitoreo de Seguridad')
             ->select("people_id")
             ->groupBy("people_id")
@@ -128,14 +120,12 @@ class LandingController extends Controller
         }
 
         //OWD
-        $canti_owd_ci = Unsafe_conditions_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at', $mes)
+        $canti_owd_ci = Unsafe_conditions_record::whereYear('created_at',$anio)
             ->where('detection_origin', 'DTO (OWD)')
             ->select("people_id")
             ->groupBy("people_id")
             ->get();
-        $canti_owd_cc = Companion_care_record::whereYear('created_at',date('Y'))
-            ->whereMonth('created_at', $mes)
+        $canti_owd_cc = Companion_care_record::whereYear('created_at',$anio)
             ->where('detection_source', 'DTO (OWD)')
             ->select("people_id")
             ->groupBy("people_id")
@@ -183,61 +173,52 @@ class LandingController extends Controller
         }
 
         $incidentes_lti = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'LTI')
         ->where('status', 1)
         ->count();
         $incidentes_mdi = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'MDI')
         ->where('status', 1)
         ->count();
         $incidentes_mti = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'MTI')
         ->where('status', 1)
         ->count();
         $incidentes_fai = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'FAI')
         ->where('status', 1)
         ->count();
         $incidentes = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
-        ->where('classification', 'INCIDENTE')
+        ->where('classification', 'INCIDENTES')
         ->where('status', 1)
         ->count();
 
         $incidentes_lti_sif = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'LTI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
         $incidentes_mdi_sif = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'MDI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
         $incidentes_mti_sif = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'MTI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
         $incidentes_fai_sif = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'FAI')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
         $incidentes_sif = IncidentRecord::whereYear('created_at',$anio)
-        ->whereMonth('created_at',$mes)
         ->where('classification', 'INCIDENTE')
         ->where('sif', 1)
         ->where('status', 1)
         ->count();
+
 
         return view('index', compact('detectadas', 'atendidas', 'avance', 'seguros', 'inseguros', 'participacion_cc', 'participacion_ci', 'p_monitoreos', 'p_owd', 'incidentes_lti', 'incidentes_mdi', 'incidentes_mti', 'incidentes_fai', 'incidentes_lti_sif', 'incidentes_mdi_sif', 'incidentes_mti_sif', 'incidentes_fai_sif', 'incidentes_sif', 'incidentes'));
     }

@@ -50,6 +50,8 @@
                             <tr>
                                 <th>Estado</th>
                                 <th>Tipo</th>
+                                <th>SIF</th>
+                                <th>Clasificación</th>
                                 <th>Incidente </th>
                                 <th>Fecha </th>
                                 <th>Departamento </th>
@@ -72,6 +74,8 @@
                                         </div>
                                     </td>
                                     <td>{{$item->incident->incident_type->type_name}}</td>
+                                    <td>@if($item->sif == true) SI @else NO @endif</td>
+                                    <td>{{$item->classification}}</td>
                                     <td>{{$item->incident->incident_name}}</td>
                                     <td>{{$item->event_date}}</td>
                                     <td>{{$item->department->name}}</td>
@@ -93,6 +97,8 @@
                                         </div>
                                     </td>
                                     <td>{{$item->incident->incident_type->type_name}}</td>
+                                    <td>@if($item->sif == true) SI @else NO @endif</td>
+                                    <td>{{$item->classification}}</td>
                                     <td>{{$item->incident->incident_name}}</td>
                                     <td>{{$item->event_date}}</td>
                                     <td>{{$item->department->name}}</td>
