@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="364498cd-c84b-4f71-87c4-5978f03a8e1c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_07_28_130909_alter_behaviors_group_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_07_28_132118_alter_companies_and_departments_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/unsafeConditionsTable.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CompanionCareController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompanionCareController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/dashboard/companionCareTable.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/dashboard/companionCareTable.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,6 +202,7 @@
       <workItem from="1626498659151" duration="2434000" />
       <workItem from="1627098664228" duration="2535000" />
       <workItem from="1627142682372" duration="4170000" />
+      <workItem from="1627493882916" duration="2799000" />
     </task>
     <servers />
   </component>

@@ -16,11 +16,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CompanionCareController extends Controller
 {
-    public function showWriteCompanionCare(){
-        $companies_departments = Companies_and_departments::all();
+    public function showWriteCompanionCare(){//formulario
+        $companies_departments = Companies_and_departments::where('status', true)->get();
 
         $act_types = Acts_type::all();
-        $behaviors_group = Behaviors_group::all();
+        $behaviors_group = Behaviors_group::where('status', true)->get();
         $gold_rules = Gold_rule::all();
         $people = People::where('status', 'ACTIVO')->get();
 
