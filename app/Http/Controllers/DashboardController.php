@@ -18,8 +18,8 @@ class DashboardController extends Controller
 
         if (Auth::user()->role->hierarchy <= 1) {
 
-            $participation = $this->getParticipacionCI(null, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
-            $participationCC = $this->getParticipacionCC(null, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+            $participation = $this->getParticipacionCI(null, null, date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+            $participationCC = $this->getParticipacionCC(null, null, date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
 
 
             //prioridad total
@@ -48,8 +48,8 @@ class DashboardController extends Controller
         else {
 
 
-            $participation = $this->getParticipacionCI($userDepartment, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
-            $participationCC = $this->getParticipacionCC($userDepartment, date("d", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+            $participation = $this->getParticipacionCI($userDepartment, null, date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
+            $participationCC = $this->getParticipacionCC($userDepartment, null, date("m", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))), date("Y", mktime(0, 0, 0, date("m")  , date("d"), date("Y"))));
 
 
             //prioridad total
@@ -1538,7 +1538,7 @@ class DashboardController extends Controller
     {
         $peopleTotal = $this->getTotalPeopleActive($departamento);
 
-        if ($dia == null && $mes == null && $anio) {
+        if ($dia == null && $mes == null && $anio) {//Año
             $ci_departamento = DB::table('people')
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
@@ -1549,7 +1549,7 @@ class DashboardController extends Controller
                 ->groupBy('people_id')->count();
 
         }
-        if ($dia == null && $mes && $anio) {
+        if ($dia == null && $mes && $anio) {//Mes
             $ci_departamento = DB::table('people')
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
@@ -1560,7 +1560,7 @@ class DashboardController extends Controller
                 ->get('people_id')
                 ->groupBy('people_id')->count();
         }
-        if ($dia && $mes && $anio) {
+        if ($dia && $mes && $anio) {//Dia
             $ci_departamento = DB::table('people')
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('unsafe_conditions_records', 'unsafe_conditions_records.people_id', '=', 'people.id')
