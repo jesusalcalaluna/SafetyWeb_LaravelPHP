@@ -1292,7 +1292,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'people.companie_and_department_id')
                 ->join('companion_care_records', 'companion_care_records.people_id', '=', 'people.id')
                 ->where('people.status', 'ACTIVO')
-                ->where('people.company_and_department.name', 'LIKE',  '%'.$departamento.'%' )
+                ->where('companies_and_departments.name', 'LIKE',  '%'.$departamento.'%' )
                 ->whereYear('companion_care_records.created_at', $anio)
                 ->get('people_id')
                 ->groupBy('people_id')->count();
