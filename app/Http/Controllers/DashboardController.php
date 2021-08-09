@@ -1434,7 +1434,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments','companies_and_departments.id','=', 'unsafe_conditions_records.department_id')
                 ->join('companies_and_departments as people_department','companies_and_departments.id', '=', 'people.companie_and_department_id')
                 ->whereYear('unsafe_conditions_records.created_at', $anio)
-                ->where('people_department.name', $departamento )->count();
+                ->where('companies_and_departments.name', $departamento )->count();
         }
         if ($dia == null && $mes && $anio) {
             $ci_det = DB::table('unsafe_conditions_records')
@@ -1443,7 +1443,7 @@ class DashboardController extends Controller
                 ->join('companies_and_departments as people_department','companies_and_departments.id', '=', 'people.companie_and_department_id')
                 ->whereMonth('unsafe_conditions_records.created_at', $mes)
                 ->whereYear('unsafe_conditions_records.created_at', $anio)
-                ->where('people_department.name', $departamento )->count();
+                ->where('companies_and_departments.name', $departamento )->count();
         }
         if ($dia && $mes && $anio) {
 
@@ -1454,7 +1454,7 @@ class DashboardController extends Controller
                 ->whereDay('unsafe_conditions_records.created_at', $dia)
                 ->whereMonth('unsafe_conditions_records.created_at', $mes)
                 ->whereYear('unsafe_conditions_records.created_at', $anio)
-                ->where('people_department.name', $departamento )->count();
+                ->where('companies_and_departments.name', $departamento )->count();
         }
         //prioridad total DET
 
